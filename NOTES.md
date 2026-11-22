@@ -1,4 +1,4 @@
-# suite: notes
+# Commons (suite): notes
 
 Compiled from every pane's `NOTES.md` and `REVIEW.md` ("Fixed"), `shell/NOTES.md` and `design/DESIGN.md` ("What
 changed in sheet v2"). The detail is in those files.
@@ -187,8 +187,7 @@ temp folder, outside the served suite folder.
 
 ## Needs a decision
 
-1. **The suite's name.** Ideas: Hearth, Podium, Burrow, Mosaic, Commons, Lodge, Atrium, Homestead, Pantry (reasons in
-   `shell/NOTES.md`).
+1. ~~The suite's name~~ **Commons** (Melvin, 22 Nov). Only the shown name changed; internal names stay `suite`.
 2. ~~Register the sample data~~ **Done (22 Nov)**: copies of the samples are in `/me/private/suite-demo/`
    (owner-only), registered in `/me/settings/privateTypeIndex.jsonld` (see `demo/README.md`; the original is `demo/privateTypeIndex.original.jsonld`). Every launcher app opens on data (`node shots/launcher.mjs`). The home and shell tests now expect
    these registrations. Still open: whether Tasks should register new lists (`cal:Vtodo`).

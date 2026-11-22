@@ -114,7 +114,10 @@ which gives `innerWidth === 400` exactly; the helper's `width: 400` window is no
    page-level `?frame=<pane url>` that always renders that pane, passing the chosen inner pane, would make it exact
    and would let `.js` files and `ui:mintClass` documents open inside the suite too.
 
-## Name ideas for the suite (working name stays "suite")
+## Name ideas for the suite
+
+Chosen 22 Nov 2026: **Commons**. The folder, file names, pane names (`suite-*`) and CSS prefixes (`--sui-`, `sh-`) stay as
+they are; they are internal, and renaming them would break links and tests.
 
 1. **Hearth** — the warm centre of your own home on the web.
 2. **Podium** — your pod, with everything on one stage.

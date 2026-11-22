@@ -1,6 +1,6 @@
-# suite
+# Commons
 
-"suite" is a working name. It is a set of Solid pod apps that a Nextcloud user would recognise straight away: a
+Commons (folder `suite`, working name until 22 Nov 2026) is a set of Solid pod apps that a Nextcloud user would recognise straight away: a
 blue header with an app launcher, search and an avatar menu; navigation on the left, content in the middle, details
 on the right. Each app is a SolidOS pane (one ES module, no build) that reads and writes ordinary Solid data on your
 own pod (folders, Turtle, JSON-LD, Web Access Control). The shell (`shell/suite-shell-pane.js`) is a pane too. It

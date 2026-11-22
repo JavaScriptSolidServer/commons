@@ -388,6 +388,8 @@ button.sh-chip:hover { background: var(--sui-primary-light-hover) }
 .sh-viewer .sh-btn-icon:hover, .sh-viewer .sh-btn-tertiary:hover { background: rgba(255, 255, 255, .14) }
 .sh-viewer :focus-visible { outline-color: var(--sui-surface-dark-text) }
 /* suite:design end */
+.sh-wordmark { font-weight: 700; font-size: 17px; letter-spacing: .01em; color: var(--sui-primary-text); padding: 0 var(--sui-space-3) 0 var(--sui-space-1); white-space: nowrap; flex: none }
+@media (max-width: 900px) { .sh-wordmark { display: none } }
 .sh.suite-shell-pane { position: fixed; z-index: 20; top: var(--app-header-height, 0px); left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-width: none; margin: 0; overflow: hidden }
 .sh.suite-shell-pane.sh-paused { display: none }
 .sh-top { position: relative; flex: none }
@@ -563,7 +565,7 @@ const appAddress = (app, resource) => { const filled = app.template.split('{' + 
 const shell = {
   name: SHELL_NAME,
   icon: ICON,
-  label (subject) { return subject && subject.termType === 'NamedNode' && /^https?:/.test(subject.uri) ? 'Suite' : null },
+  label (subject) { return subject && subject.termType === 'NamedNode' && /^https?:/.test(subject.uri) ? 'Commons' : null },
   shouldGetFocus (subject) { return !!shell.label(subject) },
 
   render (subject, context) {
@@ -582,6 +584,7 @@ const shell = {
     const header = top.appendChild(el(dom, 'header', 'sh-header', null, { role: 'banner' }))
     const launchBtn = header.appendChild(el(dom, 'button', 'sh-header-btn sh-launch-btn', null, { type: 'button', 'aria-label': 'Apps', title: 'Apps', 'aria-haspopup': 'true', 'aria-expanded': 'false' }))
     launchBtn.appendChild(icon(dom, 'apps'))
+    header.appendChild(el(dom, 'span', 'sh-wordmark', 'Commons'))
     const appsRow = header.appendChild(el(dom, 'nav', 'sh-header-apps', null, { 'aria-label': 'Apps' }))
     const appName = header.appendChild(el(dom, 'span', 'sh-header-app'))
     header.appendChild(el(dom, 'span', 'sh-header-spacer'))
