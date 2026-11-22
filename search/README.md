@@ -77,4 +77,4 @@ true 400 px (`design/viewport.mjs`), the search page alone with both limits, and
 - Results from a second person's pod, or folders shared with you elsewhere, are not searched.
 
 Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0), as inline SVG `data:` URIs.
-MIT. Copyright (c) 2026 Melvin Carvalho.
+AGPL-3.0-or-later (../LICENSE). Copyright (c) 2026 Melvin Carvalho.

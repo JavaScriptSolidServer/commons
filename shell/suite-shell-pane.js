@@ -10,7 +10,7 @@
 //
 // It never writes to the pod. It reads the person's profile, preferences file, type indexes and tool index.
 // One file, no imports (the app panes are loaded with import() at run time, as the browser itself does).
-// Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const SHELL_NAME = 'suite-shell'
 const CONTRACT = 1 // context.suite.version: bump when the contract in DESIGN.md changes

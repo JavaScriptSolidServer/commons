@@ -167,4 +167,4 @@ block is current (`design/embed.mjs --check`).
 
 ## Licence
 
-[MIT](LICENSE), copyright Melvin Carvalho.
+[AGPL-3.0-or-later](LICENSE), copyright Melvin Carvalho.

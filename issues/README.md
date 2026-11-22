@@ -118,6 +118,6 @@ another board from the column. It removes its copies afterwards. They use `../li
 
 ## Licence
 
-MIT, copyright Melvin Carvalho. Written from the data format of the SolidOS issue pane (MIT); no code is shared.
+AGPL-3.0-or-later, copyright Melvin Carvalho. Written from the data format of the SolidOS issue pane (MIT); no code is shared.
 Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0), inline as SVG `data:` URIs
 (view-column, card-text-outline, plus, refresh, pencil, account-plus, account-minus, clock-outline, arrow-left, open-in-new).

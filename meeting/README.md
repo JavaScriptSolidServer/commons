@@ -121,4 +121,4 @@ place in the shell), a meeting made there (adding a link updates the left column
 
 ## Licence
 
-MIT, copyright Melvin Carvalho. Written from the data format of the SolidOS meeting pane (MIT); no code is shared.
+AGPL-3.0-or-later, copyright Melvin Carvalho. Written from the data format of the SolidOS meeting pane (MIT); no code is shared.

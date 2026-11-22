@@ -10,7 +10,7 @@
 //
 // Data: a document with <#this> a shelf:Shelf (shelf: <https://example.org/ns/shelf#>), shelf:list <#l>; each list
 // has schema:name and shelf:item <#book>; a book has schema:name, schema:author, schema:datePublished,
-// schema:description. Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// schema:description. Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const SHELF = 'https://example.org/ns/shelf#'
 const SCHEMA = ['http://schema.org/', 'https://schema.org/']

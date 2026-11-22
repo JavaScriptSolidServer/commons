@@ -30,7 +30,7 @@
 // file it keeps as JSON-LD. See README, "Why whole files".)
 //
 // Inside the suite shell it also gives the shell its left column (renderNavigation) and right column (renderDetails).
-// Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const WF = 'http://www.w3.org/2005/01/wf/flow#'
 const CAL = 'http://www.w3.org/2002/12/cal/ical#'

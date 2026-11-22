@@ -23,7 +23,7 @@
 // box, the list of people (avatar, name, a permission dropdown, a ⋯ menu), then everyone / anyone logged in.
 // It fits a ~360 px details sidebar as well as a full page (a container query on its own root, not the viewport),
 // so a host may mount render(subject, context) anywhere, with or without context.suite.
-// Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const ACL = 'http://www.w3.org/ns/auth/acl#'
 const FOAF = 'http://xmlns.com/foaf/0.1/'

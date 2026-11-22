@@ -10,7 +10,7 @@
 // or the folder on show (page). At most LIMITS.containers listings are fetched and none deeper than LIMITS.depth
 // below the start; names are decoded and matched case-insensitively. The walk is kept for the rest of the page's
 // life (one per person and start folder), so later searches are instant. It never writes anything.
-// One file, no imports. Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// One file, no imports. Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const NAME = 'suite-search'
 const LIMITS = Object.freeze({ containers: 300, depth: 8, parallel: 6 })

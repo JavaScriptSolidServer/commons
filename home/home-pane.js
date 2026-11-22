@@ -18,7 +18,7 @@
 // When it takes over: on the root folder only for the pod's owner, on a WebID only for that person.
 // Anyone else gets a "Home" tab beside the usual view; logged out, it does not claim a folder at all.
 //
-// It never writes. One file, no imports. Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// It never writes. One file, no imports. Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const RDF_TYPE = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
 const LDP_CONTAINS = 'http://www.w3.org/ns/ldp#contains'

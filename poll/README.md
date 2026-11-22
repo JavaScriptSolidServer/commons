@@ -83,7 +83,7 @@ The format is the one SolidOS's scheduling pane uses (`http://www.w3.org/ns/pim/
 
 ## Licence
 
-[MIT](LICENSE), copyright Melvin Carvalho. Written from the data format of the SolidOS [scheduling pane](https://github.com/SolidOS/solid-panes) (MIT); no code is shared. Icons: Material Design Icons, Apache 2.0.
+[AGPL-3.0-or-later](LICENSE), copyright Melvin Carvalho. Written from the data format of the SolidOS [scheduling pane](https://github.com/SolidOS/solid-panes) (MIT); no code is shared. Icons: Material Design Icons, Apache 2.0.
 
 ## Tests
 

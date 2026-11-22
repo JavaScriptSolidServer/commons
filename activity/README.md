@@ -108,4 +108,4 @@ test checks every file under the test folder is byte-for-byte the same afterward
 Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache License 2.0), as inline SVG
 `data:` URIs. Styles: the suite design sheet (`design/`), copied in with `design/embed.mjs`.
 
-MIT. Copyright (c) 2026 Melvin Carvalho.
+AGPL-3.0-or-later (../LICENSE). Copyright (c) 2026 Melvin Carvalho.

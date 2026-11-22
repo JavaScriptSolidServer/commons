@@ -4,7 +4,7 @@
 // one by one (never innerHTML), so a note cannot inject script into the page. Read-only.
 // Inside the suite shell (context.suite) it also gives the shell's left column: the folder's notes
 // (renderNavigation). Styled with the suite's design sheet (design/, the block between the markers).
-// Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 const LDP_CONTAINS = 'http://www.w3.org/ns/ldp#contains'
 const IS_NOTE = /\.(md|markdown)$/i
 const DATED = /(\d{4})[ _-]?(\d{2})[ _-]?(\d{2})/

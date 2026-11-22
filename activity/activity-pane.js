@@ -15,7 +15,7 @@
 //
 // Inside the suite shell it gives the shell its left column (the filters) and its right column (what was read).
 // On its own it draws both itself. It never writes. One file, no imports.
-// Icons: Material Design Icons (Apache 2.0). MIT. Copyright (c) 2026 Melvin Carvalho.
+// Icons: Material Design Icons (Apache 2.0). AGPL-3.0-or-later. Copyright (c) 2026 Melvin Carvalho.
 
 const MAX_DEPTH = 4 // folders read: the start and up to four levels below it
 const MAX_FOLDERS = 60 // folder listings read, at most

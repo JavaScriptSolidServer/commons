@@ -67,3 +67,10 @@ also has its own `tests/run.mjs`.
 - An "all polls" list in Polls
 
 See [NOTES.md](NOTES.md) for judgement calls, what is unverified, and what must change in the browser and JSS.
+
+## Licence
+
+[AGPL-3.0-or-later](LICENSE), copyright Melvin Carvalho, like the data browser it runs in (`~/ideas/dynamic`). Panes
+that were published earlier under MIT (for example poll and notes in solid-panes) stay MIT in those published copies;
+the copies here are AGPL. Several apps were written from the data formats of SolidOS panes (MIT); no SolidOS code is
+copied. Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0), inline as SVG `data:` URIs.

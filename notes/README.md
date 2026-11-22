@@ -68,4 +68,4 @@ different name, `notes-reader`, and asks to be shown first for Markdown files.
 Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0): file-document (note),
 chevron-left, chevron-right, folder.
 
-[MIT](LICENSE), copyright Melvin Carvalho.
+[AGPL-3.0-or-later](LICENSE), copyright Melvin Carvalho.

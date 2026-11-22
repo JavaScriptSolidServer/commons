@@ -130,4 +130,4 @@ Browsers on ports 9531 and 9532 (bob). Test data in `~/ideas/jss-data/me/public/
 
 Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0): format-list-checks, plus, check,
 flag, text, delete, close, menu, chevron-down, checkbox-marked-outline, information-outline.
-MIT. Copyright (c) 2026 Melvin Carvalho.
+AGPL-3.0-or-later (../LICENSE). Copyright (c) 2026 Melvin Carvalho.

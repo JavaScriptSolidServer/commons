@@ -134,5 +134,5 @@ Icons: [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2
 
 ## Licence
 
-MIT, copyright Melvin Carvalho. Written from the data shapes of SolidOS's `tableViewPane` and
+AGPL-3.0-or-later, copyright Melvin Carvalho. Written from the data shapes of SolidOS's `tableViewPane` and
 `classInstancePane` (MIT); no code is shared.

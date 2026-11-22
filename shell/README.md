@@ -82,4 +82,4 @@ Screenshots in `tests/shots/` and `../design/tests/shots/`.
 - Photos/Contacts/Tasks/Boards/Pads/Polls/Meetings open only if the person's type indexes point at something; the test
   pod's are empty, so they show their empty state there.
 
-Icons: Material Design Icons (Apache 2.0), https://pictogrammers.com/library/mdi/ . MIT. Copyright (c) 2026 Melvin Carvalho.
+Icons: Material Design Icons (Apache 2.0), https://pictogrammers.com/library/mdi/ . AGPL-3.0-or-later (../LICENSE). Copyright (c) 2026 Melvin Carvalho.
