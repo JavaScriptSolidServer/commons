@@ -1,0 +1,94 @@
+{
+  "@context": {
+    "solid": "http://www.w3.org/ns/solid/terms#"
+  },
+  "@graph": [
+    {
+      "@id": "http://127.0.0.1:8732/me/settings/privateTypeIndex.jsonld",
+      "@type": [
+        "solid:TypeIndex",
+        "solid:UnlistedDocument"
+      ]
+    },
+    {
+      "@id": "#suite-photos",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://schema.org/ImageGallery"
+      },
+      "solid:instanceContainer": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/photos/"
+      }
+    },
+    {
+      "@id": "#suite-contacts",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/2006/vcard/ns#AddressBook"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/contacts/index.ttl#this"
+      }
+    },
+    {
+      "@id": "#suite-tasks",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/2002/12/cal/ical#Vtodo"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/tasks/garden/index.ttl#this"
+      }
+    },
+    {
+      "@id": "#suite-boards",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/2005/01/wf/flow#Tracker"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/boards/index.ttl#this"
+      }
+    },
+    {
+      "@id": "#suite-notes",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "https://schema.org/NoteDigitalDocument"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/notes/welcome.md"
+      }
+    },
+    {
+      "@id": "#suite-pads",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/ns/pim/pad#Notepad"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/pads/meeting-notes.ttl#this"
+      }
+    },
+    {
+      "@id": "#suite-polls",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/ns/pim/schedule#SchedulableEvent"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/poll/index.ttl#this"
+      }
+    },
+    {
+      "@id": "#suite-meetings",
+      "@type": "solid:TypeRegistration",
+      "solid:forClass": {
+        "@id": "http://www.w3.org/ns/pim/meeting#Meeting"
+      },
+      "solid:instance": {
+        "@id": "http://127.0.0.1:8732/me/private/suite-demo/meeting/index.ttl#this"
+      }
+    }
+  ]
+}

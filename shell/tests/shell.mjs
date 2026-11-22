@@ -193,12 +193,12 @@ try {
   check('a pane\'s own navigation stays inside the shell', await ready(BASE + 'notes/'))
   await click('.sh-launch-btn')
   await click('.sh-launcher [data-app]', 'contacts')
+  // The test pod's private type index registers the demo address book (private/suite-demo/), so Contacts opens it.
+  check('an app opens what the type index registers for it', await ready(POD + 'private/suite-demo/contacts/index.ttl#this'))
   await sleep(1500)
-  const empty = await page.evaluate(() => [document.querySelector('.sh-content .sh-empty-title')?.textContent, document.querySelector('.sh.suite-shell-pane').dataset.app].join(' | '))
-  check('an app with nothing in the type indexes shows an empty state, not an error', empty === 'No contacts yet | contacts', empty)
-  await shot('empty-' + tag)
-  await click('.sh-content .sh-btn-primary')
-  check('the empty state\'s button opens Files', await ready(POD))
+  s = await state()
+  check('...in the suite\'s Contacts pane', /contacts-pane/.test(s.contentPane) && s.app === 'contacts', s.contentPane)
+  await shot('contacts-' + tag)
 
   // ---- avatar menu
   await click('.sh-account-btn')

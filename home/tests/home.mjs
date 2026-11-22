@@ -44,7 +44,7 @@ try {
   let s = await seen()
   check('the greeting names the person and their WebID', /^Good (morning|afternoon|evening|night)$/i.test(s.eyebrow) && s.name === 'me' && s.webid === ME, `${s.eyebrow} | ${s.name} | ${s.webid}`)
   check('the top-level folders are tiles', ['inbox', 'private', 'profile', 'public', 'settings'].every(f => s.folders.includes(f)), s.folders.join(', '))
-  check('the test pod has no type registrations, so no kinds are shown', s.types.length === 0, s.types.join(', '))
+  check('the demo data registered in the private type index shows as kinds', ['Address book', 'Photos', 'Poll'].every(k => s.types.includes(k)), s.types.join(', '))
   if (width === 1300) {
     check('the tool index: the panes that are on and the app, not the PodOS HTML tool', s.tools.length === 3 && /Meetings calendar/.test(s.tools[0]) && /Notes reader/.test(s.tools[1]) && /Umai viewer.*App/.test(s.tools[2]) && !s.tools.some(t => /Recipe pane/.test(t)), s.tools.join(' ; '))
     check('one link to manage them: the tool index, in the data browser', !!s.manage && new URL(s.manage).searchParams.get('uri') === POD + 'settings/tool-index.ttl', s.manage)

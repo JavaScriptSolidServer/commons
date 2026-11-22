@@ -9,7 +9,7 @@ import os from 'node:os'
 import path from 'node:path'
 
 const HERE = import.meta.dirname
-const PROFILE_DIR = path.join(os.tmpdir(), 'suite-shots-browser') // open() puts profile/ and shots/ under this
+const PROFILE_DIR = path.join(HERE, '..', '..', 'suite-browsers', 'shots') // outside the served folder; not /tmp (snap Chromium has its own /tmp) // open() puts profile/ and shots/ under this
 const SHELL = LAB + 'shell/suite-shell-pane.js'
 const S = LAB // the suite's own samples: http://127.0.0.1:8732/me/public/suite/<folder>/samples/…
 

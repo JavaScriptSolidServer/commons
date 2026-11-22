@@ -31,7 +31,7 @@ try {
     }
   })
   check('the greeting names the person', /^Good (morning|afternoon|evening|night), me$/.test(s.greeting), s.greeting)
-  check('widget cards: folders, panes and apps, recently changed', s.cards === 'Folders,Your panes and apps,Recently changed', s.cards)
+  check('widget cards: your things (the registered demo data), folders, panes and apps, recently changed', s.cards === 'Your things,Folders,Your panes and apps,Recently changed', s.cards)
   check('content only: no navigation column, no details button; Dashboard is the current app', !s.nav && !s.info && s.current === 'dashboard', JSON.stringify(s))
   const m1 = await measure(page)
   check('1300 px in the shell: no sideways scroll', !m1.sideways, JSON.stringify(m1))

@@ -10,3 +10,4 @@ two-person/*accounts*/
 **/*.bak
 verify.json
 shots/*.png
+shots/launcher/

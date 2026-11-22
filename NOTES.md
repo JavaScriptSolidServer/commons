@@ -171,8 +171,13 @@ temp folder, outside the served suite folder.
 - **Credentials and browser profiles were public.** The suite folder is linked into `/me/public/`, so the pod served
   `local.json` (test passwords) and the test browser profiles (cookies) under `tests/`. Fixed in the suite: the
   credentials moved to `~/ideas/suite-local.json` (outside the served folder) and every `tests/` folder has an
-  owner-only `.acl`. `/me/public/suite/local.json` now answers 404. **The lab still serves both**:
-  `/me/public/lab/local.json` answered 200 when checked today. Melvin's call.
+  owner-only `.acl`. `/me/public/suite/local.json` now answers 404. **The lab had the same leak**. With Melvin's OK
+  (22 Nov) it was fixed without changing lab code: an owner-only `local.json.acl` and an owner-only `.acl` in each
+  `*/tests/profile*/` and `two-person/profile*/`. `/me/public/lab/local.json` now answers 401, and all 16 lab cookie
+  files are refused.
+- **Snap Chromium has its own `/tmp`.** A browser profile under `/tmp` is not the one the test deletes, so a
+  "fresh" browser was already logged in. `shots/take.mjs` and `shots/launcher.mjs` keep their profiles in
+  `~/ideas/suite-browsers/` instead.
 - **Leftover `.acl` on deleted files**: Files now deletes a file's own `.acl` with it, but an upload or New folder
   onto a name with a leftover `.acl` (left by another tool or the server) still inherits those rules. Only Rename
   checks the target.
@@ -184,9 +189,7 @@ temp folder, outside the served suite folder.
 
 1. **The suite's name.** Ideas: Hearth, Podium, Burrow, Mosaic, Commons, Lodge, Atrium, Homestead, Pantry (reasons in
    `shell/NOTES.md`).
-2. **Register the sample data in the test user's type index**, so that launcher apps (Photos, Contacts, Tasks,
-   Boards, Pads, Polls, Meetings) open on real data instead of "No … yet". This means writing to the test user's
-   type index, which no agent was allowed to do. A related question is whether Tasks should register new lists
-   there (`cal:Vtodo`).
-3. **The lab exposure**: `/me/public/lab/local.json` and the lab's test browser profiles are still served (see
-   Security).
+2. ~~Register the sample data~~ **Done (22 Nov)**: copies of the samples are in `/me/private/suite-demo/`
+   (owner-only), registered in `/me/settings/privateTypeIndex.jsonld` (see `demo/README.md`; the original is `demo/privateTypeIndex.original.jsonld`). Every launcher app opens on data (`node shots/launcher.mjs`). The home and shell tests now expect
+   these registrations. Still open: whether Tasks should register new lists (`cal:Vtodo`).
+3. ~~The lab exposure~~ **Fixed (22 Nov)**, see Security.
