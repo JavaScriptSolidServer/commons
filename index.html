@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commons · apps for your Solid pod</title>
+<meta name="description" content="Files, Photos, Contacts, Tasks, Boards, Notes, Pads, Polls, Meetings and more for a Solid pod. Each app is a SolidOS pane: one module, no build.">
+<link rel="canonical" href="https://jss.live/commons/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Commons · apps for your Solid pod">
+<meta property="og:description" content="Files, Photos, Contacts, Tasks, Boards, Notes, Pads, Polls and Meetings for a Solid pod, in one familiar layout.">
+<meta property="og:url" content="https://jss.live/commons/">
+<meta property="og:image" content="https://jss.live/commons/shots/dashboard-1300.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root { color-scheme: light; --blue: #0082c9; --ink: #1f2430; --soft: #5b6272; --line: #dfe3ea; --bg: #f5f7fa; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { background: var(--blue); color: #fff; }
+  header div, main { max-width: 940px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  header div { padding-block: 44px 40px; }
+  h1 { margin: 0 0 8px; font-size: 44px; letter-spacing: -.02em; }
+  header p { margin: 0; font-size: 20px; max-width: 34em; opacity: .96; }
+  main { padding-block: 28px 80px; }
+  h2 { margin: 36px 0 12px; font-size: 22px; }
+  p { margin: 0 0 14px; }
+  .shot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  .try { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .row input { flex: 1 1 260px; min-width: 0; font: inherit; padding: 10px 14px; border: 1px solid #c8ced9; border-radius: 999px; }
+  .row a, .row button { font: inherit; font-weight: 650; padding: 10px 22px; border-radius: 999px; border: 0; background: var(--blue); color: #fff; text-decoration: none; cursor: pointer; }
+  .small { font-size: 15px; color: var(--soft); }
+  .apps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+  .apps li { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 13px; }
+  .apps b { display: block; }
+  .apps span { font-size: 14px; color: var(--soft); }
+  pre { margin: 0 0 14px; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  a { color: #00679e; }
+</style>
+</head>
+<body>
+<header><div>
+  <h1>Commons</h1>
+  <p>Apps for your Solid pod, in a layout you already know: a bar of apps across the top, a list on the left, your content in the middle.</p>
+</div></header>
+<main>
+  <img class="shot" src="shots/dashboard-1300.png" width="1300" height="813" alt="The Commons dashboard on a pod: a greeting, folders, your panes and apps, and recently changed items, under a blue bar of app icons">
+
+  <h2>Try it on your pod</h2>
+  <div class="try">
+    <p>Type your pod's address. It opens in the SolidOS data browser, which asks once whether to trust the pane.</p>
+    <form class="row" id="go">
+      <input id="pod" type="url" inputmode="url" placeholder="https://you.example/" aria-label="Your pod's address" required>
+      <button type="submit">Open Commons</button>
+    </form>
+    <p class="small" style="margin:12px 0 0">Nothing is installed and nothing is sent to this site: the button only builds a link. A pane runs as you once you log in, so open it only on a pod you are happy to test with.</p>
+  </div>
+
+  <h2>What is in it</h2>
+  <ul class="apps">
+    <li><b>Files</b><span>Folders, upload, rename, delete</span></li>
+    <li><b>Photos</b><span>Gallery, audio and video</span></li>
+    <li><b>Contacts</b><span>Address books and groups</span></li>
+    <li><b>Tasks</b><span>To-do lists</span></li>
+    <li><b>Boards</b><span>Issue trackers as columns</span></li>
+    <li><b>Notes</b><span>Markdown, with links</span></li>
+    <li><b>Pads</b><span>Shared notepads</span></li>
+    <li><b>Polls</b><span>Find a time, or vote</span></li>
+    <li><b>Meetings</b><span>One page per meeting</span></li>
+    <li><b>Activity</b><span>What changed recently</span></li>
+    <li><b>Search</b><span>By name across the pod</span></li>
+    <li><b>Sharing</b><span>Who can see and change what</span></li>
+    <li><b>Settings and profile</b><span>Trusted apps, your details</span></li>
+  </ul>
+  <p class="small" style="margin-top:12px">Every app reads and writes ordinary Solid data on your own pod, so other Solid apps see the same data. Each one is a SolidOS pane: one module, no build, no framework.</p>
+
+  <h2>A look around</h2>
+  <div class="grid">
+    <img class="shot" src="shots/files-1300.png" width="1300" height="813" loading="lazy" alt="Files: a list of folders with sizes and dates">
+    <img class="shot" src="shots/boards-1300.png" width="1300" height="813" loading="lazy" alt="Boards: issues as cards in columns by state">
+    <img class="shot" src="shots/contacts-1300.png" width="1300" height="813" loading="lazy" alt="Contacts: a list of people beside one person's details">
+    <img class="shot" src="shots/polls-1300.png" width="1300" height="813" loading="lazy" alt="Polls: hours offered for a call with who can make each">
+  </div>
+
+  <h2>Make it your pod's interface</h2>
+  <p>With the <a href="https://jss.live">JavaScript Solid Server</a>, 0.0.230 or later:</p>
+<pre>jss start --mashlib-module https://mashlib.com/dynamic/v/0.0.2/dist/boot.js \
+          --panes https://jss.live/commons/shell/suite-shell-pane.js</pre>
+
+  <h2>Early days</h2>
+  <p>Commons is a first version. It is tested, but it has had few real users. Not here yet: calendar, chat, mail and office documents. Use it on data you have a copy of.</p>
+
+  <h2>Source and licence</h2>
+  <p><a href="https://github.com/JavaScriptSolidServer/commons">github.com/JavaScriptSolidServer/commons</a>, with a README for each app. AGPL-3.0-or-later, copyright Melvin Carvalho.</p>
+  <p class="small">The layout is inspired by Nextcloud. Commons is an independent project: it shares no code with Nextcloud and is not affiliated with or endorsed by Nextcloud GmbH. Icons are Material Design Icons (Apache 2.0).</p>
+</main>
+<script>
+  document.getElementById('go').addEventListener('submit', (event) => {
+    event.preventDefault()
+    let address = document.getElementById('pod').value.trim()
+    if (!/^https?:\/\//i.test(address)) address = 'https://' + address
+    let url
+    try { url = new URL(address) } catch { return }
+    if (!/^https?:$/.test(url.protocol)) return
+    location.href = 'https://mashlib.com/dynamic/?pane=' + encodeURIComponent('https://jss.live/commons/shell/suite-shell-pane.js') + '&uri=' + encodeURIComponent(url.href)
+  })
+</script>
+</body>
+</html>
