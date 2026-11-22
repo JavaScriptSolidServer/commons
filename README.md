@@ -11,7 +11,7 @@ too. It chooses which app draws each address and puts that app in the frame. All
 browser [mashlib/dynamic](https://github.com/mashlib/dynamic).
 
 **Try it on your pod:**
-https://mashlib.github.io/dynamic/?pane=https%3A%2F%2Fjavascriptsolidserver.github.io%2Fcommons%2Fshell%2Fsuite-shell-pane.js&uri=YOUR-POD-ADDRESS
+https://mashlib.github.io/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&uri=YOUR-POD-ADDRESS
 
 Put your pod's address (for example `https://alice.example/`) in place of `YOUR-POD-ADDRESS`. The browser asks once
 whether to trust the pane.
@@ -20,7 +20,7 @@ whether to trust the pane.
 
 ```sh
 jss start --mashlib-module https://mashlib.github.io/dynamic/dist/boot.js \
-          --panes https://javascriptsolidserver.github.io/commons/shell/suite-shell-pane.js
+          --panes https://jss.live/commons/shell/suite-shell-pane.js
 ```
 
 The shell loads its apps from beside itself, so the one pane brings all of them. In a browser with frame-pane support
@@ -71,7 +71,7 @@ app opens on data). `demo/` describes the demo data used on the test pod.
 
 ## Design
 
-- Design sheet and sample page: [design/samples.html](https://javascriptsolidserver.github.io/commons/design/samples.html)
+- Design sheet and sample page: [design/samples.html](https://jss.live/commons/design/samples.html)
 - Tokens, recipes and the shell/app-pane contract: [design/DESIGN.md](design/DESIGN.md)
 - Icons: Material Design Icons (https://pictogrammers.com/library/mdi/), Apache 2.0, as inline SVG `data:` URIs.
   No Nextcloud code, CSS, icons, name or logo.
