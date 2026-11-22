@@ -1,0 +1,12 @@
+local.json
+**/tests/profile/
+**/tests/profile-*/
+**/tests/shots/
+two-person/profile*/
+two-person/shots/
+node_modules/
+two-person/*backup*/
+two-person/*accounts*/
+**/*.bak
+verify.json
+shots/*.png

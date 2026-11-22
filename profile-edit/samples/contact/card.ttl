@@ -1,0 +1,6 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+# A contact card in an address book: person-typed and editable, but not anyone's profile.
+<#this> a vcard:Individual ;
+  vcard:fn "Erin Contact" ;
+  vcard:hasEmail <#e1> .
+<#e1> a vcard:Work ; vcard:value <mailto:erin@example.org> .

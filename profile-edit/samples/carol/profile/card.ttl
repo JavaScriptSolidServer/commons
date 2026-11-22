@@ -1,0 +1,37 @@
+# Carol Example: a fictional profile in Turtle, written in the older and odder shapes the profile view pane
+# still reads: RDF lists, values given straight on the person, a blank-node email, a vCard name only.
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix pim: <http://www.w3.org/ns/pim/space#> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix lang: <https://www.w3.org/ns/iana/language-code/> .
+@prefix sm: <https://solidos.github.io/profile-pane/src/ontology/socialMedia.ttl#> .
+
+<> a foaf:PersonalProfileDocument ; foaf:primaryTopic <#me> .
+
+<#me> a vcard:Individual ;
+  vcard:fn "Carol Example" ;
+  vcard:nickname "caz" ;
+  vcard:title "Map maker" ;
+  vcard:hasPhoto <https://carol.example.net/carol.png> ;
+  schema:description "Draws maps of small towns." ;
+
+  foaf:mbox <mailto:carol@example.net> ;
+  vcard:hasEmail [ a vcard:Home ; vcard:value <mailto:carol.home@example.net> ] ;
+  foaf:phone <tel:+44-20-7946-0000> ;
+
+  schema:skills "Cartography" ;
+  schema:knowsLanguage ( <#lang-en> <#lang-cs> ) ;
+  foaf:account ( <#acc-github> ) ;
+  foaf:knows <https://alice.example.org/profile/card#me> ;
+
+  solid:oidcIssuer <https://idp.example.net/> ;
+  pim:storage <https://carol.example.net/> ;
+  cert:key [ a cert:RSAPublicKey ; cert:modulus "00beef"^^xsd:hexBinary ; cert:exponent 65537 ] .
+
+<#lang-en> solid:publicId lang:en ; schema:proficiencyLevel "Native" .
+<#lang-cs> solid:publicId lang:cs ; schema:proficiencyLevel "Basic" .
+<#acc-github> a sm:GithubAccount ; foaf:accountName "carol-example" ; foaf:homepage <https://github.com/carol-example> .

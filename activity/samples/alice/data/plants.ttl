@@ -1,0 +1,4 @@
+@prefix ex: <https://example.org/garden#> .
+
+<#tomato> ex:sown "2026-03-14" ; ex:bed "A" .
+<#bean> ex:sown "2026-04-02" ; ex:bed "B" .

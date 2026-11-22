@@ -1,0 +1,35 @@
+@prefix pad: <http://www.w3.org/ns/pim/pad#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix ui: <http://www.w3.org/ns/ui#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# A sample with made-up people, in the format of SolidOS's notepad.
+# The lines are a ring: pad:next from the pad through each line and back to the pad.
+<#this> a pad:Notepad ;
+    dc:title "Garden club, planning notes" ;
+    dc:author <https://alice.example/profile/card#me> ;
+    dc:created "2026-11-18T09:00:00Z"^^xsd:dateTime ;
+    pad:next <#l1> ;
+    wf:participation <#p1>, <#p2>, <#p3> .
+
+<#l1> sioc:content "Spring planting day: Saturday 14 March" ; dc:author <https://alice.example/profile/card#me> ; dc:date "2026-11-18T09:02:00Z"^^xsd:dateTime ; pad:next <#l2> .
+<#l2> sioc:content "Bring gloves, the long hose and seed trays" ; dc:author <https://alice.example/profile/card#me> ; dc:date "2026-11-18T09:03:00Z"^^xsd:dateTime ; pad:next <#l3> .
+<#l3> sioc:content "I can lend the wheelbarrow and two spades" ; dc:author <https://bob.example/profile/card#me> ; dc:date "2026-11-19T18:40:00Z"^^xsd:dateTime ; pad:next <#l4> .
+<#l4> sioc:content "" ; dc:author <https://alice.example/profile/card#me> ; pad:next <#l5> .
+<#l5> sioc:content "Seeds to order" ; dc:author <https://carol.example/profile/card#me> ; dc:date "2026-11-20T08:15:00Z"^^xsd:dateTime ; pad:next <#l6> .
+<#l6> sioc:content "Sweet peas, two packets" ; dc:author <https://carol.example/profile/card#me> ; pad:indent 1 ; dc:date "2026-11-20T08:16:00Z"^^xsd:dateTime ; pad:next <#l7> .
+<#l7> sioc:content "Runner beans, if the frame is mended" ; dc:author <https://bob.example/profile/card#me> ; pad:indent 1 ; dc:date "2026-11-21T10:05:00Z"^^xsd:dateTime ; pad:next <#l8> .
+<#l8> sioc:content "Ask the council about the water butt <before> the end of January & keep the receipt" ; dc:author <https://carol.example/profile/card#me> ; dc:date "2026-11-20T08:20:00Z"^^xsd:dateTime ; pad:next <#this> .
+
+<#p1> wf:participant <https://alice.example/profile/card#me> ; cal:dtstart "2026-11-18T09:00:00Z"^^xsd:dateTime ; ui:backgroundColor "#f6d6e4" .
+<#p2> wf:participant <https://bob.example/profile/card#me> ; cal:dtstart "2026-11-19T18:39:00Z"^^xsd:dateTime ; ui:backgroundColor "#d6efc8" .
+<#p3> wf:participant <https://carol.example/profile/card#me> ; cal:dtstart "2026-11-20T08:14:00Z"^^xsd:dateTime ; ui:backgroundColor "#d6defa" .
+
+# Names, so the legend can say who is who without fetching the made-up profiles.
+<https://alice.example/profile/card#me> foaf:name "Alice" .
+<https://bob.example/profile/card#me> foaf:name "Bob" .
+<https://carol.example/profile/card#me> foaf:name "Carol" .

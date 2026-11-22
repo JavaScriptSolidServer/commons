@@ -1,0 +1,27 @@
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix t: <index.ttl#> .
+
+<#Iss1> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Sow the broad beans" ;
+    wf:description "Two rows along the fence, 20 cm apart. Soak the seeds overnight first." ;
+    cal:due "2026-11-30"^^xsd:date ; cal:priority 1 ;
+    dc:created "2026-11-10T09:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> .
+<#Iss2> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Mulch the rose bed" ;
+    cal:due "2026-12-06"^^xsd:date ; cal:priority 5 ;
+    dc:created "2026-11-12T10:00:00Z"^^xsd:dateTime ; dc:author <https://carol.example/profile/card#me> .
+<#Iss3> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Fix the gate latch" ;
+    wf:description "Bob has a spare latch {the brass one} in the shed." ;
+    cal:due "2026-11-18"^^xsd:date ;
+    dc:created "2026-11-01T08:00:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> .
+<#Iss4> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Order seed potatoes" ; cal:priority 9 ;
+    dc:created "2026-11-15T19:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> .
+<#Iss5> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "<b>Label</b> the seed tins & jars" ;
+    dc:created "2026-11-16T19:00:00Z"^^xsd:dateTime ; dc:author <https://carol.example/profile/card#me> .
+<#Iss6> a t:Done, cal:Vtodo ; wf:tracker t:this ; dc:title "Rake the leaves" ;
+    cal:completed "2026-11-08T15:30:00Z"^^xsd:dateTime ;
+    dc:created "2026-11-02T09:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> .
+<#Iss7> a t:Done, cal:Vtodo ; wf:tracker t:this ; dc:title "Empty the water butt" ;
+    cal:completed "2026-11-03T11:00:00Z"^^xsd:dateTime ;
+    dc:created "2026-10-20T09:00:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> .

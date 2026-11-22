@@ -1,0 +1,15 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<#this> a vcard:Individual ; vcard:fn "Bob Builder" ;
+    vcard:role "Site manager" ;
+    vcard:organization-name "Example Works Ltd" ;
+    vcard:hasPhoto <photo.svg> ;
+    vcard:hasEmail <#email1>, <#email2> ;
+    vcard:hasTelephone <#phone1> ;
+    vcard:hasAddress <#address> ;
+    vcard:url <#site> .
+<#email1> a vcard:Work ; vcard:value <mailto:bob@example.com> .
+<#email2> a vcard:Home ; vcard:value <mailto:bob.home@example.net> .
+<#phone1> a vcard:Work ; vcard:value <tel:+420-555-0100> .
+<#address> vcard:street-address "1 Example Street" ; vcard:locality "Prague" ; vcard:postal-code "110 00" ; vcard:country-name "Czechia" .
+<#site> a vcard:HomePage ; vcard:value <https://bob.example.com/> .

@@ -1,0 +1,3 @@
+@prefix sched: <http://www.w3.org/ns/pim/schedule#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+<#this> a sched:SchedulableEvent ; cal:summary "Dinner with Bob and Carol" .

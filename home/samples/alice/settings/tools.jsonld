@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "tools": "https://pod-os.org/vocab/tools#",
+    "ac": "https://www.w3.org/ns/ac#",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+    "schema": "https://schema.org/",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "panes": "https://mashlib.com/ns/panes#"
+  },
+  "@graph": [
+    { "@id": "", "@type": "tools:ToolIndex",
+      "tools:registration": [ { "@id": "#notes" }, { "@id": "#poll" }, { "@id": "#umai" }, { "@id": "#recipe-tool" } ] },
+
+    { "@id": "#notes", "@type": "tools:Registration", "schema:name": "Notes reader", "ac:capability": { "@id": "#notes-cap" } },
+    { "@id": "#notes-cap", "@type": "ac:Capability", "ac:action": { "@id": "odrl:display" }, "ac:invocation": { "@id": "#notes-inv" } },
+    { "@id": "#notes-inv", "@type": "panes:PaneModuleInvocation", "schema:url": "https://solid-panes.github.io/notes/notes-pane.js" },
+
+    { "@id": "#poll", "@type": "tools:Registration", "schema:name": "Poll", "ac:capability": { "@id": "#poll-cap" } },
+    { "@id": "#poll-cap", "@type": "ac:Capability", "ac:action": { "@id": "odrl:display" }, "ac:invocation": { "@id": "#poll-inv" } },
+    { "@id": "#poll-inv", "@type": "panes:PaneModuleInvocation", "schema:url": "https://solid-panes.github.io/poll/poll-pane.js" },
+
+    { "@id": "#chess", "@type": "tools:Registration", "schema:name": "Chess", "ac:capability": { "@id": "#chess-cap" } },
+    { "@id": "#chess-cap", "@type": "ac:Capability", "ac:action": { "@id": "odrl:display" }, "ac:invocation": { "@id": "#chess-inv" } },
+    { "@id": "#chess-inv", "@type": "panes:PaneModuleInvocation", "schema:url": "https://solid-panes.github.io/chess/chess-pane.js" },
+
+    { "@id": "#umai", "@type": "tools:AppRegistration", "schema:name": "Umai viewer", "ac:capability": { "@id": "#umai-cap" } },
+    { "@id": "#umai-cap", "@type": "ac:Capability", "ac:action": { "@id": "odrl:display" },
+      "ac:resourceType": { "@id": "schema:Recipe" }, "ac:invocation": { "@id": "#umai-inv" } },
+    { "@id": "#umai-inv", "@type": "ac:UriTemplateInvocation", "hydra:template": "https://umai.noeldemartin.com/viewer?url={url}" },
+
+    { "@id": "#recipe-tool", "@type": "tools:ToolRegistration", "schema:name": "Recipe card", "ac:capability": { "@id": "#recipe-tool-cap" } },
+    { "@id": "#recipe-tool-cap", "@type": "ac:Capability", "ac:action": { "@id": "odrl:display" }, "ac:invocation": { "@id": "#recipe-tool-inv" } },
+    { "@id": "#recipe-tool-inv", "@type": "tools:HtmlFragmentInvocation", "schema:url": "https://alice.example/tools/recipe.html" }
+  ]
+}

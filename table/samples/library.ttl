@@ -1,0 +1,64 @@
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# A small made-up book club: three members and the twelve books they have read.
+# Some books lack a value or two, and some have two genres, so the table has gaps and lists.
+
+<#alice> a schema:Person ; schema:name "Alice Example" ; schema:email <mailto:alice@example.org> ;
+    schema:jobTitle "Librarian" ; schema:birthDate "1988-03-14"^^xsd:date ; schema:knows <#bob>, <#carol> ;
+    schema:url <https://alice.example.org/> .
+<#bob> a schema:Person ; schema:name "Bob Example" ; schema:email <mailto:bob@example.com> ;
+    schema:jobTitle "Engineer" ; schema:birthDate "1979-11-02"^^xsd:date ; schema:knows <#alice> .
+<#carol> a schema:Person ; schema:name "Carol Example" ; schema:email <mailto:carol@example.net> ;
+    schema:jobTitle "Teacher" ; schema:birthDate "1995-07-21"^^xsd:date ; schema:knows <#alice>, <#bob> ;
+    schema:telephone <tel:+15550100> .
+
+<#b1> a schema:Book ; schema:name "The Quiet Orchard" ; schema:author <#alice> ; schema:datePublished "2019-04-02"^^xsd:date ;
+    schema:numberOfPages 312 ; schema:genre "Fiction" ; schema:inLanguage "en" ; schema:publisher "Example Press" ;
+    schema:aggregateRating 4.5 ; schema:isbn "978-0-00-000001-1" ; schema:bookFormat schema:Paperback ;
+    schema:dateRead "2026-01-18T19:30:00Z"^^xsd:dateTime ; schema:sameAs <https://books.example.org/quiet-orchard> .
+<#b2> a schema:Book ; schema:name "Bridges of Salt" ; schema:author <#bob> ; schema:datePublished "2021-09-15"^^xsd:date ;
+    schema:numberOfPages 1024 ; schema:genre "History", "Travel" ; schema:inLanguage "en" ; schema:publisher "Harbour Books" ;
+    schema:aggregateRating 3.8 ; schema:isbn "978-0-00-000002-8" ; schema:bookFormat schema:Hardcover ;
+    schema:dateRead "2026-02-22T18:00:00Z"^^xsd:dateTime .
+<#b3> a schema:Book ; schema:name "A Map of Small Rooms" ; schema:author <#carol> ; schema:datePublished "2017-01-30"^^xsd:date ;
+    schema:numberOfPages 96 ; schema:genre "Poetry" ; schema:inLanguage "en" ; schema:publisher "Example Press" ;
+    schema:aggregateRating 4.9 ; schema:bookFormat schema:Paperback ;
+    schema:dateRead "2026-03-10T20:15:00Z"^^xsd:dateTime .
+<#b4> a schema:Book ; schema:name "Engines at Dusk" ; schema:author <#bob> ; schema:datePublished "2023-06-01"^^xsd:date ;
+    schema:numberOfPages 448 ; schema:genre "Science fiction" ; schema:inLanguage "en" ; schema:publisher "Harbour Books" ;
+    schema:aggregateRating 4.1 ; schema:isbn "978-0-00-000004-2" ; schema:bookFormat schema:EBook .
+<#b5> a schema:Book ; schema:name "Notes from the Delta" ; schema:author <#alice>, <#carol> ; schema:datePublished "2015-10-12"^^xsd:date ;
+    schema:numberOfPages 210 ; schema:genre "Travel" ; schema:inLanguage "en" ; schema:publisher "Fieldstone" ;
+    schema:aggregateRating 3.2 ; schema:isbn "978-0-00-000005-9" ; schema:bookFormat schema:Paperback ;
+    schema:dateRead "2026-04-05T09:00:00Z"^^xsd:dateTime ; schema:sameAs <https://books.example.org/delta> .
+<#b6> a schema:Book ; schema:name "Zero Gravity Gardens" ; schema:author <#carol> ; schema:datePublished "2024-02-29"^^xsd:date ;
+    schema:numberOfPages 9 ; schema:genre "Children" ; schema:inLanguage "en" ; schema:publisher "Fieldstone" ;
+    schema:aggregateRating 5 ; schema:bookFormat schema:Hardcover .
+<#b7> a schema:Book ; schema:name "Le Jardin du Nord" ; schema:author <#alice> ; schema:datePublished "2012-05-20"^^xsd:date ;
+    schema:numberOfPages 287 ; schema:genre "Fiction" ; schema:inLanguage "fr" ; schema:publisher "Éditions Exemple" ;
+    schema:aggregateRating 4.0 ; schema:isbn "978-0-00-000007-3" ; schema:bookFormat schema:Paperback ;
+    schema:dateRead "2026-05-30T21:45:00Z"^^xsd:dateTime .
+<#b8> a schema:Book ; schema:name "Counting the Tide" ; schema:author <#bob> ; schema:datePublished "2020-08-08"^^xsd:date ;
+    schema:numberOfPages 356 ; schema:genre "Science" ; schema:inLanguage "en" ; schema:publisher "Harbour Books" ;
+    schema:aggregateRating 3.9 ; schema:isbn "978-0-00-000008-0" ; schema:bookFormat schema:EBook ;
+    schema:dateRead "2026-06-14T17:20:00Z"^^xsd:dateTime .
+<#b9> a schema:Book ; schema:name "Paper Lanterns" ; schema:author <#carol> ; schema:datePublished "2018-12-24"^^xsd:date ;
+    schema:numberOfPages 150 ; schema:genre "Poetry", "Fiction" ; schema:inLanguage "en" ; schema:publisher "Example Press" ;
+    schema:aggregateRating 4.3 ; schema:bookFormat schema:Paperback .
+<#b10> a schema:Book ; schema:name "The Long Way Round the Lake" ; schema:author <#alice> ; schema:datePublished "2022-03-03"^^xsd:date ;
+    schema:numberOfPages 512 ; schema:genre "Travel" ; schema:inLanguage "en" ; schema:publisher "Fieldstone" ;
+    schema:aggregateRating 2.7 ; schema:isbn "978-0-00-000010-3" ; schema:bookFormat schema:Hardcover ;
+    schema:dateRead "2026-08-02T08:10:00Z"^^xsd:dateTime .
+<#b11> a schema:Book ; schema:name "Small Hours" ; schema:author <#bob> ; schema:datePublished "2016-07-07"^^xsd:date ;
+    schema:numberOfPages 64 ; schema:genre "Poetry" ; schema:inLanguage "en" ; schema:publisher "Example Press" ;
+    schema:aggregateRating 4.6 ; schema:bookFormat schema:EBook ;
+    schema:dateRead "2026-09-19T22:00:00Z"^^xsd:dateTime .
+<#b12> a schema:Book ; schema:name "Iron and Willow" ; schema:author <#carol> ; schema:datePublished "2025-11-11"^^xsd:date ;
+    schema:numberOfPages 1200 ; schema:genre "History" ; schema:inLanguage "en" ; schema:publisher "Harbour Books" ;
+    schema:aggregateRating 4.2 ; schema:isbn "978-0-00-000012-7" ; schema:bookFormat schema:Hardcover ;
+    schema:dateRead "2026-10-25T19:00:00Z"^^xsd:dateTime ; schema:sameAs <https://books.example.org/iron-willow> .
+
+# A label for one property, so its header reads as the data says rather than from the name.
+schema:dateRead rdfs:label "Read on" .

@@ -1,0 +1,32 @@
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix t: <index.ttl#> .
+
+<index.ttl#this> wf:stateStore <state.ttl> .
+
+<#Iss1> a t:Doing ; wf:tracker t:this ; dc:title "Level the base" ;
+    wf:description "The slabs at the back corner sit about 2 cm low. Lift them, add sand, check with the long level. Then put the bearers down and screw them to the slabs so nothing shifts in a frost." ;
+    dct:created "2026-09-03T10:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> ;
+    wf:assignee <https://bob.example/profile/card#me> .
+<#Iss2> a t:New ; wf:tracker t:this ; dc:title "Order roof felt" ;
+    wf:description "Two rolls, 10 m each, plus clout nails." ;
+    dct:created "2026-11-18T08:30:00Z"^^xsd:dateTime ; dc:author <https://carol.example/profile/card#me> .
+<#Iss3> a t:New ; wf:tracker t:this ; dc:title "Pick a paint colour" ;
+    dct:created "2026-11-20T17:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> ;
+    wf:assignee <https://carol.example/profile/card#me> .
+<#Iss4> a t:Blocked ; wf:tracker t:this ; dc:title "Fit the window" ;
+    wf:description "Waiting for the glazier to cut the pane to size. He said the end of the month." ;
+    dct:created "2026-10-12T12:00:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> ;
+    wf:assignee <https://alice.example/profile/card#me> .
+<#Iss5> a t:Done ; wf:tracker t:this ; dc:title "Clear the old shed" ;
+    wf:description "Everything out; the mower went to Carol's." ;
+    dct:created "2026-09-01T09:30:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> ;
+    wf:assignee <https://alice.example/profile/card#me> .
+<#Iss6> a t:Done ; wf:tracker t:this ; dc:title "Get a skip" ;
+    dct:created "2026-09-02T11:00:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> ;
+    wf:assignee <https://bob.example/profile/card#me> .
+<#Iss7> a t:WontDo ; wf:tracker t:this ; dc:title "Add a solar light" ;
+    wf:description "Not worth it this year." ;
+    dct:created "2026-10-01T15:00:00Z"^^xsd:dateTime ; dc:author <https://carol.example/profile/card#me> .

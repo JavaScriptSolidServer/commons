@@ -1,0 +1,81 @@
+
+== issues.mjs 
+PASS logged in
+PASS the pane is registered
+PASS it is among the panes a folder can make new things with
+PASS a new tracker is made ({"ok":"http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#this"})
+PASS two files on the pod and no access rules (index.ttl state.ttl)
+PASS it opens as a board with three empty states and the tools to change it (To do 0:  | Doing 0:  | Done 0: )
+PASS new issue: saved (To do 1: Fix the tap Unassigned | Doing 0:  | Done 0: )
+PASS a new issue with no title is refused (bad :: Give it a title.)
+PASS new issues go in the first state, newest first (To do 2: Paint the wall Unassigned / Fix the tap Unassigned | Doing 0:  | Done 0: )
+PASS the pod has the issue in the upstream shape ({"@id":"#Iss1795338688354","@type":"http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#ToDo","wf:tracker":{"@id":"http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#this"},"http://purl.org/dc/elements/1.1/title":"Fix the tap","dc:created":{"@value":"2026-11-22T09:11:28.354Z","@type":"xsd:dateTime"},"wf:description":"It drips at night.","http://pu)
+PASS move to another state: shown (To do 1: Paint the wall Unassigned | Doing 1: Fix the tap Unassigned | Done 0: )
+PASS move: the pod file has the new state and not the old (["http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#Doing"])
+PASS edit title and description: shown (To do 1: Paint the wall Unassigned | Doing 1: Fix the kitchen tap Unassigned | Done 0: )
+PASS edit: the pod file has the new text, once ({"@id":"#Iss1795338688354","@type":"http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#Doing","wf:tracker":{"@id":"http://127.0.0.1:8732/me/public/suite-data/issues/tracker-mwrmaict/index.ttl#this"},"dc:created":{"@value":"2026-11-22T09:11:28.354Z","@type":"xsd:dateTime"},")
+PASS assign to me: saved in the pod file (http://127.0.0.1:8732/me/profile/card.jsonld#me)
+PASS assign to me: the card names me and offers to unassign (me|false|true)
+PASS unassign: gone from the card and the pod file (To do 1: Paint the wall Unassigned | Doing 1: Fix the kitchen tap Unassigned | Done 0: )
+PASS after a reload it reads back the same (To do 1: Paint the wall me | Doing 1: Fix the kitchen tap Unassigned | Done 0: )
+     To do 1: Paint the wall me | Doing 1: Fix the kitchen tap Unassigned | Done 0: 
+PASS no sideways scroll at 1300 px
+PASS one issue opens in full, with its controls
+PASS move from the issue page: saved
+PASS edit from the issue page: saved
+PASS the link goes back to the board (To do 1: Paint the wall me | Doing 0:  | Done 1: Fixed the kitchen tap Unassigned)
+PASS SolidOS's own issue pane reads the tracker and the issue with no errors (tracker issue | no errors | Issue listNew IssueMy TrackersTable ViewIssueSettingsTitleStatuscreated▼▲To doDoingDone▼▲→Paint the wallTo do09:11→Fixed the kitchen tapDone09:11Make new tracke)
+PASS no sideways scroll on the issue page
+PASS 400 px, logged in: the tools are there and there is no sideways scroll
+PASS 400 px: the new issue form fits
+PASS true 400 px (device metrics), form open: no sideways scroll, one column shown ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS logged out: the board reads, with no controls, and it says so (0 Log in to add or change issues.)
+
+all passed
+
+== sample.mjs 
+PASS the design block is current (OK /home/melvin/ideas/suite/issues/issues-pane.js: the design block is current)
+PASS 1300 px: title and count (Garden shed / 7 issues · 4 open)
+PASS 1300 px: one column per state, open states first, in the tracker's order (New 2, In progress 1, Waiting 1, Done 2, Won't do 1)
+PASS 1300 px: newest first; a card has title, description, assignee and age (Pick a paint colour||Carol|1 day)
+PASS 1300 px: a long description is cut short; names come from the data (Level the baseThe slabs at the back corner sit about 2 cm low. Lift them, add sand, check with the long level. Then put the bearers down and screw them…2 monthsBBob)
+PASS 1300 px: logged out, no controls, and it says so (0 Log in to add or change issues.)
+PASS 1300 px: every column shows at once, no tabs (5 visible, 0 tabs)
+PASS 1300 px: no sideways scroll on the board
+PASS 1300 px: the columns scroll inside the board, not the page
+PASS 1300 px: one issue in full (WaitingOpened Oct 12, 2026 (5 weeks)by BobAAssigned to AliceWaiting for the glazier to cut the pane to size. He said the end of the month.)
+PASS 1300 px: with a link back to its tracker (Garden shed|http://127.0.0.1:8732/me/public/suite/issues/samples/shed/index.ttl#this)
+PASS 1300 px: no sideways scroll on an issue
+PASS 400 px: title and count (Garden shed / 7 issues · 4 open)
+PASS 400 px: one column per state, open states first, in the tracker's order (New 2, In progress 1, Waiting 1, Done 2, Won't do 1)
+PASS 400 px: newest first; a card has title, description, assignee and age (Pick a paint colour||Carol|1 day)
+PASS 400 px: a long description is cut short; names come from the data (Level the baseThe slabs at the back corner sit about 2 cm low. Lift them, add sand, check with the long level. Then put the bearers down and screw them…2 monthsBBob)
+PASS 400 px: logged out, no controls, and it says so (0 Log in to add or change issues.)
+PASS 400 px: one column at a time, with tabs (1 visible, 5 tabs)
+PASS 400 px: a tab shows its column (Done)
+PASS 400 px: no sideways scroll on the board
+PASS 400 px: one issue in full (WaitingOpened Oct 12, 2026 (5 weeks)by BobAAssigned to AliceWaiting for the glazier to cut the pane to size. He said the end of the month.)
+PASS 400 px: with a link back to its tracker (Garden shed|http://127.0.0.1:8732/me/public/suite/issues/samples/shed/index.ttl#this)
+PASS 400 px: no sideways scroll on an issue
+
+all passed
+
+== shell.mjs 
+PASS logged in
+PASS the shell opens a tracker with this pane; the board is in the shell's left column, marked, with a colour dot and its open count (Garden shed 4* dot)
+PASS the columns in the content; the cards carry no controls in the shell (they are in the details); New issue is there ({"cols":"New,In progress,Waiting,Done,Won't do","controls":0,"add":true,"msg":""})
+PASS 1300 px in the shell: the columns scroll sideways inside the board, the page does not ({"inside":true,"right":1269,"main":1285,"page":false})
+PASS a card opens its details in the right column: title, state, dates, people, description, controls (State=Waiting; Opened=Oct 12, 2026 (5 weeks); By=Bob; Assigned to=Alice | DescriptionWaiting for the glazier to cut the pane to size. He said the end of the month.)
+PASS the card is marked while its details are open
+PASS move from the details: a toast, the card in its new column, the details follow, the pod file has it ({"moved":true,"toasts":["Moved to Done."],"msg":"Moved to Done.","file":"@prefix wf: <http://www.w3.org/2005/01/wf/flow#>.\n@prefix dc: <http://purl.org/dc/elements/1.1/>.\n@prefix dct: <http://purl.org/dc/terms/>.\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.\n@prefix t: <http://127.0.0.1:8732/me/public/suite-data/issues/shell-a/index.ttl#>.\n\nt:this wf:stateStore <http://127.0.0.1:8732/me/public/suite-data/issues/shell-a/state.ttl>.\n<http://127.0.0.1:8732/me/public/suite-data/issues/shell-a/state.ttl#Iss1> a t:Doing;\n    wf:tracker t:this;\n    dc:title \"Level the base\";\n    wf:description \"The slabs at the back corner sit about 2 cm low. Lift them, add sand, chec"})
+PASS edit from the details: a toast, the details and the card show it, the pod file has it
+PASS closing the details clears the marked card
+PASS the shell's (i) button shows the board: owner, columns with counts, where the issues are kept (Owner=Alice; Created=Sep 1, 2026; New=2 open; In progress=1 open; Waiting=0 open; Done=3 closed; Won't do=1 closed; Issues kept in=shell-a/state.ttl)
+PASS true 400 px in the shell: tabs, one column, no sideways scroll ({"m":{"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]},"tabs":{"tabs":5,"cols":1}})
+PASS true 400 px, details open: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS another board: the left column lists it (marked) and the board seen before (Allotment*,Garden shed)
+PASS a board in the left column opens that board in the shell
+
+all passed
+
+EVERY TEST PASSED

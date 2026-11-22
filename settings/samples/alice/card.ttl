@@ -1,0 +1,16 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix solid: <http://www.w3.org/ns/solid/terms#>.
+@prefix pim: <http://www.w3.org/ns/pim/space#>.
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+
+<> a foaf:PersonalProfileDocument ; foaf:primaryTopic <#me> .
+
+<#me> a foaf:Person ;
+    foaf:name "Alice Example" ;
+    solid:oidcIssuer <http://127.0.0.1:8732/> ;
+    pim:storage <./> ;
+    pim:preferencesFile <prefs.ttl> ;
+    solid:publicTypeIndex <publicTypeIndex.ttl> ;
+    acl:trustedApp [ acl:origin <https://recipes.example> ; acl:mode acl:Read ] , <#app-notes> .
+
+<#app-notes> acl:origin <https://notes.example> ; acl:mode acl:Read, acl:Append, acl:Write .

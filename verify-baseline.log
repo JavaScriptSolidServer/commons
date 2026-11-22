@@ -1,0 +1,16 @@
+pass    contacts       81 checks   28s  885 lines  pane "contacts"  clean
+pass    data           84 checks   44s  612 lines  pane "data-lab"  clean
+pass    document       77 checks   59s  355 lines  pane "document-lab"  clean
+pass    folder         81 checks   34s  846 lines  pane "folder-lab"  clean
+pass    home           52 checks   37s  539 lines  pane "pod-home"  clean
+pass    issues         49 checks   36s  615 lines  pane "issues"  clean
+pass    media         100 checks   36s  440 lines  pane "media"  clean
+pass    meeting        51 checks   23s  680 lines  pane "meeting-page"  clean
+pass    pad            45 checks   36s  519 lines  pane "notepad"  clean
+pass    poll           41 checks   27s  533 lines  pane "poll"  clean
+pass    profile-edit   86 checks   50s  926 lines  pane "profile-edit-lab"  clean
+pass    settings       75 checks  127s  713 lines  pane "settings-lab"  clean
+pass    sharing        62 checks  143s  803 lines  pane "sharing-lab"  clean
+pass    source         49 checks   96s  554 lines  pane "source-lab"  clean
+pass    table          56 checks   29s  542 lines  pane "table"  clean
+DONE

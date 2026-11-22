@@ -1,0 +1,23 @@
+@prefix shelf: <https://example.org/ns/shelf#> .
+@prefix schema: <http://schema.org/> .
+
+<#this> a shelf:Shelf ;
+  schema:name "Alice's reading shelf" ;
+  shelf:list <#novels>, <#garden>, <#kitchen> .
+
+<#novels> schema:name "Novels" ; shelf:item <#lantern>, <#tides>, <#orchard> .
+<#garden> schema:name "Garden" ; shelf:item <#soil>, <#orchard> .
+<#kitchen> schema:name "Kitchen" ; shelf:item <#bread>, <#soup> .
+
+<#lantern> schema:name "The Lantern Keeper" ; schema:author "Carol Example" ; schema:datePublished "2019" ;
+  schema:description "A lighthouse, a storm, and a keeper who writes everything down." .
+<#tides> schema:name "Between Two Tides" ; schema:author "Bob Example" ; schema:datePublished "2021" ;
+  schema:description "Two sisters run a ferry for one summer." .
+<#orchard> schema:name "The Quiet Orchard" ; schema:author "Alice Example" ; schema:datePublished "2016" ;
+  schema:description "A year in an old apple orchard, month by month." .
+<#soil> schema:name "Soil First" ; schema:author "Carol Example" ; schema:datePublished "2020" ;
+  schema:description "Compost, mulch and patience." .
+<#bread> schema:name "Slow Bread" ; schema:author "Bob Example" ; schema:datePublished "2018" ;
+  schema:description "Sourdough for people with jobs." .
+<#soup> schema:name "A Pot of Soup a Week" ; schema:author "Alice Example" ; schema:datePublished "2022" ;
+  schema:description "Fifty-two soups, one for every week of the year." .

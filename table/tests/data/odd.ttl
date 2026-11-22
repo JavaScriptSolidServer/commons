@@ -1,0 +1,7 @@
+@prefix ex: <http://example.org/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Hostile text, odd links, blank nodes and no naming property.
+<#t1> a ex:Task ; dct:title "<img src=x onerror=window.__pwned=1>" ; ex:priority 3 ; ex:link <javascript:alert(1)> ; ex:owner [ ex:nick "al" ] .
+<#t2> a ex:Task ; dct:title "=SUM(A1:A2)" ; ex:priority -1 ; ex:link <urn:isbn:123> .
+<#t3> a ex:Task ; dct:title "Plain, with \"quotes\"" ; ex:priority 10 ; ex:done true .

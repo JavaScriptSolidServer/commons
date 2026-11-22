@@ -1,0 +1,3 @@
+@prefix meeting: <http://www.w3.org/ns/pim/meeting#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+<#this> a meeting:LongChat ; dc:title "Family chat" .

@@ -1,0 +1,90 @@
+== the design block is current
+OK /home/melvin/ideas/suite/pad/pad-pane.js: the design block is current
+
+== pad.mjs 
+PASS logged in
+PASS the pane is registered
+PASS a folder can make a new notepad with it
+PASS a new notepad is created ({"ok":"http://127.0.0.1:8732/me/public/suite-data/pad/pad-test-mwrmqbcl/index.ttl#this"})
+PASS the pod file is in the upstream format: a Notepad with one empty line in the ring
+PASS no access rule was written
+PASS SolidOS's own check accepts the new pad
+PASS it opens with its title and one line to type in
+PASS type a line and leave it: saved (Saved)
+PASS Enter makes a new line after it and moves there
+PASS pause typing: the line saves without leaving it (Saved)
+PASS Backspace on an empty line removes it and goes to the line before (Hello world|Second line|Third)
+PASS the file still passes SolidOS's check, lines in order ( :: Hello world|Second line|Third)
+PASS my participation and colour are recorded
+PASS it counts the lines and says who wrote last (By me · 3 lines · last written by me, Nov 22, 10:23 AM)
+PASS (a change made by someone else is on the pod) (204)
+PASS Refresh: their changes show up, and the line I am typing in is left alone (Changed elsewhere|Second line (editing)|Third|From Bob)
+PASS their line joins the legend
+PASS my line saves on top of their change; both are kept
+PASS within ten seconds the page picks up a change made elsewhere (Changed elsewhere|Second line (editing)|Polled in|From Bob)
+PASS same line changed by both: mine, saved last, wins (Saved)
+PASS after all that, SolidOS's check still passes ( :: Changed elsewhere|Second line (editing)|Polled in mine|From Bob)
+PASS after a reload it reads back the same (Changed elsewhere|Second line (editing)|Polled in mine|From Bob)
+     By me · 4 lines · last written by me, Nov 22, 10:23 AM
+     me3 lines ; bob.example1 line
+PASS SolidOS's own pad pane shows the same lines in the same order (Changed elsewhere|Second line (editing)|Polled in mine|From Bob)
+PASS an empty pad is not written to on opening; Start writing adds its first line
+PASS no sideways scroll at 1300 px
+PASS no sideways scroll at a true 400 px
+
+all passed
+
+== shell.mjs 
+PASS the shell opens the pad in the Pads app
+PASS the content is the notepad, in the Pads app (pads)
+PASS no navigation column (the pane has none)
+PASS the details button is offered (the pane has renderDetails)
+PASS in the shell the legend is not repeated in the content
+PASS the toolbar shows who took part as avatars in their colours (A@rgb(246, 214, 228) B@rgb(214, 239, 200) C@rgb(214, 222, 250))
+PASS no sideways scroll at 1300 px in the shell
+PASS (i) opens the details: the pad's title and its participants with their line counts (Garden club, planning notes / Alice:3 lines|Bob:2 lines|Carol:3 lines)
+PASS the details say who made it and when (Made by,Made,File)
+PASS the avatars open the same details
+PASS in the shell a line typed and left is saved, and the status line says Saved (Saved)
+PASS "Saved" is a quiet status line: no box around it (the data browser styles every role=status)
+PASS the shell opens the pad again at a true 400 px
+PASS no sideways scroll at 400 px in the shell
+PASS details at 400 px: shown, no sideways scroll
+PASS no page errors
+
+all passed
+
+== two.mjs 
+PASS me: my pad opens, editable
+PASS logged in
+PASS bob, logged in as himself: the pad me shared with him opens, and he may edit it
+PASS bob's new line is on the pod, written as him (Saved)
+PASS me: bob's line arrives by itself (the 10 s check), without a reload (Monday: me|Tuesday: Bob)
+PASS me, after a reload: bob is in the legend by the name in his profile, with his line (me1 line ; Bob Tester1 line)
+PASS bob's participation and colour are recorded, and his line is tinted in it ({"rgb":"rgb(251, 237, 255)","line":"rgb(251, 237, 255)"})
+
+all passed
+
+== sample.mjs 
+PASS 1300 px: the title (Garden club, planning notes)
+PASS 1300 px: maker, line count and the last writer (By Alice · 8 lines · last written by Bob, Nov 21, 11:05 AM)
+PASS 1300 px: the lines in ring order, each with its author (Alice,Alice,Bob,Alice,Carol,Carol,Bob,Carol)
+PASS 1300 px: lines are tinted by author (the colour each one recorded) (rgb(246, 214, 228))
+PASS 1300 px: an empty line is kept as a line
+PASS 1300 px: markup in a line is shown as text
+PASS 1300 px: the legend says who is who (Alice3 lines;Bob2 lines;Carol3 lines)
+PASS 1300 px: logged out, nothing to edit, and it says so (0 Log in to edit this pad.)
+PASS 1300 px: no sideways scroll
+PASS 400 px: the title (Garden club, planning notes)
+PASS 400 px: maker, line count and the last writer (By Alice · 8 lines · last written by Bob, Nov 21, 11:05 AM)
+PASS 400 px: the lines in ring order, each with its author (Alice,Alice,Bob,Alice,Carol,Carol,Bob,Carol)
+PASS 400 px: lines are tinted by author (the colour each one recorded) (rgb(246, 214, 228))
+PASS 400 px: an empty line is kept as a line
+PASS 400 px: markup in a line is shown as text
+PASS 400 px: the legend says who is who (Alice3 lines;Bob2 lines;Carol3 lines)
+PASS 400 px: logged out, nothing to edit, and it says so (0 Log in to edit this pad.)
+PASS 400 px: no sideways scroll
+
+all passed
+
+EVERY TEST PASSED

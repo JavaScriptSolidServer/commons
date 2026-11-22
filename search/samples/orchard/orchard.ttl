@@ -1,0 +1,2 @@
+@prefix schema: <http://schema.org/> .
+<#tree> a schema:Thing ; schema:name "The old quince tree" .

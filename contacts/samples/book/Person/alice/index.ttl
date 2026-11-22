@@ -1,0 +1,8 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<#this> a vcard:Individual ; vcard:fn "Alice Example" ;
+    vcard:role "Mathematician" ;
+    vcard:organization-name "Example University" ;
+    vcard:hasEmail [ a vcard:Work ; vcard:value <mailto:alice@example.org> ] ;
+    vcard:hasTelephone [ a vcard:Cell ; vcard:value <tel:+44-20-7946-0000> ] ;
+    vcard:note "Met at the 2026 workshop. Likes long walks and short proofs." .

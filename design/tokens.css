@@ -1,0 +1,70 @@
+/* suite design tokens. Light theme only. MIT. Copyright (c) 2026 Melvin Carvalho.
+   Every pane copies this block, verbatim, into the top of its CSS string (see DESIGN.md, "How tokens reach a pane").
+   :where(:root) has no specificity, so the shell's own :root block (the same names) always wins when the pane runs
+   inside the shell, and the pane still looks right alone. Check a pane with: node design/check-tokens.mjs <pane.js> */
+:where(:root) {
+  --sui-primary: #0082c9;
+  --sui-primary-element: #00679e;
+  --sui-primary-element-hover: #00557f;
+  --sui-primary-text: #ffffff;
+  --sui-primary-light: #e3eff6;
+  --sui-primary-light-hover: #d2e5f0;
+  --sui-primary-light-text: #00507b;
+  --sui-bg: #ffffff;
+  --sui-bg-app: #f5f7f9;
+  --sui-bg-hover: #eef1f4;
+  --sui-bg-dark: #e3e7eb;
+  --sui-text: #1f2328;
+  --sui-text-muted: #5c6670;
+  --sui-border: #e1e5ea;
+  --sui-border-strong: #8a949e;
+  --sui-error: #c62828;
+  --sui-error-light: #fdecea;
+  --sui-warning: #8a5a00;
+  --sui-warning-light: #fff3d6;
+  --sui-success: #237a38;
+  --sui-success-light: #e6f4e9;
+  --sui-late: #c62828;
+  --sui-surface-dark: #16191d;
+  --sui-surface-dark-text: #f1f3f5;
+  --sui-surface-dark-muted: #a7b0b9;
+  --sui-focus: #0082c9;
+  --sui-backdrop: rgba(18, 24, 31, .45);
+  --sui-font: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --sui-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --sui-text-sm: 13px;
+  --sui-text-md: 15px;
+  --sui-text-lg: 17px;
+  --sui-text-xl: 20px;
+  --sui-text-2xl: 24px;
+  --sui-line: 1.5;
+  --sui-weight: 400;
+  --sui-weight-bold: 600;
+  --sui-space-1: 4px;
+  --sui-space-2: 8px;
+  --sui-space-3: 12px;
+  --sui-space-4: 16px;
+  --sui-space-5: 20px;
+  --sui-space-6: 24px;
+  --sui-space-8: 32px;
+  --sui-space-12: 48px;
+  --sui-target: 44px;
+  --sui-target-sm: 34px;
+  --sui-icon: 20px;
+  --sui-avatar: 32px;
+  --sui-avatar-lg: 64px;
+  --sui-avatar-xl: 96px;
+  --sui-header: 50px;
+  --sui-nav-width: 290px;
+  --sui-details-width: 380px;
+  --sui-content-max: 1080px;
+  --sui-reading-width: 760px;
+  --sui-column-width: 290px;
+  --sui-radius-sm: 4px;
+  --sui-radius: 8px;
+  --sui-radius-lg: 12px;
+  --sui-radius-pill: 999px;
+  --sui-shadow: 0 1px 3px rgba(16, 24, 40, .12);
+  --sui-shadow-lg: 0 8px 28px rgba(16, 24, 40, .18);
+  --sui-ease: .15s ease;
+}

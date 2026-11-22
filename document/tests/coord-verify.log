@@ -1,0 +1,128 @@
+== the design sheet block
+OK /home/melvin/ideas/suite/document/document-pane.js: the design block is current
+
+== document.mjs 
+PASS logged in
+PASS a text file opens in this pane, which takes the focus (Text · 664 bytes · 12 lines)
+PASS text: exactly the file, as text
+PASS text: markup in it stays text (nothing made of it)
+PASS text: its size and lines are shown (Text · 664 bytes · 12 lines)
+PASS text: "Open in a new tab" is the file itself, rel noopener (Open in a new tab|http://127.0.0.1:8732/me/public/suite-data/document/notes.txt|noopener noreferrer|)
+PASS text: no sideways scroll at 1300 px
+PASS after a reload it reads back the same
+PASS a .log file is shown as text (Text · 397 bytes · 6 lines)
+PASS CSV: a table first, header from the first row (name|role|email|notes)
+PASS CSV: quoted commas, "" and line breaks inside a cell are read right ([["Alice","Chair","alice@example.org","Runs the meetings, keeps the minutes"],["Bob","Treasurer","bob@example.org","Says \"no\" to new tools, usually"],["Carol","Gardener","carol@example.net","Two lines:\nfirst, then second"]])
+PASS CSV: it says how many rows (3 rows under the header.)
+PASS CSV: the Text button shows the file as text
+PASS CSV: and Table brings the table back
+PASS a long CSV: only the first 500 rows in the table, and it says so (500 Showing the first 500 of 1200 rows. The text view has them all.)
+PASS a long CSV: the text view has every row
+PASS a CSV of 400,000 columns: shown quickly, 50 columns, and it says so (50 Showing the first 50 of 400001 columns. The text view has them all. 1021 ms)
+PASS a CSV of 2,000 rows by 500 columns: 400 rows of 50 columns (20,000 cells), and it says so (400 Showing the first 400 of 2000 rows and the first 50 of 500 columns. The text view has them all. 1092 ms)
+PASS a wide CSV: no sideways scroll (it scrolls in its own box)
+PASS an HTML page opens in a frame in this pane (HTML page · 1.0 KB)
+PASS HTML: the frame is sandboxed with nothing allowed
+PASS HTML: the page cannot reach into the frame (it has its own origin)
+PASS HTML: a policy that forbids scripts and a base address come first (<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; object-src 'none'; frame-src 'none'; child-src 'none'; worker-src 'none')
+PASS HTML: "Shown without scripts." and that pictures from other sites load (Shown without scripts. Links inside do not open; pictures from other sites are loaded. This pod serves files on this site, where the page's scripts would run, so it is not opened on its own here: use Download.)
+PASS HTML on the browser's own site: no "Open in a new tab" (its scripts would run here), Download instead, and it says why (Download|http://127.0.0.1:8732/me/public/suite-data/document/welcome.html|noopener noreferrer|welcome.html / Shown without scripts. Links inside do not open; pictures from other sites are loaded. This pod serves files on this site, where the page's scripts would run, so it is not opened on its own here: use Download.)
+PASS HTML: a frame of a sensible height (585.359375)
+PASS HTML: the page text shows in the frame ("Garden club: spring plan\n\nWritten by Alice for Bob and Carol, who look after )
+PASS HTML: its relative picture is fetched from its own folder (http://127.0.0.1:8732/me/public/suite-data/document/leaf.svg)
+PASS HTML: and drawn
+PASS HTML: no sideways scroll at 1300 px
+PASS hostile: the page text still shows ("Invoice from Bob\n\nThis page tries every trick it can. None of them should wor)
+PASS hostile: no inline script, onload, onerror, nested frame, object or refresh ran (null)
+PASS hostile: the page title was not changed (Invoice from Bob)
+PASS hostile: nothing was written to this site's storage (null)
+PASS hostile: its script from another site was never fetched (http://127.0.0.1:8732/me/public/suite-data/document/does-not-exist.png http://127.0.0.1:8732/me/public/suite-data/document/leaf.svg)
+PASS hostile: its own <base> did not win: the picture came from the pod (http://127.0.0.1:8732/me/public/suite-data/document/hostile.html)
+PASS hostile: the frame itself ran no script either
+PASS hostile: the three things were really clicked (true true true)
+PASS hostile: clicking the javascript: link ran nothing ({"title":"Invoice from Bob","href":"http://127.0.0.1:8732/me/public/solidos/index.html?pane=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite%2Fdocument%2Fdocument-pane.js&uri=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite-data%2Fdocument%2Fhostile.html","pwned":null})
+PASS hostile: the top page did not move (http://127.0.0.1:8732/me/public/solidos/index.html?pane=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite%2Fdocument%2Fdocument-pane.js&uri=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite-data%2Fdocument%2Fhostile.html)
+PASS hostile: the link and the form sent nothing
+PASS hostile: the frame did not navigate away
+PASS hostile: the frame is still showing the page
+PASS hostile: the _self link was really clicked
+PASS hostile: a _self link is stopped and the person told (Shown without scripts. Links inside do not open; pictures from other sites are loaded. This pod serves files on this site, where the page's scripts would run, so it is not opened on its own here: use Download. A link inside tried to open another page in its place; it was stopped.)
+PASS hostile: the frame shows the page again, not the other page (about:srcdoc)
+PASS hostile: and the page text is back in it
+PASS hostile: still one frame, still sandboxed with nothing allowed
+PASS a PDF opens in this pane (PDF · 1.1 KB)
+PASS PDF: shown from a blob: copy, as a PDF ({"type":"application/pdf","data":"blob:http://127.0.0.1:8732/e3b06bb9-8a47-4c9e-98c0-438044ce2dbc"})
+PASS PDF: with a download link (Open in a new tab|http://127.0.0.1:8732/me/public/suite-data/document/minutes.pdf|noopener noreferrer| ; Download|http://127.0.0.1:8732/me/public/suite-data/document/minutes.pdf|noopener noreferrer|minutes.pdf)
+PASS PDF: the blob is there while it is on show
+PASS PDF: once the pane is gone, its blob is dropped
+PASS SVG: claimed ("View") but does not take the focus ({"label":"View","focus":false})
+PASS SVG: drawn only as <img src="blob:…">, never inline ({"src":"blob:http://127.0.0.1:8732/dfd7b516-179a-4b38-8412-abc94e094df4","inline":0,"w":320,"pwned":null,"title":"diagram.svg"})
+PASS SVG: its script and onload did not run
+PASS SVG: once drawn, its blob address is dropped (it cannot be opened as a page here)
+PASS SVG on the browser's own site: never "Open in a new tab" (its script would run here), Download instead, and it says why ({"links":["Download|diagram.svg"],"note":"Shown as a picture only, without its scripts. This pod serves files on this site, where an SVG's scripts would run, so it is not opened on its own here: use Download."})
+PASS too large: not shown, it says why and offers the links (This file is larger than 5.0 MB, too large to show here. Open it in a new tab or download it with the buttons above.)
+PASS too large: its size is shown (Text · 5.7 MB)
+PASS a private file of the person logged in: shown
+PASS a missing file: "There is no file at this address." (There is no file at this address.)
+     {"readme.md":"null/false","data.ttl":"null/false","(folder)":"null/false","welcome.html":"View/true","notes.txt":"View/true","team.csv":"View/true","minutes.pdf":"View/true","diagram.svg":"View/false","nothing.png":"null/false","hostile.html#part":"View/true","profile":"null/false"}
+PASS not claimed: Markdown, Turtle, a folder, a profile, a PNG
+PASS claimed and focused: HTML, text, CSV, PDF
+PASS claimed, not focused: SVG
+PASS no errors thrown in the page
+
+all passed
+
+== shell.mjs 
+PASS in the shell: a text file is drawn by this pane in the content column
+PASS content only: no navigation column; the shell offers its (i) button ({"text":true,"nav":0,"info":true,"font":"15px"})
+PASS in the shell, the suite type scale (15 px body) (15px)
+PASS (i): the file's details in the shell's right column: name, kind, size, lines, address ({"title":"notes.txt","sub":"Text","props":{"Kind":"Text","Content type":"text/plain","Size":"664 bytes","Lines":"12","Address":"http://127.0.0.1:8732/me/public/suite-data/document/notes.txt"}})
+PASS the details' address link is safe (new tab, noopener)
+PASS 1300 px in the shell, details open: no sideways scroll
+PASS in the shell: a CSV
+PASS (i) on a CSV: its rows are counted ({"title":"team.csv","sub":"CSV","props":{"Kind":"CSV","Content type":"text/csv","Size":"222 bytes","Lines":"5","Rows":"3 under the header","Address":"http://127.0.0.1:8732/me/public/suite-data/document/team.csv"}})
+PASS in the shell: the hostile page
+PASS hostile, in the shell: sandboxed, ran nothing, wrote nothing ({"sandbox":"","pwned":null,"title":"Invoice from Bob","stored":null})
+PASS (i) on an HTML page says it is shown without scripts ({"title":"hostile.html","sub":"HTML page","props":{"Kind":"HTML page","Content type":"text/html","Size":"1.7 KB","Shown":"Without scripts, in a sandbox","Address":"http://127.0.0.1:8732/me/public/suite-data/document/hostile.html"}})
+PASS (i) on an HTML page on this site: the address is text, not a link to open it here
+PASS true 400 px in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px, details open in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px in the shell, a CSV: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS no errors thrown in the page
+
+all passed
+
+== sample.mjs 1300
+PASS 1300 px: the page really is 1300 px wide (1300)
+PASS 1300 px, logged out: an HTML page shows in a sandboxed frame (Shown without scripts. Links inside do not open; pictures from other sites are loaded. This pod serves files on this site, where the page's scripts would run, so it is not opened on its own here: use Download.)
+PASS 1300 px: no sideways scroll (HTML) ( @1300)
+PASS 1300 px: the hostile page ran nothing ([null,"Invoice from Bob"])
+PASS 1300 px: no sideways scroll (hostile) ( @1300)
+PASS 1300 px: the suite type scale, a slim header, actions as 44 px icon buttons with names ({"root":true,"font":"15px","head":44,"buttons":true,"named":true})
+PASS 1300 px: text shows as itself
+PASS 1300 px: no sideways scroll (a long line wraps) ( @1300)
+PASS 1300 px: CSV shows as a table
+PASS 1300 px: no sideways scroll (the table scrolls in its own box) ( @1300)
+PASS 1300 px: the PDF shows, with a download link
+PASS 1300 px: no sideways scroll (PDF) ( @1300)
+PASS logged out, a private file: it says so and shows nothing (This file is private. Log in to see it, if it has been shared with you.)
+
+all passed
+
+== sample.mjs 400
+PASS 400 px: the page really is 400 px wide (400)
+PASS 400 px, logged out: an HTML page shows in a sandboxed frame (Shown without scripts. Links inside do not open; pictures from other sites are loaded. This pod serves files on this site, where the page's scripts would run, so it is not opened on its own here: use Download.)
+PASS 400 px: no sideways scroll (HTML) ( @400)
+PASS 400 px: the hostile page ran nothing ([null,"Invoice from Bob"])
+PASS 400 px: no sideways scroll (hostile) ( @400)
+PASS 400 px: the suite type scale, a slim header, actions as 44 px icon buttons with names ({"root":true,"font":"15px","head":44,"buttons":true,"named":true})
+PASS 400 px: text shows as itself
+PASS 400 px: no sideways scroll (a long line wraps) ( @400)
+PASS 400 px: CSV shows as a table
+PASS 400 px: no sideways scroll (the table scrolls in its own box) ( @400)
+PASS 400 px: the PDF shows, with a download link
+PASS 400 px: no sideways scroll (PDF) ( @400)
+
+all passed
+
+EVERY TEST PASSED

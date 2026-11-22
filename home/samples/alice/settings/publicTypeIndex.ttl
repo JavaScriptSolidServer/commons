@@ -1,0 +1,11 @@
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix meeting: <http://www.w3.org/ns/pim/meeting#> .
+@prefix bookm: <http://www.w3.org/2002/01/bookmark#> .
+@prefix garden: <https://garden.example/ns#> .
+
+<> a solid:TypeIndex, solid:ListedDocument .
+<#contacts> a solid:TypeRegistration ; solid:forClass vcard:AddressBook ; solid:instance <../contacts/index.ttl#this> .
+<#chat> a solid:TypeRegistration ; solid:forClass meeting:LongChat ; solid:instance <../chat/index.ttl#this> .
+<#bookmarks> a solid:TypeRegistration ; solid:forClass bookm:Bookmark ; solid:instance <../bookmarks/index.ttl> .
+<#garden> a solid:TypeRegistration ; solid:forClass garden:PlantCollection ; solid:instanceContainer <../garden/> .

@@ -1,0 +1,13 @@
+{
+  "@context": { "acl": "http://www.w3.org/ns/auth/acl#" },
+  "@graph": [
+    {
+      "@id": "#owner",
+      "@type": "acl:Authorization",
+      "acl:agent": { "@id": "http://127.0.0.1:8732/me/profile/card.jsonld#me" },
+      "acl:accessTo": { "@id": "./" },
+      "acl:default": { "@id": "./" },
+      "acl:mode": [ { "@id": "acl:Read" }, { "@id": "acl:Write" }, { "@id": "acl:Control" } ]
+    }
+  ]
+}

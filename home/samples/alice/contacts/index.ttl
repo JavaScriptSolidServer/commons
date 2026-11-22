@@ -1,0 +1,3 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+<#this> a vcard:AddressBook ; dc:title "Alice's contacts" .

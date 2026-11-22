@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "schema": "http://schema.org/",
+    "solid": "http://www.w3.org/ns/solid/terms#",
+    "pim": "http://www.w3.org/ns/pim/space#",
+    "ldp": "http://www.w3.org/ns/ldp#",
+    "org": "http://www.w3.org/ns/org#",
+    "cert": "http://www.w3.org/ns/auth/cert#",
+    "cid": "https://www.w3.org/ns/cid/v1#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sm": "https://solidos.github.io/profile-pane/src/ontology/socialMedia.ttl#",
+    "lang": "https://www.w3.org/ns/iana/language-code/"
+  },
+  "@graph": [
+    {
+      "@id": "",
+      "@type": "foaf:PersonalProfileDocument",
+      "foaf:maker": { "@id": "#me" },
+      "foaf:primaryTopic": { "@id": "#me" }
+    },
+    {
+      "@id": "#me",
+      "@type": ["foaf:Person", "schema:Person"],
+      "foaf:name": "Alice Example",
+      "vcard:fn": "Alice Example",
+      "foaf:nick": "alice",
+      "solid:preferredSubjectPronoun": "she",
+      "solid:preferredObjectPronoun": "her",
+      "foaf:img": { "@id": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Crect%20width%3D%22120%22%20height%3D%22120%22%20fill%3D%22%23ede7ff%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2248%22%20r%3D%2222%22%20fill%3D%22%237c4dff%22%2F%3E%3Cpath%20d%3D%22M20%20112c4-24%2020-36%2040-36s36%2012%2040%2036z%22%20fill%3D%22%237c4dff%22%2F%3E%3C%2Fsvg%3E" },
+      "vcard:note": "Builds tools for personal data stores and likes small, readable programs.\n\nUsually walking, cycling or reading on a train.",
+      "foaf:homepage": { "@id": "https://alice.example.org/" },
+      "vcard:hasEmail": [{ "@id": "#email-work" }, { "@id": "#email-home" }],
+      "vcard:hasTelephone": { "@id": "#phone" },
+      "vcard:hasAddress": { "@id": "#address" },
+      "schema:skills": [{ "@id": "#skill-rdf" }, { "@id": "#skill-js" }, { "@id": "#skill-ux" }],
+      "schema:knowsLanguage": [{ "@id": "#lang-en" }, { "@id": "#lang-pt" }, { "@id": "#lang-de" }],
+      "foaf:account": [{ "@id": "#acc-github" }, { "@id": "#acc-linkedin" }, { "@id": "#acc-mastodon" }],
+      "foaf:knows": { "@id": "#bob" },
+
+      "solid:oidcIssuer": { "@id": "https://idp.example.org/" },
+      "pim:storage": { "@id": "https://alice.example.org/storage/" },
+      "pim:preferencesFile": { "@id": "https://alice.example.org/storage/settings/prefs.jsonld" },
+      "solid:publicTypeIndex": { "@id": "https://alice.example.org/storage/settings/publicTypeIndex.jsonld" },
+      "solid:privateTypeIndex": { "@id": "https://alice.example.org/storage/settings/privateTypeIndex.jsonld" },
+      "ldp:inbox": { "@id": "https://alice.example.org/storage/inbox/" },
+      "cid:verificationMethod": { "@id": "#key-1" },
+      "cert:key": { "@id": "#key-rsa" }
+    },
+    {
+      "@id": "#key-rsa",
+      "@type": "cert:RSAPublicKey",
+      "cert:modulus": { "@value": "00c0ffee00c0ffee", "@type": "xsd:hexBinary" },
+      "cert:exponent": { "@value": "65537", "@type": "xsd:integer" }
+    },
+    { "@id": "#key-1", "@type": "cid:Multikey", "cid:controller": { "@id": "#me" }, "cid:publicKeyMultibase": "z6MkExampleExampleExampleExampleExampleExample" },
+
+    { "@id": "#email-work", "@type": "vcard:Work", "vcard:value": { "@id": "mailto:alice@example.org" } },
+    { "@id": "#email-home", "@type": "vcard:Home", "vcard:value": { "@id": "mailto:alice.home@example.net" } },
+    { "@id": "#phone", "@type": "vcard:Cell", "vcard:value": { "@id": "tel:+351-210-000-000" } },
+    { "@id": "#address", "vcard:locality": "Lisbon", "vcard:country-name": "Portugal" },
+
+    { "@id": "#skill-rdf", "schema:name": "Linked Data" },
+    { "@id": "#skill-js", "schema:name": "JavaScript" },
+    { "@id": "#skill-ux", "solid:publicId": { "@id": "#esco-ux" } },
+    { "@id": "#esco-ux", "schema:name": "User experience design" },
+
+    { "@id": "#lang-en", "solid:publicId": { "@id": "https://www.w3.org/ns/iana/language-code/en" }, "schema:proficiencyLevel": "Native" },
+    { "@id": "#lang-pt", "solid:publicId": { "@id": "https://www.w3.org/ns/iana/language-code/pt" }, "schema:proficiencyLevel": "Fluent" },
+    { "@id": "#lang-de", "schema:name": "German", "schema:proficiencyLevel": "Basic" },
+
+    { "@id": "#acc-github", "@type": "sm:GithubAccount", "foaf:accountName": "alice-example", "foaf:homepage": { "@id": "https://github.com/alice-example" } },
+    { "@id": "#acc-linkedin", "@type": "sm:LinkedInAccount", "foaf:accountName": "alice-example" },
+    { "@id": "#acc-mastodon", "@type": "sm:OtherAccount", "foaf:name": "Mastodon", "foaf:accountName": "@alice@social.example.org", "foaf:homepage": { "@id": "https://social.example.org/@alice" } },
+
+    { "@id": "#bob", "@type": "foaf:Person", "foaf:name": "Bob Example" },
+
+    {
+      "@id": "#role-now",
+      "@type": "solid:CurrentRole",
+      "org:member": { "@id": "#me" },
+      "org:organization": { "@id": "#org-labs" },
+      "vcard:role": "Lead engineer",
+      "schema:startDate": { "@value": "2022-03-01", "@type": "xsd:date" }
+    },
+    {
+      "@id": "#role-before",
+      "@type": "solid:PastRole",
+      "org:member": { "@id": "#me" },
+      "org:organization": { "@id": "#org-coop" },
+      "vcard:role": "Web developer",
+      "schema:startDate": { "@value": "2017-09-01", "@type": "xsd:date" },
+      "schema:endDate": { "@value": "2022-02-01", "@type": "xsd:date" }
+    },
+    { "@id": "#org-labs", "@type": "schema:Corporation", "schema:name": "Example Labs" },
+    { "@id": "#org-coop", "@type": "schema:Organization", "schema:name": "Bike Coop Example" }
+  ]
+}

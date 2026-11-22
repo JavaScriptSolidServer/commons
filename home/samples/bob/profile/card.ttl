@@ -1,0 +1,5 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pim: <http://www.w3.org/ns/pim/space#> .
+
+# A nearly empty pod: a name, a storage, a preferences file with nothing in it.
+<#me> a foaf:Person ; foaf:name "Bob Example" ; pim:storage <../> ; pim:preferencesFile <../settings/prefs.ttl> .

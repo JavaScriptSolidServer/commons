@@ -1,0 +1,57 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org/ns#> .
+
+<> dct:title "The Example Walking Club" ;
+   dct:modified "2026-11-20T09:30:00Z"^^xsd:dateTime ;
+   rdfs:comment "Made-up people for trying the data pane." .
+
+ex:favouriteColours rdfs:label "Favourite colours" .
+
+<#alice> a foaf:Person, schema:Person ;
+    foaf:name "Alice Example" ;
+    foaf:nick "ali" ;
+    foaf:mbox <mailto:alice@example.com> ;
+    foaf:homepage <https://alice.example.com/> ;
+    foaf:knows <#bob>, <#carol> ;
+    schema:birthDate "1990-04-12"^^xsd:date ;
+    ex:walksCompleted 1250 ;
+    ex:averagePace 4.75 ;
+    ex:isMember true ;
+    ex:wantsNewsletter false ;
+    ex:favouriteColours ( "red" "green" "deep blue" ) ;
+    rdfs:comment "Leads the Sunday walks."@en, "Vede nedělní procházky."@cs ;
+    ex:legacyId "urn:example:alice" ;
+    ex:sameIn <urn:example:member:42> ;
+    vcard:hasAddress [
+        a vcard:Home ;
+        vcard:street-address "1 Lake Road" ;
+        vcard:locality "Exampleton" ;
+        ex:location [ ex:lat 50.08 ; ex:long 14.42 ; ex:source [ ex:surveyedBy <#carol> ; ex:year "2024"^^xsd:gYear ] ]
+    ] .
+
+<#bob> a foaf:Person ;
+    foaf:name "Bob Example" ;
+    foaf:knows <#alice> ;
+    ex:mentor <#alice> .
+
+<#carol> a foaf:Person ;
+    foaf:name "Carol Example" ;
+    foaf:knows <#alice>, <#bob> .
+
+<#walk1> a schema:Event ; schema:name "Walk 1" ; schema:startDate "2026-02-02"^^xsd:date ; schema:organizer <#alice> .
+<#walk2> a schema:Event ; schema:name "Walk 2" ; schema:startDate "2026-03-03"^^xsd:date ; schema:organizer <#alice> .
+<#walk3> a schema:Event ; schema:name "Walk 3" ; schema:startDate "2026-04-04"^^xsd:date ; schema:organizer <#alice> .
+<#walk4> a schema:Event ; schema:name "Walk 4" ; schema:startDate "2026-05-05"^^xsd:date ; schema:organizer <#alice> .
+<#walk5> a schema:Event ; schema:name "Walk 5" ; schema:startDate "2026-06-06"^^xsd:date ; schema:organizer <#alice> .
+<#walk6> a schema:Event ; schema:name "Walk 6" ; schema:startDate "2026-07-07"^^xsd:date ; schema:organizer <#alice> .
+<#walk7> a schema:Event ; schema:name "Walk 7" ; schema:startDate "2026-08-08"^^xsd:date ; schema:organizer <#alice> .
+<#walk8> a schema:Event ; schema:name "Walk 8" ; schema:startDate "2026-09-09"^^xsd:date ; schema:organizer <#alice> .
+<#walk9> a schema:Event ; schema:name "Walk 9" ; schema:startDate "2026-10-01"^^xsd:date ; schema:organizer <#alice> .
+<#walk10> a schema:Event ; schema:name "Walk 10" ; schema:startDate "2026-11-02"^^xsd:date ; schema:organizer <#alice> .
+<#walk11> a schema:Event ; schema:name "Walk 11" ; schema:startDate "2026-12-03"^^xsd:date ; schema:organizer <#alice> .
+<#walk12> a schema:Event ; schema:name "Walk 12" ; schema:startDate "2026-01-04"^^xsd:date ; schema:organizer <#alice> .

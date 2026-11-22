@@ -1,0 +1,8 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<#this> a vcard:Individual ; vcard:fn "Carol Danvers" ;
+    vcard:role "Pilot" ;
+    vcard:hasEmail <#email1> ;
+    vcard:url <#webid> .
+<#email1> vcard:value <mailto:carol@example.org> .
+<#webid> a vcard:WebID ; vcard:value <https://carol.example.org/profile/card#me> .

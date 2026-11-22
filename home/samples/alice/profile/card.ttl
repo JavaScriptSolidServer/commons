@@ -1,0 +1,14 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix pim: <http://www.w3.org/ns/pim/space#> .
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix schema: <http://schema.org/> .
+
+# A made-up person for the home pane's tests. Every link is relative, so the pod works wherever it is served.
+<> a foaf:PersonalProfileDocument ; foaf:primaryTopic <#me> .
+<#me> a foaf:Person, schema:Person ;
+    foaf:name "Alice Example" ;
+    vcard:hasPhoto <photo.svg> ;
+    pim:storage <../> ;
+    pim:preferencesFile <../settings/prefs.ttl> ;
+    solid:publicTypeIndex <../settings/publicTypeIndex.ttl> .

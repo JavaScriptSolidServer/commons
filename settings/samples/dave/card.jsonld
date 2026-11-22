@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "schema": "http://schema.org/",
+    "solid": "http://www.w3.org/ns/solid/terms#",
+    "pim": "http://www.w3.org/ns/pim/space#",
+    "cert": "http://www.w3.org/ns/auth/cert#",
+    "acl": "http://www.w3.org/ns/auth/acl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "",
+      "@type": "foaf:PersonalProfileDocument",
+      "foaf:primaryTopic": { "@id": "#me" }
+    },
+    {
+      "@id": "#me",
+      "@type": "foaf:Person",
+      "foaf:name": "Dave Older",
+      "vcard:note": "Keeps {braces} in his bio.",
+      "solid:oidcIssuer": { "@id": "http://127.0.0.1:8732/" },
+      "pim:storage": { "@id": "./" },
+      "pim:preferencesFile": { "@id": "prefs.jsonld" },
+      "cert:key": {
+        "@type": "cert:RSAPublicKey",
+        "cert:modulus": { "@value": "c0ffee00c0ffee", "@type": "xsd:hexBinary" },
+        "cert:exponent": 65537
+      },
+      "vcard:hasEmail": {
+        "@type": "vcard:Home",
+        "vcard:value": { "@id": "mailto:dave@example.org" }
+      },
+      "schema:knowsLanguage": {
+        "@list": [
+          { "@id": "https://www.w3.org/ns/iana/language-code/en" },
+          { "@id": "https://www.w3.org/ns/iana/language-code/cs" }
+        ]
+      },
+      "foaf:status": ""
+    }
+  ]
+}

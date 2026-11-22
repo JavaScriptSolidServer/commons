@@ -1,0 +1,18 @@
+{
+  "@context": { "solid": "http://www.w3.org/ns/solid/terms#" },
+  "@graph": [
+    { "@id": "", "@type": ["solid:TypeIndex", "solid:UnlistedDocument"] },
+    { "@id": "#notes", "@type": "solid:TypeRegistration",
+      "solid:forClass": { "@id": "http://www.w3.org/ns/iana/media-types/text/markdown#Resource" },
+      "solid:instanceContainer": { "@id": "../notes/" } },
+    { "@id": "#tracker", "@type": "solid:TypeRegistration",
+      "solid:forClass": { "@id": "http://www.w3.org/2005/01/wf/flow#Tracker" },
+      "solid:instance": { "@id": "../work/tracker.ttl#this" } },
+    { "@id": "#poll", "@type": "solid:TypeRegistration",
+      "solid:forClass": { "@id": "http://www.w3.org/ns/pim/schedule#SchedulableEvent" },
+      "solid:instance": { "@id": "../polls/dinner/index.ttl#this" } },
+    { "@id": "#meeting", "@type": "solid:TypeRegistration",
+      "solid:forClass": { "@id": "http://www.w3.org/ns/pim/meeting#Meeting" },
+      "solid:instance": { "@id": "../work/standup.ttl#this" } }
+  ]
+}

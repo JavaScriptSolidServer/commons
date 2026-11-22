@@ -1,0 +1,2 @@
+@prefix dc: <http://purl.org/dc/terms/>.
+<#this> dc:title "Team plan for December" .

@@ -1,0 +1,90 @@
+== the design block is current
+OK /home/melvin/ideas/suite/source/source-pane.js: the design block is current
+
+== source.mjs 
+PASS logged in
+PASS it opens from the More options menu as "Source"
+PASS it shows the file exactly as stored ("# Three made-up people and who knows whom.\n@prefix foaf: <http://xmlns.com/foa)
+PASS it says the type and size (people.ttl · text/turtle · 468 bytes)
+PASS read only until Edit is pressed; Copy and Edit offered (Copy,Edit)
+PASS a line number for every line (18 vs 18)
+PASS it did not take focus from the default view
+PASS Copy puts the text on the clipboard (good :: Copied 468 characters. / # Three made-up people and who knows who)
+PASS Edit makes it editable, with Save and Cancel (Copy,Save,Cancel)
+PASS a change shows "Unsaved changes"
+PASS leaving the page now is warned against
+PASS Turtle that does not parse is not saved, and the line is given (bad :: This does not read as text/turtle, so it was not saved.Line 19: Bad syntax: expected '.' or '}' or ']' at end of statement at: ";; oops " while trying to)
+PASS Cancel puts the text back and ends editing (Copy,Edit)
+PASS no leave warning once nothing is unsaved
+PASS Tab adds two spaces and keeps focus in the text ("  # Three ma")
+PASS Ctrl+S saves (good :: Saved. The server keeps this file in its own layout, so what you see now is its copy: the same data, but your comments, spacing and order are not kept.)
+PASS the pod file holds the change (stored by the server as JSON-LD) ([
+  {
+    "@context": {
+      )
+PASS it shows what the server now holds, and says it is the same data in the server's layout (good :: Saved. The server keeps this file in its own layout, so what you see now is its copy: the same data, but your comments, spacing and order are not kept.)
+PASS the store was told: other panes see the change
+PASS a change on the server meanwhile: 412, not saved, and it says so (bad :: Not saved: the file changed on the server since you opened it. Your text is still here; Copy )
+PASS the person's text is kept, still editing
+PASS it offers the server's version
+PASS Load the server's version shows it (info :: This is the server's version now. Edit it and save, or Cancel.)
+PASS a .json file opens, with its type (settings.json · application/ld+json · 269 bytes)
+PASS JSON that does not parse is not saved, with its line (bad :: This does not read as application/ld+json, so it was not saved.Line 4: Expected double-quoted property name in JSON at position 50 (line 4 column 1)Save anyway)
+     Save anyway on broken JSON: good :: Saved.
+PASS Save anyway sends it: the server's answer is reported and the text kept if refused (good :: Saved.)
+PASS good JSON saves, and the pod file has it (good :: Saved. The server keeps this file in its own layout, so what you see now is its copy: the same data, but your co)
+PASS Markdown opens as text (notes.md · text/markdown · 272 bytes)
+PASS a text file is saved exactly, and says just "Saved." (good :: Saved.)
+PASS after a reload it reads back the same
+PASS once the folder listing is in the store, it says when the file was modified (notes.md · text/markdown · 270 bytes · modified Nov 22, 2026, 10:22 AM)
+PASS a large file: the first part, said so, and no Edit (info :: This file is 1.4 MB: only the first 976.6 KB is shown, and it cannot be edited here. 1000000)
+PASS a picture is refused, with its type and size (Not a text fileThis file is not text (image/png, 74 bytes), so its source cannot be shown here.Open the file itself)
+PASS the menu does not offer Source for a picture, by its name
+PASS nor, once the store has read it, for a picture with no telling name (Source then null)
+PASS nor for a folder, nor a thing inside a document
+PASS no sideways scroll at 1300 px
+PASS no page errors
+
+all passed
+
+== layout.mjs 400
+PASS the page really is 400 px wide
+PASS 400 px: still logged in, so Edit is offered (Copy,Edit)
+PASS 400 px: a long line scrolls inside the text box, not the page
+PASS 400 px: editing, no sideways page scroll
+PASS 400 px: the line numbers follow the text when it scrolls
+PASS 400 px: Turtle, no sideways page scroll
+
+all passed
+
+== shell.mjs 
+PASS the shell opens on the Markdown file
+PASS Source, picked from Other views, draws inside the shell's content column
+PASS content only: no navigation column, no details
+PASS in the shell it shows the file exactly as stored, with its type and size (notes.md · text/markdown · 272 bytes)
+PASS the sheet's tokens come from the shell (same primary colour)
+PASS the toolbar buttons are 44 px targets
+PASS no sideways scroll at 1300 px in the shell
+PASS in the shell, Save writes the file, and the status line says Saved. (good :: Saved.)
+PASS after saving it is still the Source view in the shell
+PASS "Saved." is a quiet status line: no box around it (the data browser styles every role=status)
+PASS the shell opens again at 400 px
+PASS the page really is 400 px wide
+PASS no sideways scroll at a true 400 px in the shell
+PASS editing at 400 px in the shell: still no sideways page scroll
+PASS no page errors
+
+all passed
+
+== logged-out.mjs 
+PASS 1300 px: a public file opens, read only (people.ttl · text/turtle · 468 bytes · read only)
+PASS 1300 px: Copy, and no Edit (Copy)
+PASS 1300 px: no sideways scroll
+PASS a private file: it says to log in, and shows nothing of it (Cannot show this fileThis file is private. Log in to see it.)
+PASS 400 px: a public file opens, read only (people.ttl · text/turtle · 468 bytes · read only)
+PASS 400 px: Copy, and no Edit (Copy)
+PASS 400 px: no sideways scroll
+
+all passed
+
+EVERY TEST PASSED

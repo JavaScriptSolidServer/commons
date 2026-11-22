@@ -1,0 +1,30 @@
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ui: <http://www.w3.org/ns/ui#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# A sample tracker with made-up people. Read-only here: changes are saved only on a pod.
+# The states are listed with a closed one in the middle on purpose: the board puts open states first.
+<#this> a wf:Tracker ;
+    dc:title "Garden shed" ;
+    dc:author <https://alice.example/profile/card#me> ;
+    dc:created "2026-09-01T09:00:00Z"^^xsd:dateTime ;
+    wf:issueClass <#Job> ;
+    wf:initialState <#New> ;
+    wf:stateStore <state.ttl> ;
+    wf:assigneeClass foaf:Person .
+
+<#Job> a rdfs:Class ; rdfs:label "Job" ; rdfs:subClassOf wf:Task ;
+    owl:disjointUnionOf (<#New> <#Done> <#Doing> <#Blocked> <#WontDo>) .
+<#New> a rdfs:Class ; rdfs:label "New" ; rdfs:subClassOf <#Job>, wf:Open .
+<#Doing> a rdfs:Class ; rdfs:label "In progress" ; rdfs:subClassOf <#Job>, wf:Open .
+<#Blocked> a rdfs:Class ; rdfs:label "Waiting" ; rdfs:subClassOf <#Job>, wf:Open .
+<#Done> a rdfs:Class ; rdfs:label "Done" ; rdfs:subClassOf <#Job>, wf:Closed .
+<#WontDo> a rdfs:Class ; rdfs:label "Won't do" ; rdfs:subClassOf <#Job>, wf:Closed .
+
+<https://alice.example/profile/card#me> foaf:name "Alice" .
+<https://bob.example/profile/card#me> foaf:name "Bob" .
+<https://carol.example/profile/card#me> foaf:name "Carol" .

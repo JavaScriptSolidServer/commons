@@ -1,0 +1,155 @@
+== design sheet
+OK /home/melvin/ideas/suite/sharing/sharing-pane.js: the design block is current
+
+== sharing.mjs 
+PASS logged in
+PASS a file with no rules of its own says it follows its folder (This file follows the rules of the folder sharing/. It has no rules of its own.)
+PASS the owner is listed as owner (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = Owner: owner: can edit and change who has access)
+PASS nobody else: logged out, the file cannot be read
+PASS no rules file yet on the pod
+PASS it explains that nothing changes before making the copy (Give this file its own rules?Nothing changes in who can see or change it: the rules are copied as they are.A rules file )
+PASS nothing is written before the click
+PASS own rules: saved and said so (shr-status shr-note shr-good :: This file now has its own rules, the same as before. Change them below.)
+PASS own rules: the file on the pod has the owner with control, for this file ([
+  {
+    "@id": "http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl.acl#inherited-1",
+    "@type": [
+      "http://www.w3.org/ns/auth/acl#Authorization"
+    ],
+    "http://www.w3.org/ns/auth)
+PASS own rules: the same people with the same levels (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none ; public http://xmlns.com/foaf/0.1/Agent = none)
+PASS own rules: in effect nothing changed (still private logged out)
+PASS an unsaved change is marked and nothing is written yet
+PASS the summary says it plainly: Everyone can now view (Everyone can now view)
+PASS saved, and the pane shows what the server now has (shr-status shr-note shr-good :: Saved. Below is what the server now has. :: agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; public http://xmlns.com/foaf/0.1/Agent = view ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none)
+PASS the pod file gives everyone Read
+PASS logged out, the file can now be read
+PASS after a reload: own rules, everyone can view, you are owner (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; public http://xmlns.com/foaf/0.1/Agent = view ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none)
+PASS the summary says everyone loses access (Everyone can no longer see or change it (could view))
+PASS taken back: logged out, it cannot be read again
+PASS taken back: the pod file no longer names everyone
+PASS a WebID that is not an address is refused (shr-status shr-note shr-bad shr-note-error :: That is not a web address. A WebID looks like https://alice.example/profile/card#me)
+PASS a WebID that is not https is refused (shr-status shr-note shr-bad shr-note-error :: A WebID must start with https://)
+PASS a good WebID joins the list as new, not saved yet (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; agent https://bob.example/profile/card#me = edit ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none ; public http://xmlns.com/foaf/0.1/Agent = none)
+PASS the summary names the WebID: can now edit (the profile does not load, so no name) (https://bob.example/profile/card#me can now edit)
+PASS saved: Bob is in the pod file with Write, the owner is still there
+PASS removing: the summary says Bob loses access (https://bob.example/profile/card#me can no longer see or change it (could edit))
+PASS removed: Bob is gone from the pod file
+PASS no owner left: refused with a reason, and no save button (These rules would leave nobody as owner: no person could change who has access, and nobody could fix it from here. Make at least one person an owner. Nothing was saved.)
+PASS no owner left: the pod file is unchanged
+PASS going back says what happens and asks first (Go back to inherited rules?This deletes the rules file of this file. It will then follow the rules of the folder sharing/.Nothing changes in who can see or chan)
+PASS back to inherited: the rules file is gone and the pane says it follows the folder (inherited :: shr-status shr-note shr-good :: This file follows the rules of the folder sharing/ again.)
+PASS demoting yourself: warned, and the button says what it does (Yes, remove my own control)
+PASS the first click only asks again; nothing is written (Click again to confirm: I will lose control)
+PASS the second click saves: Bob is owner, you can edit, and the pane says you can no longer see the rules (denied :: shr-status shr-note shr-good :: Saved. Below is what the server now has. You can no longer see the rules.)
+PASS a folder with its own rules says they apply inside too (This folder has its own rules. They also apply to everything inside it that has no rules of its own.)
+PASS folder: you, Alice owners; Bob edit; Carol only the folder itself; anyone logged in view and add (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; agent https://alice.example/profile/card#me = owner ; agent https://bob.example/profile/card#me = edit ; agent https://carol.example/profile/card#me = custom ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = add ; public http://xmlns.com/foaf/0.1/Agent = none)
+PASS folder: the group and the app rule are shown, read-only (alice.examplehttps://alice.example/profile/card#meOnly when using the app at https://notes.exampleCan edit | Members of a groupGroup: https://alice.example/groups/friends#groupCan view)
+PASS folder: Carol's level is described for the folder and for what is inside (As now: this folder: can view · things inside it: no access)
+PASS folder: the summary says the change applies to everything inside (https://bob.example/profile/card#me can now view (could edit), in this folder and everything inside)
+PASS folder: saved, and the group and app rules are kept exactly
+PASS folder: Carol still only for the folder itself after a save
+PASS no sideways scroll at 1300 px
+PASS a file in the folder inherits; Carol, whose rule is for the folder only, is not listed (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = Owner: owner: can edit and change who has access ; agent https://alice.example/profile/card#me = Owner: owner: can edit and change who has access ; agent https://bob.example/profile/card#me = Can view: can view ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = Can view and add: can view and add)
+
+all passed
+
+== sample.mjs 
+PASS 1300 px: names in order, owners first; the test user by the name in their profile (me,alice.example,bob.example,carol.example,Anyone logged in,Everyone)
+PASS 1300 px: the group and app rules are shown in words (alice.examplehttps://alice.example/profile/card#meOnly when using the app at https://notes.exampleCan edit | Members of a groupGroup: https://alice.example/groups/friends#groupCan view)
+PASS 1300 px: the rules file is named (Rules file: http://127.0.0.1:8732/me/public/suite-data/sharing/team/.aclGo back to inherited rules)
+PASS 1300 px: no sideways scroll, and nothing pokes out of the pane (0 element(s) too wide)
+PASS 1300 px: measured, nothing past the right edge (1300 )
+PASS 1300 px: the review fits too
+PASS 1300 px: cancelled, so the pod file is unchanged
+PASS 1300 px: an inherited file fits
+PASS 400 px: names in order, owners first; the test user by the name in their profile (me,alice.example,bob.example,carol.example,Anyone logged in,Everyone)
+PASS 400 px: the group and app rules are shown in words (alice.examplehttps://alice.example/profile/card#meOnly when using the app at https://notes.exampleCan edit | Members of a groupGroup: https://alice.example/groups/friends#groupCan view)
+PASS 400 px: the rules file is named (Rules file: http://127.0.0.1:8732/me/public/suite-data/sharing/team/.aclGo back to inherited rules)
+PASS 400 px: no sideways scroll, and nothing pokes out of the pane (0 element(s) too wide)
+PASS 400 px: measured, nothing past the right edge (400 )
+PASS 400 px: the review fits too
+PASS 400 px: cancelled, so the pod file is unchanged
+PASS 400 px: an inherited file fits
+
+all passed
+
+== narrow.mjs 
+PASS alone (no slot): the pane has its own Sharing heading
+PASS 360 px box, no context.suite: the pane draws the folder's rules
+PASS 360 px box: the pane takes the box's width, nothing pokes out, no sideways scroll (345 px )
+PASS narrow: the permission dropdown sits under the name, the ⋯ button stays on the row (44 px) ({"under":true,"more":true,"inputWide":true,"addBelow":true,"nameWidth":97})
+PASS narrow: "add a person" box takes the full width, level and Add under it ({"under":true,"more":true,"inputWide":true,"addBelow":true,"nameWidth":97})
+PASS narrow: the ⋯ menu opens inside the box with Open profile and Remove access ({"items":["Open profile","Remove access"],"inside":true,"expanded":"true"})
+PASS narrow: Escape closes the menu
+PASS narrow: a click elsewhere closes it too
+PASS slot "details": no heading of its own, no outer padding
+PASS host event: none on cancel
+PASS host event: none when the save fails (412, nothing written)
+PASS the failed save said so with an error toast
+PASS narrow, with context.suite: the review fits the box
+PASS with context.suite: saved, and the host's toast says so (success: Saved. Below is what the server now has.)
+PASS with context.suite: the pod file now gives everyone Read
+PASS host event: one suite-sharing-change after the save, with the folder and its rules file ({"uri":"http://127.0.0.1:8732/me/public/suite-data/sharing/team/","acl":"http://127.0.0.1:8732/me/public/suite-data/sharing/team/.acl"})
+PASS bare context in 360 px: an inherited file, its owner as a chip, the button to give it its own rules; fits ({"state":"inherited","chips":["Owner"],"own":true} )
+PASS host event: "give it its own rules" sends one, with the new rules file ({"uri":"http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl","acl":"http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl.acl"})
+PASS host event: "go back to inherited rules" sends one, with acl null (deleted) ({"uri":"http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl","acl":"http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl.acl"} | {"uri":"http://127.0.0.1:8732/me/public/suite-data/sharing/note.ttl","acl":null})
+
+all passed
+
+== shell.mjs 
+PASS the shell offers Sharing among the other views of a folder
+PASS in the shell: the folder's rules in the content column, content only (no nav column, no (i) button) ({"state":"own","people":4,"nav":true,"info":true,"tokens":"#00679e"})
+PASS in the shell: the shell's tokens apply (#00679e)
+PASS 1300 px in the shell: no sideways scroll
+PASS in the shell: a save shows the shell's toast, and the pod file has it
+PASS a true 400 px in the shell: no sideways scroll (400 )
+PASS 400 px in the shell: the permission dropdown sits under the name
+
+all passed
+
+== two-person.mjs 
+PASS logged in
+PASS bob: logged in as bob (http://127.0.0.1:8732/bob/profile/card.jsonld#me)
+PASS private: bob cannot read the file or the folder (403 403)
+PASS private: bob cannot write the file
+PASS me: the folder has its own rules, me as owner only (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none ; public http://xmlns.com/foaf/0.1/Agent = none)
+PASS me: bob joins the list as new, not saved yet (agent http://127.0.0.1:8732/me/profile/card.jsonld#me = owner ; agent http://127.0.0.1:8732/bob/profile/card.jsonld#me = view ; authenticated http://www.w3.org/ns/auth/acl#AuthenticatedAgent = none ; public http://xmlns.com/foaf/0.1/Agent = none)
+PASS me: bob's row shows his name from his profile
+     summary: Bob Tester can now view, in this folder and everything inside
+PASS me: the summary says bob can now view, in the folder and everything inside (Bob Tester can now view, in this folder and everything inside)
+PASS me: the summary uses bob's name from his profile (Bob Tester can now view, in this folder and everything inside)
+PASS me: saved (shr-status shr-note shr-good :: Saved. Below is what the server now has.)
+PASS pod: the rules file names bob
+PASS can view: bob reads the file and the folder (200 200)
+PASS can view: a write by bob is refused (403)
+PASS can view: the file is unchanged on disk
+     bob sees: denied :: SharingWho can see and change the folder shared/ You cannot see who has access to this. Only someone with control of it can. 
+PASS bob in the pane: it says he cannot see who has access (denied)
+PASS bob in the pane: no controls at all (0)
+PASS bob in the pane: no list of people
+PASS no sideways scroll for bob at 1300 px
+PASS bob, a true 400 px: still no controls, no sideways scroll (400 )
+     summary: Bob Tester can now edit (could view), in this folder and everything inside
+PASS me: the summary says bob can now edit (could view) (Bob Tester can now edit (could view), in this folder and everything inside)
+PASS me: saved as edit
+PASS can edit: bob writes the file (204)
+PASS can edit: bob's write is on disk
+     summary: Bob Tester can no longer see or change it (could edit), in this folder and everything inside
+PASS me: the summary says bob loses access (could edit) (Bob Tester can no longer see or change it (could edit), in this folder and everything inside)
+PASS pod: bob is gone from the rules file, me still owner
+PASS removed: bob is refused again (read file, read folder, write) (403 403 403)
+PASS no sideways scroll for me at 1300 px
+
+all passed
+
+== logged-out.mjs 
+PASS suite-data/sharing/team/: not readable logged out, so there is nothing to show (no menu)
+PASS suite-data/sharing/note.ttl: not readable logged out, so there is nothing to show (no menu)
+PASS suite-data/: says you cannot see who has access, and to log in (You cannot see who has access to this. Log in to see it, if it is yours.)
+PASS suite-data/: nothing to change
+PASS suite-data/: no sideways scroll at 400 px
+
+all passed
+
+EVERY TEST PASSED

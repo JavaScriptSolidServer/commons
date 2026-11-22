@@ -1,0 +1,5 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pim: <http://www.w3.org/ns/pim/space#> .
+
+# A pod where nothing can be read: its storage does not exist, and there are no preferences or type indexes.
+<#me> a foaf:Person ; foaf:name "Dave Example" ; pim:storage <../nothing/> .

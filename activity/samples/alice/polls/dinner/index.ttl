@@ -1,0 +1,9 @@
+@prefix sched: <http://www.w3.org/ns/pim/schedule#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#this> a sched:SchedulableEvent ;
+    cal:summary "Club dinner" ;
+    sched:option <#o1>, <#o2> .
+<#o1> cal:dtstart "2026-12-04T18:00:00Z"^^xsd:dateTime .
+<#o2> cal:dtstart "2026-12-05T18:00:00Z"^^xsd:dateTime .

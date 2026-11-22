@@ -1,0 +1,11 @@
+{
+  "@context": { "pim": "http://www.w3.org/ns/pim/space#", "solid": "http://www.w3.org/ns/solid/terms#", "schema": "http://schema.org/" },
+  "@graph": [
+    { "@id": "", "@type": "pim:ConfigurationFile" },
+    {
+      "@id": "card.jsonld#me",
+      "schema:knowsLanguage": { "@list": [ { "@id": "https://www.w3.org/ns/iana/language-code/en" } ] },
+      "schema:description": { "@type": "schema:Thing", "schema:name": "an inline object {with braces}" }
+    }
+  ]
+}

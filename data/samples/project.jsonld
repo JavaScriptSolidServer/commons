@@ -1,0 +1,9 @@
+{
+  "@context": { "schema": "http://schema.org/", "xsd": "http://www.w3.org/2001/XMLSchema#" },
+  "@graph": [
+    { "@id": "#map", "@type": "schema:CreativeWork", "schema:name": "Trail map", "schema:author": { "@id": "people.ttl#carol" },
+      "schema:dateCreated": { "@value": "2026-10-03", "@type": "xsd:date" }, "schema:keywords": ["hills", "lakes", "maps"] },
+    { "@id": "#guide", "@type": "schema:CreativeWork", "schema:name": "Walk leader guide", "schema:author": { "@id": "people.ttl#alice" },
+      "schema:isPartOf": { "@id": "#map" } }
+  ]
+}

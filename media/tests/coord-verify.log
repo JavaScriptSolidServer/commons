@@ -1,0 +1,160 @@
+OK /home/melvin/ideas/suite/media/media-pane.js: the design block is current
+
+== make-samples.mjs 
+
+== setup.mjs 
+PASS gallery/ is 200 without login
+PASS gallery/alice-lake.png is 200 without login
+PASS private/ is 401 without login
+PASS private/secret-lake.png is 401 without login
+PASS partly/ is 200 without login
+PASS music/live/encore.wav is 200 without login
+PASS partly/open-lake.png is 200 without login
+PASS partly/shut-garden.png is 401 without login
+
+== media.mjs 
+PASS logged in
+PASS 1300 px: a folder of photos opens in the pane, ahead of the folder view
+PASS the five pictures, by name, the text file left out (alice-lake.png,bob-hills.png,carol-sun.svg,city-dusk.png,forest.png)
+PASS it counts the photos and says one item is not shown (5 photos · 1 other item not shown)
+PASS the thumbnails load (PNG and SVG)
+PASS public thumbnails use the file address, not a blob
+PASS the pane labels the folder Photos
+PASS no sideways scroll on the gallery at 1300 px
+PASS clicking a photo opens it large, with its name and place ({"open":true,"name":"bob-hills.png","count":"2 / 5","img":240})
+PASS focus moves into the large view
+PASS no sideways scroll in the large view at 1300 px
+PASS right arrow: the next photo ({"open":true,"name":"carol-sun.svg","count":"3 / 5","img":240})
+PASS the next button (city-dusk.png)
+PASS left arrow back to the first ({"open":true,"name":"alice-lake.png","count":"1 / 5","img":240})
+PASS previous from the first wraps to the last ({"open":true,"name":"forest.png","count":"5 / 5","img":120})
+PASS the Details button shows the photo's name, type, dimensions, size and date beside it (forest.png|Type=PNG image|Dimensions=120 × 180 pixels|Size=1.2 kB|Modified=Nov 22, 2026, 10:35 AM|Folder=gallery|Address=http://127.0.0.1:8732/me/public/suite-data/media/gallery/forest.png)
+PASS no sideways scroll with the details open at 1300 px
+PASS the details follow the photo
+PASS Escape first closes the details, the photo stays ({"open":true,"name":"city-dusk.png","count":"4 / 5","img":240})
+PASS Escape closes it and focus goes back to the photo ({"open":false,"name":"city-dusk.png","count":"4 / 5","img":0})
+PASS a folder of sound and video opens as a playlist
+PASS the tracks in order, with their kind (01-morning.wav|Audio,02-noon.wav|Audio,03-night.wav|Audio,clip.webm|Video)
+PASS the first track is ready, not playing
+PASS no sideways scroll on the playlist at 1300 px
+PASS clicking a track plays it
+PASS the track playing is marked
+PASS when it ends, the next one plays
+PASS a video track plays in a video player (160)
+PASS one picture among documents: offered as Photos, but the folder view stays in front ({"label":"Photos","focus":false,"shown":false})
+PASS a folder of documents only is left alone ({"label":null,"focus":false,"shown":false})
+PASS one picture: shown, with its name and size
+PASS no sideways scroll on one picture at 1300 px
+PASS an SVG picture is shown
+PASS one sound file: an audio player that knows its length
+PASS one video file: a video player
+PASS no sideways scroll on a video at 1300 px
+PASS a private folder opens with its photos and track
+PASS private thumbnails load through the logged-in fetch, as blob: URLs
+PASS the private track is not downloaded until asked for: a Play button, no player yet
+PASS Play: the private track loads the same way, as a blob: URL
+PASS a private photo opens large from the same blob
+PASS leaving the folder revokes its blob: URLs (3 made, 3 revoked)
+PASS one private picture is shown through the logged-in fetch
+PASS a picture that cannot be decoded: "Could not show this file."; the good one shows
+PASS a folder with no media gets an empty state (icon, title, sentence) (No photos or sound here|true)
+PASS after a reload it shows the same
+PASS nothing on the pod changed (read-only)
+
+all passed
+
+== media.mjs 400
+PASS 400 px: a folder of photos opens in the pane, ahead of the folder view
+PASS the five pictures, by name, the text file left out (alice-lake.png,bob-hills.png,carol-sun.svg,city-dusk.png,forest.png)
+PASS it counts the photos and says one item is not shown (5 photos · 1 other item not shown)
+PASS the thumbnails load (PNG and SVG)
+PASS public thumbnails use the file address, not a blob
+PASS the pane labels the folder Photos
+PASS no sideways scroll on the gallery at 400 px
+PASS clicking a photo opens it large, with its name and place ({"open":true,"name":"bob-hills.png","count":"2 / 5","img":240})
+PASS focus moves into the large view
+PASS no sideways scroll in the large view at 400 px
+PASS right arrow: the next photo ({"open":true,"name":"carol-sun.svg","count":"3 / 5","img":240})
+PASS the next button (city-dusk.png)
+PASS left arrow back to the first ({"open":true,"name":"alice-lake.png","count":"1 / 5","img":240})
+PASS previous from the first wraps to the last ({"open":true,"name":"forest.png","count":"5 / 5","img":120})
+PASS the Details button shows the photo's name, type, dimensions, size and date beside it (forest.png|Type=PNG image|Dimensions=120 × 180 pixels|Size=1.2 kB|Modified=Nov 22, 2026, 10:35 AM|Folder=gallery|Address=http://127.0.0.1:8732/me/public/suite-data/media/gallery/forest.png)
+PASS no sideways scroll with the details open at 400 px
+PASS the details follow the photo
+PASS Escape first closes the details, the photo stays ({"open":true,"name":"city-dusk.png","count":"4 / 5","img":240})
+PASS Escape closes it and focus goes back to the photo ({"open":false,"name":"city-dusk.png","count":"4 / 5","img":0})
+PASS a folder of sound and video opens as a playlist
+PASS the tracks in order, with their kind (01-morning.wav|Audio,02-noon.wav|Audio,03-night.wav|Audio,clip.webm|Video)
+PASS the first track is ready, not playing
+PASS no sideways scroll on the playlist at 400 px
+PASS one picture among documents: offered as Photos, but the folder view stays in front ({"label":"Photos","focus":false,"shown":false})
+PASS a folder of documents only is left alone ({"label":null,"focus":false,"shown":false})
+PASS one picture: shown, with its name and size
+PASS no sideways scroll on one picture at 400 px
+PASS an SVG picture is shown
+PASS one sound file: an audio player that knows its length
+PASS one video file: a video player
+PASS no sideways scroll on a video at 400 px
+PASS nothing on the pod changed (read-only)
+
+all passed
+
+== shell.mjs 
+PASS in the shell: the photo grid in the content, the filters in the shell's left column
+PASS the shell shows it as the Photos app
+PASS navigation: All media (current) and Photos, with counts (All media 5*,Photos 5)
+PASS no column of its own inside the content
+PASS the viewer's Details button opens the photo in the shell's details column (bob-hills.png|Type=PNG image|Dimensions=240 × 160 pixels|Size=7.0 kB|Modified=Nov 22, 2026, 10:35 AM|Folder=gallery|Address=http://127.0.0.1:8732/me/public/suite-data/media/gallery/bob-hills.png)
+PASS the viewer steps aside: the details column is beside it, not under it ({"box":905,"col":905,"pressed":"true"})
+PASS the next photo: its details follow (carol-sun.svg|Type=SVG image|Dimensions=240 × 160 pixels|Size=418 bytes|Modified=Nov 22, 2026, 10:35 AM|Folder=gallery|Address=http://127.0.0.1:8732/me/public/suite-data/media/gallery/carol-sun.svg)
+PASS Tab reaches the details column's close button and links, and stays within viewer + column (viewer:Previous photo viewer:Next photo col:Close details col:gallery col:http://127.0 viewer:Details viewer:Close viewer:Previous photo viewer:Next photo col:Close details)
+PASS Escape closes the details first; the photo stays ({"details":false,"viewer":true,"pressed":"false"})
+PASS closing the viewer closes its details too ({"details":false,"viewer":false})
+PASS the shell's (i) button shows the folder: counts and who can see it (gallery|Photos=5|Sound and video=0|Other items=1|Who can see it=Anyone with the address|Address=http://127.0.0.1:8732/me/public/suite-data/media/gallery/)
+PASS 1300 px in the shell: no sideways scroll
+PASS a folder with photos and sound opens in the shell
+PASS navigation: All media, Photos, Sound and video (All media 3*,Photos 2,Sound and video 1)
+PASS Photos: only the photos ({"photos":true,"tracks":false,"current":"photos"})
+PASS Sound and video: only the playlist ({"photos":false,"tracks":true,"current":"tracks"})
+PASS All media: both again ({"photos":true,"tracks":true,"current":"all"})
+PASS a playlist folder in the shell, its sub-folders under Folders (All media 4*,Sound and video 4,live,notes)
+PASS a sub-folder without media opens in another app (not "Photos has nothing to show") (files)
+PASS a sub-folder opens in Photos, in the shell
+PASS true 400 px in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px: the details column lies over the viewer, where it can be read
+PASS true 400 px, viewer and details open in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS two Escapes close the details, then the viewer
+PASS nothing on the pod changed (read-only)
+
+all passed
+
+== logged-out.mjs 
+PASS 1300 px, logged out: the sample gallery opens
+PASS its thumbnails load
+PASS the large view works logged out (forest.png)
+PASS and wraps from the last to the first
+PASS no sideways scroll, large view, 1300 px
+PASS the sample playlist opens
+PASS no sideways scroll, playlist, 1300 px
+PASS a private folder logged out: the pane does not claim it
+PASS a private picture logged out: the browser says access denied, the pane stays out
+PASS one private picture in a public folder says to log in; the public one shows (open-lake.png|shown,shut-garden.png|Log in to see this file.)
+PASS its own access rule file is not counted
+PASS no sideways scroll, partly private folder, 1300 px
+PASS 400 px, logged out: the sample gallery opens
+PASS its thumbnails load
+PASS the large view works logged out (forest.png)
+PASS and wraps from the last to the first
+PASS no sideways scroll, large view, 400 px
+PASS the sample playlist opens
+PASS no sideways scroll, playlist, 400 px
+PASS a private folder logged out: the pane does not claim it
+PASS a private picture logged out: the browser says access denied, the pane stays out
+PASS one private picture in a public folder says to log in; the public one shows (open-lake.png|shown,shut-garden.png|Log in to see this file.)
+PASS its own access rule file is not counted
+PASS no sideways scroll, partly private folder, 400 px
+PASS nothing on the pod changed
+
+all passed
+
+EVERY TEST PASSED

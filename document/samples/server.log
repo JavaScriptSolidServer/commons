@@ -1,0 +1,6 @@
+2026-11-20T08:00:01Z INFO  started on port 8080 (alice.example.org)
+2026-11-20T08:00:02Z INFO  loaded 3 users: alice, bob, carol
+2026-11-20T08:14:37Z WARN  slow request GET /bob/photos/ 2412 ms
+2026-11-20T09:02:11Z ERROR could not write /carol/drafts/plan.txt: disk quota exceeded
+2026-11-20T09:02:12Z INFO  quota raised for carol to 2 GB
+2026-11-20T09:05:40Z INFO  PUT /carol/drafts/plan.txt 201

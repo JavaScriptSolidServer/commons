@@ -1,0 +1,12 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix solid: <http://www.w3.org/ns/solid/terms#>.
+@prefix pim: <http://www.w3.org/ns/pim/space#>.
+@prefix acl: <http://www.w3.org/ns/auth/acl#>.
+
+# Bob's profile stands for "someone else": the test pod's user may read it but not change it
+# (see card.ttl.acl), so the settings pane must not be offered on it.
+<#me> a foaf:Person ;
+    foaf:name "Bob Example" ;
+    solid:oidcIssuer <https://idp.example/> ;
+    pim:preferencesFile <prefs.ttl> ;
+    acl:trustedApp [ acl:origin <https://chat.example> ; acl:mode acl:Read, acl:Append ] .

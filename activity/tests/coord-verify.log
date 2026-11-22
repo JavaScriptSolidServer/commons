@@ -1,0 +1,88 @@
+
+== static.mjs 
+PASS no import or require
+PASS no innerHTML, outerHTML, insertAdjacentHTML, document.write, eval, new Function
+PASS read-only: no PUT, POST, PATCH or DELETE, no updater
+PASS one CSS string, a two-class root rule, every class act-
+PASS links: http(s) only, rel=noopener
+PASS no dark theme
+PASS the limits are stated where the README says
+PASS the suite design block is current (design/embed.mjs --check)
+PASS default export: name suite-activity, icon (data: URI), label, render, renderNavigation, renderDetails
+PASS label: folders only
+PASS shouldGetFocus outside a page says no, without throwing
+
+all passed
+
+== setup.mjs 
+PASS alice/ is 200 without login
+PASS alice/notes/shopping.md is 200 without login
+PASS alice/private/ is 401 without login
+PASS alice/private/diary.md is 401 without login
+PASS big/f00/ is 200 without login
+
+== activity.mjs 
+PASS logged in
+PASS a folder opened by the pane's own link opens on Activity
+PASS the stream: every dated file, newest first (the private one too, logged in) (notes/shopping.md polls/dinner/index.ttl photos/lake.svg contacts/Person/carol/index.ttl photos/bed.png boards/garden.ttl pads/minutes.ttl documents/budget.csv meetings/planning/index.ttl private/diary.md archive/2025/old/deep/kept.md contacts/people.ttl contacts/groups.ttl contacts/index.ttl data/plants.ttl notes/ideas.md documents/report.pdf)
+PASS times are in order
+PASS grouped: Today, Yesterday, This week, Last 30 days, then by month (Today|Yesterday|This week|Last 30 days|September 2026|August 2026|October 2025)
+PASS each group has one heading (Today|Yesterday|This week|Last 30 days|September 2026|August 2026|October 2025)
+PASS relative times (10 min ago, yesterday, 3 days ago)
+PASS each row names its folder
+PASS kinds: from the type inside the file, or the file name (notes/shopping.md=notes polls/dinner/index.ttl=polls photos/lake.svg=photos contacts/Person/carol/index.ttl=contacts photos/bed.png=photos boards/garden.ttl=boards pads/minutes.ttl=pads documents/budget.csv=files meetings/planning/index.ttl=meetings private/diary.md=notes archive/2025/old/deep/kept.md=notes contacts/people.ttl=contacts contacts/groups.ttl=contacts contacts/index.ttl=contacts data/plants.ttl=files notes/ideas.md=notes documents/report.pdf=files)
+PASS a data file shows its own title
+PASS a file that only mentions a typed thing from another file keeps its own name and opens itself ({"uri":"http://127.0.0.1:8732/me/public/suite-data/activity/alice/contacts/groups.ttl","kind":"contacts","name":"groups.ttl","where":"contacts","when":"Oct 27","group":"Last 30 days","iso":"2026-10-26T23:00:00.000Z","href":"http://127.0.0.1:8732/me/public/solidos/index.html?pane=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite%2Factivity%2Factivity-pane.js&uri=http%3A%2F%2F127.0.0.1%3A8732%2Fme%2Fpublic%2Fsuite-data%2Factivity%2Falice%2Fcontacts%2Fgroups.ttl"})
+PASS a row links to its thing in the data browser (the main subject of a data file)
+PASS depth: four levels down is read, the fifth is not (19 1 0 0)
+PASS the footnote says how far it read and what it left out (Read 19 folders (at most 60), up to 4 levels below this one. Activity only reads; it never changes anything.1 folder is more than 4 levels down and was not read.)
+PASS filters: All and Files, then only the apps that have something, with counts (all=17* files=3 photos=2 notes=4 contacts=4 boards=1 pads=1 polls=1 meetings=1)
+PASS Contacts: the four address-book files, newest first (contacts/Person/carol/index.ttl contacts/people.ttl contacts/groups.ttl contacts/index.ttl)
+PASS the chosen filter is marked and named in the heading (Contacts contacts page)
+PASS Files: what no app claims (documents/budget.csv data/plants.ttl documents/report.pdf)
+PASS Photos (photos/lake.svg photos/bed.png)
+PASS Notes: Markdown files, the private diary among them (notes/shopping.md private/diary.md archive/2025/old/deep/kept.md notes/ideas.md)
+PASS All again: the whole stream
+PASS clicking a row opens the thing in the data browser (http://127.0.0.1:8732/me/public/suite-data/activity/alice/notes/shopping.md false)
+PASS a file touched during the test is first after a reload, today, just now (notes/ideas.md Today just now 17 notes/ideas.md notes/shopping.md polls/dinner/index.ttl photos/lake.svg contacts/Person/carol/index.ttl photos/bed.png boards/garden.ttl pads/minutes.ttl documents/budget.csv meetings/planning/index.ttl private/diary.md archive/2025/old/deep/kept.md contacts/people.ttl contacts/groups.ttl contacts/index.ttl data/plants.ttl documents/report.pdf)
+PASS folder limit: 60 listings read, the 11 oldest folders left out, and it says so (60 11 | Read 60 folders (at most 60), up to 4 levels below this one. Activity only reads; it never changes anything.11 more folders were not read: the limit of 60 was reached.)
+PASS folder limit: the newest 59 notes are listed, newest folder first (50 f00 f49)
+PASS "Show more" shows the rest, and none past the limit (59 f58)
+PASS in the shell: the filters go to the left column, not the content ({"navInContent":false,"navNow":9,"shown":2,"refreshed":0,"went":"http://127.0.0.1:8732/me/public/suite-data/activity/alice/photos/lake.svg","details":"What was readActivity never writes to the pod.Starting athttp://127.0.0.1:8732/me/public/suite-data/activity/alice/Folders read19 of at most 60How deep4 levels below the startFiles found17Read for their kindthe newest 9 data files (at most 40)1 folder is more than 4 levels down and was not read."})
+PASS in the shell: a filter in the left column narrows the content
+PASS in the shell: a row opens through suite.go (http://127.0.0.1:8732/me/public/suite-data/activity/alice/photos/lake.svg)
+PASS in the shell: the details column says what was read (What was readActivity never writes to the pod.Starting athttp://127.0.0.1:8732/me/public/suite-data/activity/alice/Folders read19 of at most 60How deep4 levels below the startFiles found17Read for their kindthe newest 9 data files (at most 40)1 folder is more than 4 levels down and was not read.)
+PASS no sideways scroll at 1300 px ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS no sideways scroll at a true 400 px ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS at 400 px the time moves into the subline (the meta column is dropped under 520 px)
+PASS the pane wrote nothing: every file under the test folder is unchanged
+
+all passed
+
+== shell.mjs 
+PASS logged in
+PASS the shell lists Activity among its apps, and as a view of the folder
+PASS the folder shows as Activity inside the shell
+PASS the shell marks Activity as the current app (activity)
+PASS the filters are in the shell's left column, not in the content ({"inShell":true,"chipsInContent":false,"navFilters":"all=17 files=3 photos=2 notes=4 contacts=4 boards=1 pads=1 polls=1 meetings=1","navOpen":true,"app":"activity","rows":17})
+PASS the stream is all there (17)
+PASS a filter in the left column narrows the stream and is marked (2 Photos page)
+PASS the (i) button opens "What was read" in the details column (What was readActivity never writes to the pod.Starting athttp://127.0.0.1:8732/me/public/suite-data/activity/alice/Folders read19 of at most 60How deep4 levels )
+PASS no sideways scroll at 1300 px ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS no sideways scroll at a true 400 px ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS a row opens its thing, still inside the shell (http://127.0.0.1:8732/me/public/suite-data/activity/alice/notes/shopping.md true)
+
+all passed
+
+== loggedout.mjs 
+PASS logged out, the folder still opens on Activity
+PASS the 16 public files are listed, newest first (16 http://127.0.0.1:8732/me/public/suite-data/activity/alice/notes/ideas.md)
+PASS the owner-only folder is left out
+PASS it says one folder could not be read, and to log in, above the stream and in the footnote (Some folders could not be read without logging in. Log in to see everything you have access to. | Read 19 folders (at most 60), up to 4 levels below this one. Activity only reads; it never changes anything.1 folder is more than 4 levels down and was not read.1 folder could not be read. Log in to see what you have access to.)
+PASS no sideways scroll at 1300 px ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS no sideways scroll at a true 400 px ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS an unreadable folder: left to the data browser, which says 'Access denied' itself (see the shot)
+
+all passed
+
+EVERY TEST PASSED

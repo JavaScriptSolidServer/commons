@@ -1,0 +1,9 @@
+{
+  "owner": "Alice Example",
+  "theme": "light",
+  "shortcuts": ["Ctrl+S", "Tab"],
+  "friends": [
+    { "name": "Bob", "site": "https://bob.example.org/" },
+    { "name": "Carol", "site": "https://carol.example.com/" }
+  ]
+}

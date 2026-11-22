@@ -1,0 +1,25 @@
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# A sample task list with made-up people. Read-only here.
+<#this> a wf:Tracker ;
+    dc:title "Trip to Lisbon" ;
+    dc:author <https://carol.example/profile/card#me> ;
+    dc:created "2026-09-15T20:00:00Z"^^xsd:dateTime ;
+    wf:issueClass <#Task> ;
+    wf:initialState <#ToDo> ;
+    wf:stateStore <state.ttl> .
+
+<#Task> a rdfs:Class ; rdfs:label "Task" ; rdfs:subClassOf wf:Task, cal:Vtodo ;
+    owl:disjointUnionOf ( <#ToDo> <#Done> ) .
+<#ToDo> a rdfs:Class ; rdfs:label "To do" ; rdfs:subClassOf <#Task>, wf:Open .
+<#Done> a rdfs:Class ; rdfs:label "Done" ; rdfs:subClassOf <#Task>, wf:Closed .
+
+<https://alice.example/profile/card#me> foaf:name "Alice" .
+<https://bob.example/profile/card#me> foaf:name "Bob" .
+<https://carol.example/profile/card#me> foaf:name "Carol" .

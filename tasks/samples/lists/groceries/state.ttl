@@ -1,0 +1,13 @@
+@prefix wf: <http://www.w3.org/2005/01/wf/flow#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix t: <index.ttl#> .
+
+<#Iss1> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Oat milk" ;
+    dc:created "2026-11-20T08:00:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> .
+<#Iss2> a t:ToDo, cal:Vtodo ; wf:tracker t:this ; dc:title "Coffee beans" ; cal:priority 1 ;
+    dc:created "2026-11-20T08:01:00Z"^^xsd:dateTime ; dc:author <https://bob.example/profile/card#me> .
+<#Iss3> a t:Done, cal:Vtodo ; wf:tracker t:this ; dc:title "Bread" ;
+    cal:completed "2026-11-21T09:00:00Z"^^xsd:dateTime ;
+    dc:created "2026-11-19T08:00:00Z"^^xsd:dateTime ; dc:author <https://alice.example/profile/card#me> .

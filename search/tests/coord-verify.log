@@ -1,0 +1,173 @@
+
+== static.mjs 
+PASS parses
+PASS no static imports
+PASS never uses innerHTML
+PASS never uses outerHTML
+PASS never uses insertAdjacentHTML
+PASS never uses document.write
+PASS never uses eval(
+PASS never uses new Function
+PASS never writes: no PUT, POST, PATCH, DELETE or updater
+PASS default export with the pane contract
+PASS the design sheet block is current (design/embed.mjs --check) (OK /home/melvin/ideas/suite/search/search-pane.js: the design block is current)
+PASS the README states the limits the code uses (300, 8)
+
+all passed
+
+== units.mjs 
+PASS #2 a WebID at the host root, no pim:storage: the host root, not a hang (https://alice.example/)
+PASS #2 a profile one folder down (/profile/card): the host root
+PASS #2 a pod in a path (/me/profile/card.jsonld): /me/
+PASS #2 pim:storage wins when given
+PASS #2 a non-http pim:storage is ignored
+PASS #2 the profile cannot be loaded: still an answer
+PASS #2 nonsense in, empty answer out (never throws)
+PASS #2 an empty root shows a message, not "Searching…" forever
+PASS #3 result links carry rel="noopener" and an http(s)-only href
+PASS #4 the resize listener is removed with the others
+PASS #5 the visible status line is not a live region; one separate live region
+
+all passed
+
+== setup.mjs 
+PASS (folder) is 200 without login
+PASS Quince%20photos/ is 200 without login
+PASS caf%C3%A9-quince.md is 200 without login
+PASS deep/level-1/ is 200 without login
+PASS many/ is 200 without login
+PASS the listing names "Quince photos" as Quince%20photos (REPORT 3: fixed in 0.0.231)
+
+== search.mjs 
+PASS logged in
+PASS the shell opens on the sample folder
+PASS typing opens the dropdown under the box, and the walk finishes (608 ms)
+  walk: 300 folders, capped yes, 609 ms; status "Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.Search again"
+PASS the walk starts at the pod root (http://127.0.0.1:8732/me/)
+PASS the box is a combobox and says it is expanded
+PASS groups in order: Folders first, then by app type (folders,photos,notes,tables)
+PASS a folder by name, its name decoded (a space)
+PASS each row: icon, name with the match marked, folder path ({"title":"Quince photos","sub":"in /public/suite-data/search","icon":true,"hit":"Quince","uri":"http://127.0.0.1:8732/me/public/suite-data/search/Quince%20photos/"})
+PASS Photos: quince-tree.svg
+PASS Tables: quince-yield.csv
+PASS Notes: eight matches, five shown, and "Show more" (9 / 5)
+PASS names that start with the words come first (quince-blossom.md, quince-diary.md, quince-harvest-2025.md, quince-jam.md, quince-pests.md)
+PASS apple-pie.md and orchard.ttl are not found (no match)
+PASS the folder limit is kept: at most 300 listings fetched (300)
+PASS the status says the limit was reached (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.Search again)
+PASS no sideways scroll at 1300 px: dropdown open (scrollWidth 1285)
+PASS wide: the dropdown sits under the box, right-aligned with it
+PASS #3 every result link has rel="noopener" and an http(s) address (9)
+PASS #5 the visible status is not live; the live region says only the final line (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.)
+PASS #6 the status says when it searched, with "Search again" (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.)
+PASS "Show more" shows the rest of the group (9)
+PASS the focus stays in the box
+PASS upper case finds a decoded name (café-quince.md, %C3%A9 on the pod)
+PASS the match is café-quince.md, in Notes (["café-quince.md"])
+PASS the walk is cached: no new listings for a second search (300 vs 300)
+PASS no match says so (Nothing is named like “zzqx-nothing” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 "nothing found" says the answer is from the earlier walk (Nothing is named like “zzqx-nothing” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 a file made after the walk is not in the kept walk (Nothing is named like “quince-new-after” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 "Search again" walks again and finds it
+PASS #6 …and the new walk keeps the limit (300)
+PASS Down highlights the first result (Quince photosin /public/suite-data/search)
+PASS Down again moves on (2)
+PASS Up moves back (1)
+PASS #1 a row added above keeps the highlight on the same result (by address, not place) ({"uri":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg","index":1,"after":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg","afterIndex":2,"back":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg"})
+PASS Escape closes the dropdown, keeps the text and the focus
+PASS Escape closed only the dropdown: still on the same folder
+PASS Down opens it again
+PASS …and highlights the first result
+PASS Enter opens the result inside the shell
+PASS …in the frame, with no dropdown left open and no toast ({"url":"http://127.0.0.1:8732/me/public/suite-data/search/Quince%20photos/","shell":true,"drop":0,"toast":""})
+PASS a later search on the new page answers from the cache
+PASS …with the same walk (no new listings) (300 vs 300)
+PASS #2 with no pod root the dropdown ends with a message ({"text":"Your pod's top folder could not be found (no storage in your profile), so there is nothing to search.","done":"yes"})
+PASS read-only: nothing in the sample tree changed
+
+all passed
+
+== search.mjs 400
+PASS the shell opens on the sample folder
+PASS typing opens the dropdown under the box, and the walk finishes (606 ms)
+  walk: 300 folders, capped yes, 607 ms; status "Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.Search again"
+PASS the walk starts at the pod root (http://127.0.0.1:8732/me/)
+PASS the box is a combobox and says it is expanded
+PASS groups in order: Folders first, then by app type (folders,photos,notes,tables)
+PASS a folder by name, its name decoded (a space)
+PASS each row: icon, name with the match marked, folder path ({"title":"Quince photos","sub":"in /public/suite-data/search","icon":true,"hit":"Quince","uri":"http://127.0.0.1:8732/me/public/suite-data/search/Quince%20photos/"})
+PASS Photos: quince-tree.svg
+PASS Tables: quince-yield.csv
+PASS Notes: eight matches, five shown, and "Show more" (9 / 5)
+PASS names that start with the words come first (quince-blossom.md, quince-diary.md, quince-harvest-2025.md, quince-jam.md, quince-pests.md)
+PASS apple-pie.md and orchard.ttl are not found (no match)
+PASS the folder limit is kept: at most 300 listings fetched (300)
+PASS the status says the limit was reached (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.Search again)
+PASS no sideways scroll at 400 px: dropdown open (scrollWidth 400)
+PASS narrow: the dropdown spans the page, 8 px from each side (8,392,152)
+PASS #3 every result link has rel="noopener" and an http(s) address (9)
+PASS #5 the visible status is not live; the live region says only the final line (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.)
+PASS #6 the status says when it searched, with "Search again" (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 5 could not be read.)
+PASS "Show more" shows the rest of the group (9)
+PASS the focus stays in the box
+PASS upper case finds a decoded name (café-quince.md, %C3%A9 on the pod)
+PASS the match is café-quince.md, in Notes (["café-quince.md"])
+PASS the walk is cached: no new listings for a second search (300 vs 300)
+PASS no match says so (Nothing is named like “zzqx-nothing” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 "nothing found" says the answer is from the earlier walk (Nothing is named like “zzqx-nothing” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 a file made after the walk is not in the kept walk (Nothing is named like “quince-new-after” in the folders searched at 11:56. Files added since then need “Search again”.)
+PASS #6 "Search again" walks again and finds it
+PASS #6 …and the new walk keeps the limit (300)
+PASS Down highlights the first result (Quince photosin /public/suite-data/search)
+PASS Down again moves on (2)
+PASS Up moves back (1)
+PASS #1 a row added above keeps the highlight on the same result (by address, not place) ({"uri":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg","index":1,"after":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg","afterIndex":2,"back":"http://127.0.0.1:8732/me/public/suite-data/search/quince-tree.svg"})
+PASS Escape closes the dropdown, keeps the text and the focus
+PASS Escape closed only the dropdown: still on the same folder
+PASS Down opens it again
+PASS …and highlights the first result
+PASS Enter opens the result inside the shell
+PASS …in the frame, with no dropdown left open and no toast ({"url":"http://127.0.0.1:8732/me/public/suite-data/search/Quince%20photos/","shell":true,"drop":0,"toast":""})
+PASS a later search on the new page answers from the cache
+PASS …with the same walk (no new listings) (300 vs 300)
+PASS #2 with no pod root the dropdown ends with a message ({"text":"Your pod's top folder could not be found (no storage in your profile), so there is nothing to search.","done":"yes"})
+PASS read-only: nothing in the sample tree changed
+
+all passed
+
+== alone.mjs 
+PASS alone, the pane opens first on a folder and draws a search page
+PASS an empty box shows the empty state
+PASS typing searches inside this folder
+  many/: 300 folders; "Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched.Search again"
+PASS exactly 300 listings were fetched (the limit), and it says so (300: Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched.Search again)
+PASS a file inside the limit is found (box-005) (quince-in-box-005.txt)
+PASS a file past the limit is not (box-320, the 321st folder)
+PASS folders past the limit are still found by their own name (from their parent's listing) (1 rows)
+PASS the search page for deep/
+PASS search for quince-at
+PASS files in folders 1 to 8 levels down are found, 9 and 10 are not (1,2,3,4,5,6,7,8)
+PASS the status says deeper folders were not searched (Searched 9 folders at 11:56. Folders more than 8 levels down were not searched.Search again)
+PASS nothing was fetched past the depth limit (deep/ + 8 levels = 9 listings) (9)
+PASS Down highlights the first result (http://127.0.0.1:8732/me/public/suite-data/search/deep/level-1/quince-at-level-1.txt)
+PASS Down, Up: back on the first (http://127.0.0.1:8732/me/public/suite-data/search/deep/level-1/quince-at-level-1.txt)
+PASS no sideways scroll at 1300 px: results (scrollWidth 1285)
+PASS Enter opens the result in the data browser
+PASS no sideways scroll at 400 px: the search page with results (scrollWidth 400)
+
+all passed
+
+== loggedout.mjs 
+PASS the shell opens, logged out
+PASS the dropdown asks to log in, and walks nothing (Log in to search the files and folders on your pod.)
+PASS no sideways scroll at 400 px, logged out (400)
+PASS Enter (nothing highlighted) opens the search page in the shell with the words kept; logged out it searches public folders
+PASS alone, logged out: the search page on the pod root
+  Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 41 could not be read.Search again
+PASS public files are found (Quince photos, quince-tree.svg, quince-in-bloom.png, quince-blossom.md, quince-diary.md, quince-harvest-2025.md)
+PASS folders it may not read are counted, not shown as errors (Searched 300 folders at 11:56. That is the limit (300), so some folders were not searched. 41 could not be read.Search again)
+PASS no sideways scroll at 400 px, the page logged out (400)
+
+all passed
+
+EVERY TEST PASSED

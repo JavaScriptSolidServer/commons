@@ -1,0 +1,135 @@
+
+== the design block is current
+OK /home/melvin/ideas/suite/poll/poll-pane.js: the design block is current
+
+== poll.mjs
+PASS logged in
+PASS the pane is registered
+PASS it is among the panes a folder can make new things with
+PASS a new poll is created ({"ok":"http://127.0.0.1:8732/me/public/suite-data/poll/poll-test-mwrovyw3/index.ttl#this"})
+PASS both files and both access rules are on the pod (index.ttl index.ttl.acl results.ttl results.ttl.acl)
+PASS without login: the poll can be read (200)
+PASS without login: the answers cannot (401)
+PASS the poll opens in the pane
+PASS it shows its title
+PASS its maker gets the tools to edit it
+PASS alone: no suite columns, the sheet's look (root recipe, one primary button)
+PASS an empty poll says so
+PASS add a choice that is not a time: saved (pol-status pol-good pol-status-success :: Choice added.)
+PASS offer two hours on a day: saved (pol-status pol-good pol-status-success :: 2 times added.)
+PASS offering an hour twice adds only the new one (pol-status pol-good pol-status-success :: 1 time added.)
+PASS a range that ends before it starts is refused (pol-status pol-bad pol-status-error :: "To" must be later than "From".)
+PASS the pod file has the hours as exact moments with an end, and the choice
+     02:00 PM to 03:00 PM|0 yes|| ; 03:00 PM to 04:00 PM|0 yes|| ; 04:00 PM to 05:00 PM|0 yes|| ; The Thai place|0 yes||
+PASS three hours under their day, then the other choice (Friday, December 4, 2026 / Also to decide :: 02:00 PM to 03:00 PM ; 03:00 PM to 04:00 PM ; 04:00 PM to 05:00 PM ; The Thai place)
+PASS it says which time zone the times are in
+PASS answer yes: saved (pol-status pol-good pol-status-success :: Saved: Yes for The Thai place.)
+PASS answer yes: in the answers file
+PASS answer yes: counted and best so far (The Thai place|1 yes|lead|Yes)
+PASS answer yes: the pressed answer and the best-so-far mark use the sheet's success colours
+PASS change to if need be (The Thai place|0 yes · 1 if need be|lead|Maybe)
+PASS a yes on an hour makes it the best so far (02:00 PM to 03:00 PM|1 yes|lead|Yes ; 03:00 PM to 04:00 PM|0 yes|| ; 04:00 PM to 05:00 PM|0 yes|| ; The Thai place|0 yes · 1 if need be||Maybe)
+PASS pressing the same answer again clears it (The Thai place|0 yes||)
+PASS remove asks again before it removes
+PASS remove, pressed twice: the hour is gone from the poll and the pod (02:00 PM to 03:00 PM|1 yes|lead|Yes ; 04:00 PM to 05:00 PM|0 yes|| ; The Thai place|0 yes||)
+PASS edit where and notes: saved and shown
+PASS after a reload it reads back the same (02:00 PM to 03:00 PM|1 yes|lead|Yes ; 04:00 PM to 05:00 PM|0 yes|| ; The Thai place|0 yes||)
+PASS the maker is shown by name
+     By me · 1 person has answered
+PASS #1 notes with braces: said saved, on the pod (pol-status pol-good pol-status-success :: Saved.)
+PASS #1 a choice with braces: on the pod and shown (pol-status pol-good pol-status-success :: Choice added.)
+PASS #1 after a reload the braces are still there
+PASS #2 Enter in "a choice that is not a time" adds that choice only (pol-status pol-good pol-status-success :: Choice added.)
+PASS #3 an answer pressed does not wipe unsaved typing or close "something else"
+PASS #6 focus stays on the pressed answer after the redraw
+PASS #8 who-chips wrap and carry their full text as a title
+PASS #9 "Press again to remove" goes back to "Remove" after a few seconds
+PASS 1300 px: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS true 400 px: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px: the answer buttons sit under the choice, 44 px tall
+PASS #11 no answers file: no answer buttons, but the maker still has Remove (pol-status pol-bad pol-status-error :: This poll has no answers file yet.)
+PASS #12 a poll that fails half way is removed again, and says so ({"error":"results.ttl was not created (412); nothing was left behind"})
+
+all passed
+
+== shell.mjs
+PASS in the shell: Polls is the app, the poll in the content, its column on the left
+PASS left column: "Add poll", then the poll under "My polls", current, with the number who answered ({"caption":"My polls","item":"Garden committee","current":"page","count":"1","add":true,"nested":0})
+PASS in the shell the edit form is not in the content (it is in the details); offering times is
+PASS answer in the shell: a toast says it was saved
+PASS answer in the shell: in the answers file, and the left column counts 2 people
+PASS the (i) button opens the details: title, by-line, three tabs, About first
+PASS About: the place, and the maker's edit form
+PASS edit notes in the details: a toast says saved
+PASS edit notes in the details: on the pod, and in the content
+PASS #13 tabs: ArrowRight moves to Configuration and focuses it; tabs control the panel
+PASS #3 in the shell: an answer pressed does not wipe typing in the About form
+PASS #7 in the shell: one primary button on screen ("Add poll")
+PASS Configuration: who made it, when, the choices, the time zone, and the honest note on who can answer
+PASS Participants: Alice and me (marked "you"), with what each answered (Alice|1 yes · 0 if need be · 0 no ; me (you)|1 yes · 0 if need be · 0 no)
+PASS 1300 px in the shell, details open: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS 1300 px in the shell: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS true 400 px in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px, details open in the shell: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS "Add poll": a new poll beside it, both files and their access rules, and it opens in the app (poll-mwrowlpw)
+PASS the new poll has its own empty state and its column follows
+
+all passed
+
+== sample.mjs
+PASS 1300 px: title and people (By Alice · 3 people have answered)
+PASS 1300 px: two days of hours, then the other choice (Thursday, December 3, 2026 / Friday, December 4, 2026 / Also to decide)
+PASS 1300 px: it names the time zone (Times are shown in your time zone: Europe/Prague.)
+PASS 1300 px: the hour everyone can make is the best so far (04:00 PM to 05:00 PM|3 yes|lead|Alice, Bob, Carol)
+PASS 1300 px: if need be is counted apart (03:00 PM to 04:00 PM|1 yes · 1 if need be||Carol, Alice (if need be))
+PASS 1300 px: logged out, nothing to press, and it says so (0 Log in to say when you can make it.)
+PASS 1300 px: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":[]})
+PASS 400 px: title and people (By Alice · 3 people have answered)
+PASS 400 px: two days of hours, then the other choice (Thursday, December 3, 2026 / Friday, December 4, 2026 / Also to decide)
+PASS 400 px: it names the time zone (Times are shown in your time zone: Europe/Prague.)
+PASS 400 px: the hour everyone can make is the best so far (04:00 PM to 05:00 PM|3 yes|lead|Alice, Bob, Carol)
+PASS 400 px: if need be is counted apart (03:00 PM to 04:00 PM|1 yes · 1 if need be||Carol, Alice (if need be))
+PASS 400 px: logged out, nothing to press, and it says so (0 Log in to say when you can make it.)
+PASS 400 px (true, device metrics): no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+
+all passed
+
+== two-person.mjs (review: me on 9523, bob on 9524)
+PASS logged in
+PASS me: a poll is made ({"ok":"http://127.0.0.1:8732/me/public/suite-data/poll/review-mwrowmn0/index.ttl#this"})
+PASS me: three hours offered (pol-status pol-good pol-status-success :: 3 times added.)
+PASS me: one other choice added (pol-status pol-good pol-status-success :: Choice added.)
+PASS me: my three answers are on the server (o1=Yes o2=Maybe o4=Yes)
+PASS logged in
+PASS bob: logged in as bob (http://127.0.0.1:8732/bob/profile/card.jsonld#me)
+PASS bob: sees the title and who made it (By me · 1 person has answered)
+PASS bob: sees the three hours and the other choice (12:00 PM to 01:00 PM | 1 yes | best | me | own:- ; 01:00 PM to 02:00 PM | 0 yes · 1 if need be | - | me (if need be) | own:- ; 02:00 PM to 03:00 PM | 0 yes | - | - | own:- ; Bring cake | 1 yes | best | me | own:-)
+PASS bob: sees my answers (12:00 PM to 01:00 PM | 1 yes | best | me | own:- ; 01:00 PM to 02:00 PM | 0 yes · 1 if need be | - | me (if need be) | own:- ; 02:00 PM to 03:00 PM | 0 yes | - | - | own:- ; Bring cake | 1 yes | best | me | own:-)
+PASS bob: none of my answers shows as his (12:00 PM to 01:00 PM | 1 yes | best | me | own:- ; 01:00 PM to 02:00 PM | 0 yes · 1 if need be | - | me (if need be) | own:- ; 02:00 PM to 03:00 PM | 0 yes | - | - | own:- ; Bring cake | 1 yes | best | me | own:-)
+PASS bob: no maker tools (Offer times, About this meeting, Remove) ({"add":false,"edit":false,"remove":0,"answer":12})
+PASS bob: answer buttons for each choice ({"add":false,"edit":false,"remove":0,"answer":12})
+PASS bob: No for the first hour saved (pol-status pol-good pol-status-success :: Saved: No for Thursday, December 10, 2026, 12:00 PM to 01:00 PM.)
+PASS pod: bob's answers under his WebID (o1=No o2=Yes o3=Maybe o4=null)
+PASS pod: bob's presses left my answers as they were (o1=Yes o2=Maybe o4=Yes)
+PASS bob: his PATCH to add a title and a choice is refused (403)
+PASS bob: his PATCH to remove a time is refused (403)
+PASS bob: his PUT over the poll is refused (403)
+PASS bob: he cannot rewrite the poll's access rule (403)
+PASS pod: index.ttl unchanged on disk
+     me sees: 12:00 PM to 01:00 PM | 1 yes | - | me | own:Yes ; 01:00 PM to 02:00 PM | 1 yes · 1 if need be | best | Bob Tester, me (if need be) | own:Maybe ; 02:00 PM to 03:00 PM | 0 yes · 1 if need be | - | Bob Tester (if need be) | own:- ; Bring cake | 1 yes | - | me | own:Yes
+PASS me: first hour, my Yes only (bob said No) (12:00 PM to 01:00 PM | 1 yes | - | me | own:Yes)
+PASS me: second hour, bob yes and me if need be (01:00 PM to 02:00 PM | 1 yes · 1 if need be | best | Bob Tester, me (if need be) | own:Maybe)
+PASS me: third hour, bob if need be (02:00 PM to 03:00 PM | 0 yes · 1 if need be | - | Bob Tester (if need be) | own:-)
+PASS me: the other choice, my Yes only (bob cleared his) (Bring cake | 1 yes | - | me | own:Yes)
+PASS me: two people have answered
+PASS me: best so far is the second hour only (yes 2 + if need be 1) (12:00 PM to 01:00 PM | 1 yes | - | me | own:Yes ; 01:00 PM to 02:00 PM | 1 yes · 1 if need be | best | Bob Tester, me (if need be) | own:Maybe ; 02:00 PM to 03:00 PM | 0 yes · 1 if need be | - | Bob Tester (if need be) | own:- ; Bring cake | 1 yes | - | me | own:Yes)
+PASS bob: Refresh reads the poll again too: he sees the time me added (review #4) (5)
+PASS bob: after a reload he sees the new time
+PASS bob: no sideways scroll at a true 400 px ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+INFO bob's hand-made PATCH flipping my Yes to No: 204; my o1 now No
+INFO bob writes foaf:name for me and for himself into results.ttl (204); a viewer then sees: By me · 2 people have answered | chips: Bob Tester, me (if need be), Bob Tester (if need be), me | names in store: me=me/Mallory bob=Bob Tester/Alice
+PASS planted names in the answers file are not shown: the maker is still "me", bob still "Bob Tester" (review #5) (By me · 2 people have answered | chips: Bob Tester, me (if need be), Bob Tester (if need be), me)
+
+all passed
+
+EVERY TEST PASSED

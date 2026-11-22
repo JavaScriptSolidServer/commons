@@ -1,0 +1,6 @@
+@prefix meeting: <http://www.w3.org/ns/pim/meeting#> .
+@prefix cal: <http://www.w3.org/2002/12/cal/ical#> .
+
+<#this> a meeting:Meeting ;
+    cal:summary "Spring planning" ;
+    cal:location "The shed" .

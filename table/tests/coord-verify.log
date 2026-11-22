@@ -1,0 +1,97 @@
+
+== embed.mjs table-pane.js --check
+OK /home/melvin/ideas/suite/table/table-pane.js: the design block is current
+
+== table.mjs 
+PASS logged in
+PASS Table is in the view menu (Sign out | Data (166) | Source | Under The Hood | Table | Open in New Tab)
+PASS it does not take focus: another view opens first
+PASS it opens on the books, the most common type (Book · 12 of 12 · 12 things in library.ttl · 12 properties · read only)
+PASS readable headers, most-used first, capped at 8 + name (Name|Author|Date published|Number of pages|Genre|In language|Publisher|Aggregate rating|Book format)
+PASS sorted by name to begin with (A Map of Small Rooms … Zero Gravity Gardens)
+PASS numbers formatted and right-aligned (1,024 right)
+PASS dates formatted (Sep 15, 2021)
+PASS several values joined (History, Travel)
+PASS things are links, with names (http://127.0.0.1:8732/me/public/suite-data/table/library.ttl#bob)
+PASS a vocabulary term reads as words (Hardcover)
+PASS sort a number column ascending (9 64 96 150 210 287 312 356 448 512 1,024 1,200)
+PASS then descending (Iron and Willow, Bridges of Salt)
+PASS dates sort as dates (Le Jardin du Nord … Iron and Willow)
+PASS the filter narrows rows as you type (3 of 12 Small Hours|A Map of Small Rooms|Paper Lanterns)
+PASS every word must match, any case (2 of 12)
+PASS no match says so (No rows match the filter.)
+PASS clearing the filter brings them back
+PASS show all columns (Read on|ISBN|Same as)
+PASS a header from rdfs:label; dateTimes sort; empty last (The Quiet Orchard)
+PASS descending keeps empties last (Iron and Willow)
+PASS a wide table scrolls in its own box, not the page ({"inner":true,"page":false})
+PASS and fewer again
+PASS hiding the sorted column goes back to sorting by name
+PASS Copy as CSV puts the filtered rows on the clipboard (Copied 3 rows as CSV. / 4 lines)
+PASS CSV has every column, a URI, raw values and quoting (Name,URI,Author,Date published,Number of pages,Genre,In language,Publisher,Aggregate rating,Book format,Read on,ISBN,Same as / Bridges of Salt,http://127.0.0.1:8732/me/public/suite-data/table/library.ttl#b2,http://127.0.0.1:8732/me/public/suite-data/table/library.ttl#bob,2021-09-15,1024,History; Travel,en,Harbour Books,3.8,http://schema.org/Hardcover,2026-02-22T18:00:00Z,978-0-00-000002-8,)
+PASS a refused clipboard shows the CSV to copy by hand, selected (The browser did not allow copying. The CSV is below: select it and copy it yourself.)
+PASS the types are chips, the shown one pressed (Book · 12*|Person · 3)
+PASS the type chips switch to the people (Alice Example|Bob Example|Carol Example)
+PASS people: links joined, mailto and tel kept ({"heads":["Name","Email","Job title","Birth date","Knows","URL","Telephone"],"knows":"Alice Example, Bob Example","email":"mailto:carol@example.net","emailText":"carol@example.net","tel":"tel:+15550100","csvGone":true})
+PASS the pane wrote nothing (no PUT/POST/PATCH/DELETE, no updater) ([])
+PASS a name opens that thing in the data browser (http://127.0.0.1:8732/me/public/suite-data/table/library.ttl#alice)
+PASS a reload reads back the same
+PASS the pod file is unchanged
+PASS in the shell, logged in: the shell says so
+PASS in the shell, logged in: the table, and a row's details
+
+all passed
+
+== sample.mjs 
+PASS 1300 px: logged out, the same table (12 of 12)
+PASS 1300 px: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":["TABLE@1568","THEAD@1568","TR@1568",".tbl-num@1443",".tbl-sort@1443"]})
+PASS 1300 px: a real table, no sort menu ({"cards":false,"sortbar":false,"label":"none","rowFits":false,"cellsFit":false,"scrolls":true})
+PASS 400 px: logged out, the same table (12 of 12)
+PASS 400 px (true 400: design/viewport.mjs): no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS 400 px: one card per thing, labelled, no headers ({"cards":true,"sortbar":true,"label":"\"Number of pages\"","rowFits":true,"cellsFit":true,"scrolls":false})
+PASS 400 px: sorting is a menu
+PASS 400 px: sort by pages, descending (Iron and Willow Descending)
+PASS 400 px: all columns, still no sideways scroll
+
+all passed
+
+== edge.mjs 
+PASS two things of a type: no Table (Data (4) | Source | Under The Hood | Open in New Tab)
+PASS one thing in a document: no Table (About | Under The Hood | Open in New Tab)
+PASS a title is used as the name column (Title|Priority|Link|Owner|Done)
+PASS hostile text stays text
+PASS a javascript: link is not a link ([] javascript:alert(1))
+PASS a urn is text, not a link
+PASS a blank node shows its values (Nick: al)
+PASS a boolean reads true (true)
+PASS negative numbers format (-1)
+PASS CSV: formulas defused, quotes escaped, negative numbers kept (Title,URI,Priority,Link,Owner,Done / <img src=x onerror=window.__pwned=1>,http://127.0.0.1:8732/me/public/suite-data/table/odd.ttl#t1,3,javascript:alert(1),Nick: al, / '=SUM(A1:A2),http://127.0.0.1:8732/me/public/suite-data/table/odd.ttl#t2,-1,urn:isbn:123,, / "Plain, with ""quotes""",http://127.0.0.1:8732/me/public/suite-data/table/odd.ttl#t3,10,,,true / )
+PASS still nothing written
+PASS a 20-digit integer is shown exactly (12,345,678,901,234,567,890)
+PASS an impossible date is shown as written ({"big":"12,345,678,901,234,567,890","bad":"2023-02-30","good":"Feb 28, 2023","early":"May 1, 90","badTime":"2023-02-30T10:00:00Z"})
+PASS a date in the year 90 stays in the year 90 (May 1, 90)
+PASS a class with members is offered, without focus ({"label":"Table","focus":false,"labelOther":null})
+PASS a class: one row per member (12 things in the loaded data · 12 properties · read only)
+PASS a folder of 3+ files: a table of the files (few.ttl|library.ttl|numbers.ttl|odd.ttl / Item|Size|Modified)
+
+all passed
+
+== shell.mjs 
+PASS in the shell: the books, in the content column (12 of 12)
+PASS no navigation column; the (i) button is there; the shell's tokens apply ({"nav":false,"info":true,"blue":"#00679e"})
+PASS a clean table: sticky header, 44 px rows, scrolling inside its own box ({"sticky":"sticky","th":44,"td":44,"scroll":"auto"})
+PASS the (i) button shows the table: type, rows, columns, where from
+PASS a row opens its thing in the details column, the row marked (["Bridges of Salt"])
+PASS details: every property, links kept, hidden columns too ({"keys":["Author","Date published","Number of pages","Genre","In language","Publisher","Aggregate rating","Book format","Read on","ISBN"],"genre":"History, Travel","author":"http://127.0.0.1:8732/me/public/suite-data/table/library.ttl#bob","isbn":"978-0-00-000002-8","marked":["Bridges of Salt"]})
+PASS closing the column clears the marked row
+PASS re-sorted with the details open: the mark follows the row, and closing clears it (Bridges of Salt)
+PASS keyboard: a focused row opens its details with Enter
+PASS the shell's search filters the rows (and fills the filter box)
+PASS in the shell, 1300 px, all columns: no sideways scroll ({"innerWidth":1300,"scrollWidth":1285,"sideways":false,"poking":["TABLE@2025","THEAD@2025","TR@2025",".tbl-num@1435",".tbl-sort@1435"]})
+PASS in the shell, true 400 px: no sideways scroll, cards ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS true 400 px, details open: no sideways scroll ({"innerWidth":400,"scrollWidth":400,"sideways":false,"poking":[]})
+PASS nothing written
+
+all passed
+
+EVERY TEST PASSED

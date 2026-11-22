@@ -1,0 +1,8 @@
+@prefix pad: <http://www.w3.org/ns/pim/pad#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+<#this> a pad:Notepad ;
+    dc:title "Club minutes" ;
+    pad:next <#l1> .
+<#l1> sioc:content "Bob brings the long hose." ; pad:next <#this> .

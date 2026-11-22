@@ -1,0 +1,8 @@
+@prefix ex: <http://example.org/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Values careless formatting gets wrong: a 20-digit integer, impossible dates, the year 90.
+<#n1> a ex:Item ; dct:title "Big" ; ex:count "12345678901234567890"^^xsd:integer ; ex:day "2023-02-28"^^xsd:date .
+<#n2> a ex:Item ; dct:title "Bad" ; ex:count 2 ; ex:day "2023-02-30"^^xsd:date ; ex:at "2023-02-30T10:00:00Z"^^xsd:dateTime .
+<#n3> a ex:Item ; dct:title "Early" ; ex:count 3 ; ex:day "0090-05-01"^^xsd:date .
+<#n4> a ex:Item ; dct:title "Good" ; ex:count 4 ; ex:day "2023-02-28"^^xsd:date .

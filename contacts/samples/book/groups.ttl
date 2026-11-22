@@ -1,0 +1,5 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<index.ttl#this> vcard:includesGroup <Group/Friends.ttl#this>, <Group/Work.ttl#this> .
+<Group/Friends.ttl#this> a vcard:Group ; vcard:fn "Friends" .
+<Group/Work.ttl#this> a vcard:Group ; vcard:fn "Work" .

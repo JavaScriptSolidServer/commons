@@ -1,0 +1,3 @@
+@prefix schema: <http://schema.org/> .
+<#alice> a schema:Person ; schema:name "Alice Example" .
+<#bob> a schema:Person ; schema:name "Bob Example" .

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" width="320" height="160" onload="top.__pwned='svg file onload'">
+  <script>try { top.__pwned = 'svg file script'; top.document.title = 'PWNED' } catch (e) {}</script>
+  <rect width="320" height="160" rx="16" fill="#eef2fb"/>
+  <g font-family="system-ui, sans-serif" font-size="15" text-anchor="middle">
+    <circle cx="70" cy="80" r="34" fill="#2856c9"/><text x="70" y="85" fill="#fff">Alice</text>
+    <circle cx="160" cy="80" r="34" fill="#3f8f4f"/><text x="160" y="85" fill="#fff">Bob</text>
+    <circle cx="250" cy="80" r="34" fill="#c06a1b"/><text x="250" y="85" fill="#fff">Carol</text>
+    <path d="M104 80h22M194 80h22" stroke="#33405c" stroke-width="3"/>
+  </g>
+</svg>

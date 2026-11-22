@@ -1,0 +1,6 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pim: <http://www.w3.org/ns/pim/space#> .
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+
+# A pod with a messy type index: one badly encoded class, one badly encoded instance, one javascript: instance.
+<#me> a foaf:Person ; foaf:name "Carol Example" ; pim:storage <../> ; solid:publicTypeIndex <../settings/publicTypeIndex.ttl> .

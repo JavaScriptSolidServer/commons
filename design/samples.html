@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>suite · design sheet</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="recipes.css">
+<style>
+  /* Page layout for this sample sheet only (prefix sp-); everything else is the shared recipes. */
+  body { margin: 0; background: var(--sui-bg-app) }
+  .sp-page { max-width: 1120px; margin: 0 auto; padding: var(--sui-space-6) var(--sui-space-4) var(--sui-space-12); background: transparent }
+  .sp-intro { margin: 0 0 var(--sui-space-6) }
+  .sp-intro p { margin: var(--sui-space-2) 0 0; color: var(--sui-text-muted); max-width: 70ch }
+  .sp-card { margin: 0 0 var(--sui-space-6); padding: var(--sui-space-5); border-radius: var(--sui-radius-lg); background: var(--sui-bg); box-shadow: var(--sui-shadow) }
+  .sp-card > h2 { margin: 0 0 var(--sui-space-1) }
+  .sp-card > .sp-classes { margin: 0 0 var(--sui-space-4); color: var(--sui-text-muted); font-size: var(--sui-text-sm); overflow-wrap: anywhere }
+  .sp-classes code { font-family: var(--sui-font-mono); color: var(--sui-text) }
+  .sp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--sui-space-3) }
+  .sp-swatch { border-radius: var(--sui-radius); border: 1px solid var(--sui-border); overflow: hidden; font-size: var(--sui-text-sm) }
+  .sp-swatch i { display: block; height: 48px }
+  .sp-swatch span { display: block; padding: var(--sui-space-2); overflow-wrap: anywhere }
+  .sp-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sui-space-3) }
+  .sp-stack { display: flex; flex-direction: column; gap: var(--sui-space-4); max-width: 420px }
+  .sp-space { display: flex; align-items: flex-end; gap: var(--sui-space-3); flex-wrap: wrap; font-size: var(--sui-text-sm); color: var(--sui-text-muted) }
+  .sp-space i { display: block; background: var(--sui-primary-light); border: 1px solid var(--sui-primary) }
+  .sp-frame { position: relative; display: flex; flex-direction: column; height: 460px; border: 1px solid var(--sui-border); border-radius: var(--sui-radius-lg); overflow: hidden }
+  .sp-frame-body { flex: 1 1 auto; min-height: 0; display: flex }
+  .sp-frame-body > .ui-nav { flex: none; overflow: auto; border-right: 1px solid var(--sui-border) }
+  .sp-frame-body > main { flex: 1 1 auto; min-width: 0; overflow: auto }
+  .sp-frame-body > .ui-details { flex: none; overflow: auto }
+  .sp-pop { position: relative; display: inline-block; max-width: 100% }
+  .sp-pop > .ui-popover { position: static; max-width: 100% }
+  .sp-modal-demo { position: relative; height: 330px; border-radius: var(--sui-radius-lg); overflow: hidden }
+  .sp-modal-demo > .ui-backdrop { position: absolute }
+  @media (max-width: 900px) {
+    .sp-frame-body > .ui-details { display: none }
+  }
+  @media (max-width: 600px) {
+    .sp-frame-body > .ui-nav { display: none }
+    .sp-frame .ui-header-search { flex: 1 1 auto }
+    .sp-card { padding: var(--sui-space-4) var(--sui-space-3) }
+  }
+</style>
+</head>
+<body class="ui-root">
+<div class="sp-page">
+
+<header class="sp-intro">
+  <h1 class="ui-title">suite design sheet</h1>
+  <p>Every shared piece of the suite, drawn from <code>tokens.css</code> and <code>recipes.css</code>. A pane copies the
+  rules it needs (with <code>node design/embed.mjs</code>) and renames the <code>ui-</code> prefix to its own.
+  Light theme only. Read <code>DESIGN.md</code> for the rules and the pane contract.</p>
+</header>
+
+<section class="sp-card" id="tokens">
+  <h2 class="ui-heading">Colours</h2>
+  <p class="sp-classes">Tokens <code>--sui-*</code>. Primary blue for the header and the one main action; light neutrals everywhere else.</p>
+  <div class="sp-grid" id="swatches"></div>
+</section>
+
+<section class="sp-card" id="type">
+  <h2 class="ui-heading">Type, spacing, radii</h2>
+  <p class="sp-classes">System font, 15 px body, a 4 px grid, 44 px targets. <code>ui-title</code> 24 · <code>ui-heading</code> 20 · <code>ui-subheading</code> 17 · body 15 · <code>ui-small</code> 13.</p>
+  <div class="sp-stack">
+    <p class="ui-title">Title, 24 px</p>
+    <p class="ui-heading">Heading, 20 px</p>
+    <p class="ui-subheading">Sub-heading, 17 px</p>
+    <p>Body text, 15 px, line height 1.5. Bold is 600; no italics or capitals for emphasis.</p>
+    <p class="ui-small ui-muted">Small and muted, 13 px: sublines, captions, dates.</p>
+    <div class="sp-space" id="spaces"></div>
+    <div class="sp-row" id="radii"></div>
+  </div>
+</section>
+
+<section class="sp-card" id="header">
+  <h2 class="ui-heading">Header bar</h2>
+  <p class="sp-classes"><code>ui-header</code>, <code>ui-header-btn</code>, <code>ui-header-apps</code> (current: <code>aria-current="page"</code>), <code>ui-header-app</code>, <code>ui-header-spacer</code>, <code>ui-header-search</code>, avatar. 50 px tall, primary blue, white.</p>
+  <div class="ui-header" style="border-radius: var(--sui-radius)">
+    <button class="ui-header-btn" type="button" aria-label="Apps"><span class="ui-icon" data-icon="apps" style="width:24px;height:24px"></span></button>
+    <nav class="ui-header-apps" aria-label="Apps">
+      <button class="ui-header-btn" type="button" aria-label="Dashboard"><span class="ui-icon" data-icon="dashboard"></span></button>
+      <button class="ui-header-btn" type="button" aria-label="Files" aria-current="page"><span class="ui-icon" data-icon="folder"></span></button>
+      <button class="ui-header-btn" type="button" aria-label="Contacts"><span class="ui-icon" data-icon="contacts"></span></button>
+    </nav>
+    <span class="ui-header-spacer"></span>
+    <form class="ui-header-search" role="search" onsubmit="return false"><span class="ui-icon" data-icon="search"></span><input type="search" placeholder="Search" aria-label="Search"></form>
+    <button class="ui-header-btn" type="button" aria-label="Your account"><span class="ui-avatar">AE</span></button>
+  </div>
+</section>
+
+<section class="sp-card" id="launcher">
+  <h2 class="ui-heading">App launcher and menus</h2>
+  <p class="sp-classes"><code>ui-popover ui-launcher</code> › <code>ui-caption</code>, <code>ui-launcher-grid</code> › <code>ui-launcher-tile</code> › <code>ui-launcher-badge</code> (<code>ui-alt</code> for tool-index entries). Menus: <code>ui-popover</code> › <code>ui-menu-head</code>, <code>ui-menu</code> › <code>ui-menu-item</code>.</p>
+  <div class="sp-row" style="align-items: flex-start">
+    <div class="sp-pop">
+      <div class="ui-popover ui-launcher" role="dialog" aria-label="Apps">
+        <h3 class="ui-caption">Apps</h3>
+        <ul class="ui-launcher-grid">
+          <li><button class="ui-launcher-tile" type="button"><span class="ui-launcher-badge"><span class="ui-icon" data-icon="dashboard"></span></span><span>Dashboard</span></button></li>
+          <li><button class="ui-launcher-tile" type="button" aria-current="page"><span class="ui-launcher-badge"><span class="ui-icon" data-icon="folder"></span></span><span>Files</span></button></li>
+          <li><button class="ui-launcher-tile" type="button"><span class="ui-launcher-badge"><span class="ui-icon" data-icon="image"></span></span><span>Photos</span></button></li>
+          <li><button class="ui-launcher-tile" type="button"><span class="ui-launcher-badge"><span class="ui-icon" data-icon="contacts"></span></span><span>Contacts</span></button></li>
+          <li><button class="ui-launcher-tile" type="button"><span class="ui-launcher-badge"><span class="ui-icon" data-icon="boards"></span></span><span>Boards</span></button></li>
+          <li><button class="ui-launcher-tile" type="button"><span class="ui-launcher-badge ui-alt"><span class="ui-icon" data-icon="pane"></span></span><span>From your tool index</span></button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sp-pop">
+      <div class="ui-popover" role="menu" aria-label="Your account" style="width: 280px">
+        <div class="ui-menu-head"><span class="ui-avatar">AE</span><div style="min-width:0"><b>Alice Example</b><div class="ui-small ui-muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">https://alice.example/profile/card#me</div></div></div>
+        <ul class="ui-menu">
+          <li><button class="ui-menu-item" type="button"><span class="ui-icon" data-icon="account"></span>Profile</button></li>
+          <li><button class="ui-menu-item" type="button"><span class="ui-icon" data-icon="cog"></span>Settings</button></li>
+          <li><button class="ui-menu-item" type="button"><span class="ui-icon" data-icon="logout"></span>Log out</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp-card" id="nav">
+  <h2 class="ui-heading">Navigation list</h2>
+  <p class="sp-classes"><code>ui-nav</code> (alone; in the shell the column is given) › <code>ui-nav-new</code>, <code>ui-caption</code>, <code>ui-nav-list</code> › <code>ui-nav-item</code> (current: <code>aria-current="page"</code>) › icon, <code>ui-nav-label</code>, <code>ui-nav-count</code>; <code>ui-nav-foot</code>.</p>
+  <nav class="ui-nav" aria-label="Sample navigation" style="border-radius: var(--sui-radius); min-height: 330px">
+    <button class="ui-btn ui-btn-primary ui-nav-new" type="button"><span class="ui-icon" data-icon="plus"></span>New board</button>
+    <ul class="ui-nav-list">
+      <li><a class="ui-nav-item" href="#nav" aria-current="page"><span class="ui-icon" data-icon="boards"></span><span class="ui-nav-label">Garden jobs</span><span class="ui-nav-count">12</span></a></li>
+      <li><a class="ui-nav-item" href="#nav"><span class="ui-icon" data-icon="boards"></span><span class="ui-nav-label">House move with a long name that does not fit</span><span class="ui-nav-count">3</span></a></li>
+      <li><a class="ui-nav-item" href="#nav"><span class="ui-icon" data-icon="boards"></span><span class="ui-nav-label">Bob's birthday</span></a></li>
+    </ul>
+    <h3 class="ui-caption">Shared with you</h3>
+    <ul class="ui-nav-list">
+      <li><a class="ui-nav-item" href="#nav"><span class="ui-icon" data-icon="share"></span><span class="ui-nav-label">Carol's recipes</span></a></li>
+    </ul>
+    <div class="ui-nav-foot"><button class="ui-nav-item" type="button"><span class="ui-icon" data-icon="cog"></span><span class="ui-nav-label">Board settings</span></button></div>
+  </nav>
+</section>
+
+<section class="sp-card" id="toolbar">
+  <h2 class="ui-heading">Toolbar and breadcrumbs</h2>
+  <p class="sp-classes"><code>ui-toolbar</code> › <code>ui-crumbs</code> (last: <code>aria-current="page"</code>), buttons.</p>
+  <div class="ui-toolbar" style="padding-left:0">
+    <ol class="ui-crumbs" aria-label="Where you are"><li><a href="#toolbar">alice</a></li><li><a href="#toolbar">public</a></li><li><a href="#toolbar" aria-current="page">garden</a></li></ol>
+    <span class="ui-header-spacer"></span>
+    <button class="ui-btn ui-btn-primary" type="button"><span class="ui-icon" data-icon="plus"></span>New</button>
+  </div>
+</section>
+
+<section class="sp-card" id="rows">
+  <h2 class="ui-heading">List rows</h2>
+  <p class="sp-classes"><code>ui-list</code> › <code>ui-row</code> (selected: <code>aria-selected="true"</code>) › <code>ui-row-icon</code> or avatar, <code>ui-row-main</code> › <code>ui-row-title</code>, <code>ui-row-sub</code>; <code>ui-row-meta</code> (hidden under 520 px), <code>ui-row-actions</code>. 56 px tall.</p>
+  <ul class="ui-list">
+    <li class="ui-row"><span class="ui-row-icon"><span class="ui-icon" data-icon="folder"></span></span><span class="ui-row-main"><span class="ui-row-title">garden</span><span class="ui-row-sub">Folder · 14 items</span></span><span class="ui-row-meta">Nov 20</span><span class="ui-row-actions"><button class="ui-btn ui-btn-icon" type="button" aria-label="Actions"><span class="ui-icon" data-icon="dots"></span></button></span></li>
+    <li class="ui-row" aria-selected="true"><span class="ui-row-icon"><span class="ui-icon" data-icon="notes"></span></span><span class="ui-row-main"><span class="ui-row-title">tomatoes.md, with a long name to show how it ends when there is no room</span><span class="ui-row-sub">Markdown · 2 KB</span></span><span class="ui-row-meta">Nov 18</span><span class="ui-row-actions"><button class="ui-btn ui-btn-icon" type="button" aria-label="Actions"><span class="ui-icon" data-icon="dots"></span></button></span></li>
+    <li class="ui-row"><span class="ui-avatar">BE</span><span class="ui-row-main"><span class="ui-row-title">Bob Example</span><span class="ui-row-sub">bob@example.org</span></span><span class="ui-row-meta">Friends</span></li>
+    <li class="ui-row"><span class="ui-avatar">CE</span><span class="ui-row-main"><span class="ui-row-title">Carol Example</span><span class="ui-row-sub">+44 20 7946 0000</span></span><span class="ui-row-meta">Work</span></li>
+  </ul>
+</section>
+
+<section class="sp-card" id="buttons">
+  <h2 class="ui-heading">Buttons</h2>
+  <p class="sp-classes"><code>ui-btn</code> (secondary: light blue) · <code>ui-btn-primary</code> (one per view) · <code>ui-btn-tertiary</code> · <code>ui-btn-danger</code> · <code>ui-btn-icon</code> (needs <code>aria-label</code>) · <code>ui-btn-wide</code>. Pills, 44 px tall. Group: <code>ui-btns</code>.</p>
+  <div class="ui-btns">
+    <button class="ui-btn ui-btn-primary" type="button"><span class="ui-icon" data-icon="plus"></span>Primary</button>
+    <button class="ui-btn" type="button">Secondary</button>
+    <button class="ui-btn ui-btn-tertiary" type="button">Tertiary</button>
+    <button class="ui-btn ui-btn-danger" type="button">Delete</button>
+    <button class="ui-btn ui-btn-icon" type="button" aria-label="More"><span class="ui-icon" data-icon="dots"></span></button>
+    <button class="ui-btn ui-btn-primary" type="button" disabled>Disabled</button>
+  </div>
+</section>
+
+<section class="sp-card" id="inputs">
+  <h2 class="ui-heading">Inputs</h2>
+  <p class="sp-classes"><code>ui-field</code> › <code>ui-label</code>, <code>ui-input</code>, <code>ui-hint</code>; error: <code>aria-invalid="true"</code>; <code>ui-search</code> wraps an icon and an input; <code>textarea.ui-input</code>.</p>
+  <div class="sp-stack">
+    <label class="ui-field"><span class="ui-label">Name</span><input class="ui-input" value="Alice Example"><span class="ui-hint">As people will see it.</span></label>
+    <label class="ui-field"><span class="ui-label">Email</span><input class="ui-input" value="alice@" aria-invalid="true"><span class="ui-hint" style="color: var(--sui-error)">That is not a whole address.</span></label>
+    <label class="ui-search"><span class="ui-icon" data-icon="search"></span><span class="ui-sr">Filter</span><input class="ui-input" type="search" placeholder="Filter by name"></label>
+    <label class="ui-field"><span class="ui-label">Note</span><textarea class="ui-input">Water the tomatoes on Friday.</textarea></label>
+  </div>
+</section>
+
+<section class="sp-card" id="switches">
+  <h2 class="ui-heading">Switch and chips</h2>
+  <p class="sp-classes"><code>ui-switch</code> › <code>input[type=checkbox][role=switch]</code> + text. Chips: <code>ui-chips</code> › <code>ui-chip</code> (a filter: <code>button</code> with <code>aria-pressed</code>), <code>ui-chip-primary</code>, <code>-success</code>, <code>-warning</code>, <code>-error</code>.</p>
+  <div class="sp-stack">
+    <label class="ui-switch"><input type="checkbox" role="switch" checked><span>Show hidden files</span></label>
+    <label class="ui-switch"><input type="checkbox" role="switch"><span>Everyone can see this</span></label>
+    <label class="ui-switch"><input type="checkbox" role="switch" disabled><span class="ui-muted">Not allowed here</span></label>
+    <div class="ui-chips">
+      <button class="ui-chip" type="button" aria-pressed="true">All</button>
+      <button class="ui-chip" type="button" aria-pressed="false">Friends</button>
+      <span class="ui-chip">Work</span>
+      <span class="ui-chip ui-chip-success">Done</span>
+      <span class="ui-chip ui-chip-warning">Due soon</span>
+      <span class="ui-chip ui-chip-error">Overdue</span>
+    </div>
+  </div>
+</section>
+
+<section class="sp-card" id="avatars">
+  <h2 class="ui-heading">Avatars</h2>
+  <p class="sp-classes"><code>ui-avatar</code> (32 px; initials, or an <code>img.ui-avatar</code> of the person's photo) · <code>ui-avatar-lg</code> (64 px) · <code>ui-avatar-xl</code> (96 px, a profile or contact header).</p>
+  <div class="sp-row">
+    <span class="ui-avatar">AE</span><span class="ui-avatar">B</span><span class="ui-avatar ui-avatar-lg">CE</span><span class="ui-avatar ui-avatar-xl">AE</span>
+    <img class="ui-avatar ui-avatar-lg" alt="" id="photo">
+  </div>
+</section>
+
+<section class="sp-card" id="empty">
+  <h2 class="ui-heading">Empty state</h2>
+  <p class="sp-classes"><code>ui-empty</code> › <code>ui-empty-icon</code>, <code>ui-empty-title</code>, <code>ui-empty-text</code>, one button.</p>
+  <div class="ui-empty">
+    <span class="ui-empty-icon"><span class="ui-icon" data-icon="contacts"></span></span>
+    <h3 class="ui-empty-title">No contacts yet</h3>
+    <p class="ui-empty-text">Add the people you know, and they show up here.</p>
+    <button class="ui-btn ui-btn-primary" type="button"><span class="ui-icon" data-icon="plus"></span>New contact</button>
+  </div>
+</section>
+
+<section class="sp-card" id="toasts">
+  <h2 class="ui-heading">Toast and status line</h2>
+  <p class="sp-classes">Toast (after an action, 4 s): <code>ui-toasts</code> › <code>ui-toast</code>, <code>-success</code>, <code>-error</code> (<code>role="status"</code> / <code>"alert"</code>). In place: <code>ui-status</code>, <code>-success</code>, <code>-error</code>; a lasting message: <code>ui-note</code>, <code>-success</code>, <code>-warning</code>, <code>-error</code>. Late dates: <code>ui-late</code>.</p>
+  <div class="sp-stack">
+    <div class="ui-toast" role="status" style="width: fit-content; max-width: 100%">Saved to your pod</div>
+    <div class="ui-toast ui-toast-success" role="status" style="width: fit-content; max-width: 100%">Shared with Bob Example</div>
+    <div class="ui-toast ui-toast-error" role="alert" style="width: fit-content; max-width: 100%">Could not save: the server said 403</div>
+    <p class="ui-status" role="status"><span class="ui-icon" data-icon="sync"></span>Saving…</p>
+    <p class="ui-status ui-status-success" role="status"><span class="ui-icon" data-icon="check"></span>Saved a moment ago</p>
+    <p class="ui-status ui-status-error" role="alert"><span class="ui-icon" data-icon="alert"></span>Not saved: you are offline</p>
+    <div class="ui-note"><span class="ui-icon" data-icon="info"></span><span>Only you can see this folder.</span></div>
+    <div class="ui-note ui-note-warning"><span class="ui-icon" data-icon="alert"></span><span>Everyone with the link can change this.</span></div>
+    <div class="ui-note ui-note-success"><span class="ui-icon" data-icon="check"></span><span>Your profile is public. Anyone can find you.</span></div>
+    <p>Due <span class="ui-late">yesterday</span> · <span class="ui-small ui-muted">a late date uses <code>ui-late</code> (<code>--sui-late</code>)</span></p>
+    <p role="status" id="plainStatus">A plain live region (<code>role="status"</code>) with no class: no box, thanks to the base reset.</p>
+    <button class="ui-btn" type="button" id="toastBtn">Show a toast</button>
+  </div>
+</section>
+
+<section class="sp-card" id="modal">
+  <h2 class="ui-heading">Modal</h2>
+  <p class="sp-classes"><code>ui-backdrop</code> › <code>ui-modal</code> (<code>role="dialog"</code>, <code>aria-modal</code>) › <code>ui-modal-head</code> (heading + close), <code>ui-modal-body</code>, <code>ui-modal-foot</code> (cancel, then the action, on the right).</p>
+  <div class="sp-modal-demo">
+    <div class="ui-backdrop">
+      <div class="ui-modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+        <div class="ui-modal-head"><h3 class="ui-heading" id="mt">Delete “garden”?</h3><button class="ui-btn ui-btn-icon" type="button" aria-label="Close"><span class="ui-icon" data-icon="close"></span></button></div>
+        <div class="ui-modal-body"><p>The folder and the 14 things in it are deleted from your pod. This cannot be undone.</p></div>
+        <div class="ui-modal-foot"><button class="ui-btn ui-btn-tertiary" type="button">Cancel</button><button class="ui-btn ui-btn-danger" type="button">Delete</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp-card" id="details">
+  <h2 class="ui-heading">Details sidebar</h2>
+  <p class="sp-classes"><code>ui-details</code> (alone; in the shell the column is given) › <code>ui-details-head</code> › <code>ui-details-figure</code>, <code>ui-details-titles</code> › <code>ui-details-title</code>, <code>ui-details-sub</code>; <code>ui-tabs</code> › <code>ui-tab</code> (<code>role="tab"</code>, <code>aria-selected</code>); <code>ui-details-body</code> › <code>ui-props</code>. The head leaves room on the right for the shell's close button.</p>
+  <aside class="ui-details" style="border: 1px solid var(--sui-border); border-radius: var(--sui-radius); overflow: hidden">
+    <div class="ui-details-head"><span class="ui-details-figure"><span class="ui-icon" data-icon="notes"></span></span><div class="ui-details-titles"><h3 class="ui-details-title">tomatoes.md</h3><p class="ui-details-sub">2 KB · changed Nov 18</p></div></div>
+    <div class="ui-tabs" role="tablist"><button class="ui-tab" role="tab" aria-selected="true" type="button">Details</button><button class="ui-tab" role="tab" aria-selected="false" type="button">Sharing</button><button class="ui-tab" role="tab" aria-selected="false" type="button">Versions</button></div>
+    <div class="ui-details-body">
+      <dl class="ui-props"><dt>Kind</dt><dd>Markdown</dd><dt>Size</dt><dd>2 KB</dd><dt>Address</dt><dd>https://alice.example/public/garden/tomatoes.md</dd></dl>
+      <label class="ui-switch"><input type="checkbox" role="switch"><span>Everyone can see this</span></label>
+    </div>
+  </aside>
+</section>
+
+<section class="sp-card" id="forms">
+  <h2 class="ui-heading">Select, file, checkbox, segmented control</h2>
+  <p class="sp-classes"><code>ui-select</code> › <code>select.ui-input</code> · <code>label.ui-btn.ui-file</code> › <code>input[type=file]</code> · <code>ui-checkbox</code> › <code>input.ui-check</code> (<code>ui-check-round</code> for a task tick) · <code>ui-segmented</code> (<code>role="group"</code>) › <code>ui-segment</code> (<code>aria-pressed</code>) · in a row: <code>ui-row-check</code>.</p>
+  <div class="sp-stack">
+    <label class="ui-field"><span class="ui-label">Priority</span><span class="ui-select"><select class="ui-input"><option>None</option><option selected>High</option><option>Medium</option><option>Low</option></select></span></label>
+    <div class="ui-btns"><label class="ui-btn ui-file"><span class="ui-icon" data-icon="upload"></span>Upload photos<input type="file" multiple></label></div>
+    <label class="ui-checkbox"><input class="ui-check" type="checkbox" checked><span>Send me a copy</span></label>
+    <label class="ui-checkbox"><input class="ui-check" type="checkbox"><span>Show completed tasks</span></label>
+    <div class="ui-segmented" role="group" aria-label="View"><button class="ui-segment" type="button" aria-pressed="true">List</button><button class="ui-segment" type="button" aria-pressed="false">Grid</button><button class="ui-segment" type="button" aria-pressed="false">Calendar</button></div>
+  </div>
+  <ul class="ui-list" style="margin-top: var(--sui-space-4)">
+    <li class="ui-row"><span class="ui-row-check"><input class="ui-check ui-check-round" type="checkbox" aria-label="Done"></span><span class="ui-row-main"><span class="ui-row-title">Sow the broad beans</span><span class="ui-row-sub">Garden</span></span><span class="ui-row-meta ui-late">Yesterday</span></li>
+    <li class="ui-row"><span class="ui-row-check"><input class="ui-check ui-check-round" type="checkbox" aria-label="Done" checked></span><span class="ui-row-main"><span class="ui-row-title">Order seed potatoes</span><span class="ui-row-sub">Garden</span></span><span class="ui-row-meta">Nov 30</span></li>
+  </ul>
+</section>
+
+<section class="sp-card" id="fields">
+  <h2 class="ui-heading">Field list</h2>
+  <p class="sp-classes"><code>ui-fields</code> › <code>ui-field-row</code> › icon, <code>ui-field-row-label</code>, <code>ui-field-row-value</code>, optional <code>ui-field-row-action</code>. For a contact card or a details panel.</p>
+  <div class="sp-stack">
+    <div style="display:flex;align-items:center;gap:var(--sui-space-4)"><span class="ui-avatar ui-avatar-xl">BE</span><div style="min-width:0"><p class="ui-heading">Bob Example</p><p class="ui-muted">Friends</p></div></div>
+    <ul class="ui-fields">
+      <li class="ui-field-row"><span class="ui-icon" data-icon="email"></span><span class="ui-field-row-label">Email · home</span><a class="ui-field-row-value" href="mailto:bob@example.org">bob@example.org</a><button class="ui-btn ui-btn-icon ui-field-row-action" type="button" aria-label="Copy"><span class="ui-icon" data-icon="copy"></span></button></li>
+      <li class="ui-field-row"><span class="ui-icon" data-icon="phone"></span><span class="ui-field-row-label">Phone · mobile</span><span class="ui-field-row-value">+44 20 7946 0001</span></li>
+      <li class="ui-field-row"><span class="ui-icon" data-icon="web"></span><span class="ui-field-row-label">WebID</span><span class="ui-field-row-value">https://bob.example/profile/card#me, a long address that wraps</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sp-card" id="cards">
+  <h2 class="ui-heading">Cards</h2>
+  <p class="sp-classes"><code>ui-cards</code> (a grid, one column under 300 px each) › <code>ui-card</code> › <code>ui-card-head</code> (icon, <code>ui-card-title</code>, an action), body, <code>ui-card-foot</code>. Dashboard widgets; Settings and Profile sections.</p>
+  <div class="ui-cards">
+    <section class="ui-card"><div class="ui-card-head"><span class="ui-icon" data-icon="folder"></span><h3 class="ui-card-title">Recent files</h3><button class="ui-btn ui-btn-icon" type="button" aria-label="More"><span class="ui-icon" data-icon="dots"></span></button></div><ul class="ui-list"><li class="ui-row"><span class="ui-row-icon"><span class="ui-icon" data-icon="notes"></span></span><span class="ui-row-main"><span class="ui-row-title">shopping.md</span><span class="ui-row-sub">Nov 20</span></span></li></ul></section>
+    <section class="ui-card"><div class="ui-card-head"><span class="ui-icon" data-icon="account"></span><h3 class="ui-card-title">Personal info</h3></div><label class="ui-field"><span class="ui-label">Name</span><input class="ui-input" value="Alice Example"></label><div class="ui-card-foot"><button class="ui-btn ui-btn-primary" type="button">Save</button></div></section>
+  </div>
+</section>
+
+<section class="sp-card" id="board">
+  <h2 class="ui-heading">Board</h2>
+  <p class="sp-classes"><code>ui-board</code> (scrolls sideways inside itself) › <code>ui-column</code> (<code>--sui-column-width</code>) › <code>ui-column-head</code>, <code>ui-column-card</code>.</p>
+  <div class="ui-board">
+    <div class="ui-column"><div class="ui-column-head"><span>To do</span><span class="ui-nav-count">2</span></div><a class="ui-column-card" href="#board"><b>Fix the fence</b><div class="ui-small ui-muted">Bob Example</div></a><a class="ui-column-card" href="#board"><b>Paint the shed</b><div class="ui-chips" style="margin-top:var(--sui-space-2)"><span class="ui-chip ui-chip-warning">Due soon</span></div></a></div>
+    <div class="ui-column"><div class="ui-column-head"><span>Doing</span><span class="ui-nav-count">1</span></div><a class="ui-column-card" href="#board"><b>Plant the tomatoes</b><div class="ui-small ui-late">Late: yesterday</div></a></div>
+    <div class="ui-column"><div class="ui-column-head"><span>Done</span><span class="ui-nav-count">0</span></div></div>
+  </div>
+</section>
+
+<section class="sp-card" id="viewer">
+  <h2 class="ui-heading">Viewer and reading width</h2>
+  <p class="sp-classes"><code>ui-viewer</code> (<code>--sui-surface-dark</code>, <code>-text</code>, <code>-muted</code>; buttons inside turn light) · <code>ui-viewer-muted</code>. Long text: <code>ui-reading</code> (<code>--sui-reading-width</code>, 760 px).</p>
+  <div class="ui-viewer" style="border-radius: var(--sui-radius-lg); padding: var(--sui-space-3)">
+    <div class="ui-toolbar" style="padding:0"><span class="ui-viewer-muted ui-small" style="flex:1 1 auto;min-width:0">3 of 24 · quince.jpg</span><button class="ui-btn ui-btn-icon" type="button" aria-label="Details"><span class="ui-icon" data-icon="info"></span></button><button class="ui-btn ui-btn-icon" type="button" aria-label="Close"><span class="ui-icon" data-icon="close"></span></button></div>
+    <div style="height:140px;display:flex;align-items:center;justify-content:center"><span class="ui-icon" data-icon="image" style="width:64px;height:64px"></span></div>
+  </div>
+  <p class="ui-reading" style="margin-top: var(--sui-space-4)">A note, a document or a pad is set at the reading width, about seventy characters a line at 15 px, centred in the content column. Wider lines are harder to follow; narrower ones break up every sentence.</p>
+</section>
+
+<section class="sp-card" id="frame">
+  <h2 class="ui-heading">The app frame</h2>
+  <p class="sp-classes">What the shell draws: header, navigation (left, a drawer under 900 px), content, details (right, over the content under 1100 px). Shown here in miniature.</p>
+  <div class="sp-frame">
+    <div class="ui-header">
+      <button class="ui-header-btn" type="button" aria-label="Apps"><span class="ui-icon" data-icon="apps" style="width:24px;height:24px"></span></button>
+      <span class="ui-header-app">Boards</span>
+      <span class="ui-header-spacer"></span>
+      <form class="ui-header-search" role="search" onsubmit="return false"><span class="ui-icon" data-icon="search"></span><input type="search" placeholder="Search" aria-label="Search"></form>
+      <button class="ui-header-btn" type="button" aria-label="Your account"><span class="ui-avatar">AE</span></button>
+    </div>
+    <div class="sp-frame-body">
+      <nav class="ui-nav" aria-label="Boards">
+        <ul class="ui-nav-list">
+          <li><a class="ui-nav-item" href="#frame" aria-current="page"><span class="ui-icon" data-icon="boards"></span><span class="ui-nav-label">Garden jobs</span><span class="ui-nav-count">12</span></a></li>
+          <li><a class="ui-nav-item" href="#frame"><span class="ui-icon" data-icon="boards"></span><span class="ui-nav-label">House move</span><span class="ui-nav-count">3</span></a></li>
+        </ul>
+      </nav>
+      <main>
+        <div class="ui-toolbar"><ol class="ui-crumbs"><li><a href="#frame" aria-current="page">Garden jobs</a></li></ol></div>
+        <ul class="ui-list" style="padding: 0 var(--sui-space-2)">
+          <li class="ui-row" aria-selected="true"><span class="ui-row-icon"><span class="ui-icon" data-icon="check"></span></span><span class="ui-row-main"><span class="ui-row-title">Plant the tomatoes</span><span class="ui-row-sub">Alice Example · due Friday</span></span><span class="ui-chip ui-chip-warning">Due soon</span></li>
+          <li class="ui-row"><span class="ui-row-icon"><span class="ui-icon" data-icon="check"></span></span><span class="ui-row-main"><span class="ui-row-title">Fix the fence</span><span class="ui-row-sub">Bob Example</span></span></li>
+        </ul>
+      </main>
+      <aside class="ui-details" style="width: 300px">
+        <div class="ui-details-head"><span class="ui-details-figure"><span class="ui-icon" data-icon="check"></span></span><div class="ui-details-titles"><h3 class="ui-details-title">Plant the tomatoes</h3><p class="ui-details-sub">Garden jobs</p></div></div>
+        <div class="ui-details-body"><dl class="ui-props"><dt>Assigned</dt><dd>Alice Example</dd><dt>Due</dt><dd>Friday</dd></dl></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="ui-toasts" id="toasts-live" aria-live="polite"></div>
+</div>
+<script>
+  // Icons: Material Design Icons (Apache 2.0), as mask images. A pane does the same with element.style.setProperty.
+  const MDI = {
+    apps: 'M16,20H20V16H16M16,14H20V10H16M10,8H14V4H10M16,8H20V4H16M10,14H14V10H10M4,14H8V10H4M4,20H8V16H4M10,20H14V16H10M4,8H8V4H4V8Z',
+    search: 'M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z',
+    dashboard: 'M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z',
+    folder: 'M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z',
+    image: 'M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z',
+    contacts: 'M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H23V16.5C23,14.17 18.33,13 16,13M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13M8,11A3,3 0 0,0 11,8A3,3 0 0,0 8,5A3,3 0 0,0 5,8A3,3 0 0,0 8,11M16,11A3,3 0 0,0 19,8A3,3 0 0,0 16,5A3,3 0 0,0 13,8A3,3 0 0,0 16,11Z',
+    boards: 'M16,5V18H21V5M4,18H9V5H4M10,18H15V5H10V18Z',
+    notes: 'M14,10H19.5L14,4.5V10M5,3H15L21,9V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,12V14H19V12H5M5,16V18H14V16H5Z',
+    account: 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z',
+    cog: 'M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z',
+    logout: 'M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.58L17 17L22 12M4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z',
+    share: 'M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z',
+    pane: 'M20.5,11H19V7C19,5.89 18.1,5 17,5H13V3.5A2.5,2.5 0 0,0 10.5,1A2.5,2.5 0 0,0 8,3.5V5H4A2,2 0 0,0 2,7V10.8H3.5C5,10.8 6.2,12 6.2,13.5C6.2,15 5,16.2 3.5,16.2H2V20A2,2 0 0,0 4,22H7.8V20.5C7.8,19 9,17.8 10.5,17.8C12,17.8 13.2,19 13.2,20.5V22H17A2,2 0 0,0 19,20V16H20.5A2.5,2.5 0 0,0 23,13.5A2.5,2.5 0 0,0 20.5,11Z',
+    upload: 'M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z',
+    email: 'M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z',
+    phone: 'M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z',
+    web: 'M16.36,14C16.44,13.34 16.5,12.68 16.5,12C16.5,11.32 16.44,10.66 16.36,10H19.74C19.9,10.64 20,11.31 20,12C20,12.69 19.9,13.36 19.74,14M14.59,19.56C15.19,18.45 15.65,17.25 15.97,16H18.92C17.96,17.65 16.43,18.93 14.59,19.56M14.34,14H9.66C9.56,13.34 9.5,12.68 9.5,12C9.5,11.32 9.56,10.65 9.66,10H14.34C14.43,10.65 14.5,11.32 14.5,12C14.5,12.68 14.43,13.34 14.34,14M12,19.96C11.17,18.76 10.5,17.43 10.09,16H13.91C13.5,17.43 12.83,18.76 12,19.96M8,8H5.08C6.03,6.34 7.57,5.06 9.4,4.44C8.8,5.55 8.35,6.75 8,8M5.08,16H8C8.35,17.25 8.8,18.45 9.4,19.56C7.57,18.93 6.03,17.65 5.08,16M4.26,14C4.1,13.36 4,12.69 4,12C4,11.31 4.1,10.64 4.26,10H7.64C7.56,10.66 7.5,11.32 7.5,12C7.5,12.68 7.56,13.34 7.64,14M12,4.03C12.83,5.23 13.5,6.57 13.91,8H10.09C10.5,6.57 11.17,5.23 12,4.03M18.92,8H15.97C15.65,6.75 15.19,5.55 14.59,4.44C16.43,5.07 17.96,6.34 18.92,8M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z',
+    copy: 'M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z',
+    plus: 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z',
+    dots: 'M16,12A2,2 0 0,1 18,10A2,2 0 0,1 20,12A2,2 0 0,1 18,14A2,2 0 0,1 16,12M10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12M4,12A2,2 0 0,1 6,10A2,2 0 0,1 8,12A2,2 0 0,1 6,14A2,2 0 0,1 4,12Z',
+    close: 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z',
+    check: 'M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z',
+    alert: 'M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z',
+    info: 'M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z',
+    sync: 'M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z'
+  }
+  const svg = (d, fill = '#000') => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="${fill}" d="${d}"/></svg>`)
+  for (const span of document.querySelectorAll('[data-icon]')) span.style.setProperty('--ui-i', `url("${svg(MDI[span.dataset.icon])}")`)
+  document.getElementById('photo').src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#cfe3ef"/><circle cx="32" cy="25" r="12" fill="#5c8fb0"/><path d="M10 64c2-14 11-21 22-21s20 7 22 21z" fill="#5c8fb0"/></svg>')
+
+  // Swatches, spacing and radii, read from the tokens themselves so the page cannot drift from them.
+  const css = getComputedStyle(document.documentElement)
+  const colours = ['primary', 'primary-element', 'primary-element-hover', 'primary-text', 'primary-light', 'primary-light-hover', 'primary-light-text', 'bg', 'bg-app', 'bg-hover', 'bg-dark', 'text', 'text-muted', 'border', 'border-strong', 'error', 'error-light', 'warning', 'warning-light', 'success', 'success-light', 'late', 'surface-dark', 'surface-dark-text', 'surface-dark-muted', 'focus']
+  const add = (parent, tag, props = {}) => { const n = document.createElement(tag); Object.assign(n, props); parent.appendChild(n); return n }
+  for (const c of colours) {
+    const box = add(document.getElementById('swatches'), 'div', { className: 'sp-swatch' })
+    add(box, 'i').style.background = `var(--sui-${c})`
+    add(box, 'span', { textContent: `--sui-${c} ${css.getPropertyValue('--sui-' + c).trim()}` })
+  }
+  for (const n of [1, 2, 3, 4, 5, 6, 8, 12]) {
+    const wrap = add(document.getElementById('spaces'), 'div')
+    const bar = add(wrap, 'i'); bar.style.width = bar.style.height = `var(--sui-space-${n})`
+    add(wrap, 'span', { textContent: css.getPropertyValue('--sui-space-' + n).trim() })
+  }
+  for (const r of ['radius-sm', 'radius', 'radius-lg', 'radius-pill']) {
+    const b = add(document.getElementById('radii'), 'span', { className: 'ui-chip', textContent: `--sui-${r}` })
+    b.style.borderRadius = `var(--sui-${r})`; b.style.minHeight = '44px'
+  }
+  document.getElementById('toastBtn').addEventListener('click', () => {
+    const t = add(document.getElementById('toasts-live'), 'div', { className: 'ui-toast ui-toast-success', textContent: 'Saved to your pod' })
+    t.setAttribute('role', 'status'); setTimeout(() => t.remove(), 4000)
+  })
+</script>
+</body>
+</html>

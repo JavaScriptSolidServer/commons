@@ -1,0 +1,151 @@
+
+== samples.mjs 
+PASS shell/suite-shell-pane.js carries the current design block (OK /home/melvin/ideas/suite/shell/suite-shell-pane.js: the design block is current)
+PASS shell/suite-shell-demo-pane.js carries the current design block (OK /home/melvin/ideas/suite/shell/suite-shell-demo-pane.js: the design block is current)
+PASS every shared piece is on the page and drawn
+PASS tokens.css applies (:where(:root)) (#0082c9)
+PASS every icon has its Material Design Icon (0 without)
+PASS buttons, nav items, menu items, inputs, tabs and switches are at least 44 px tall
+PASS no sideways scroll at 1300 px (scrollWidth 1285)
+PASS a true 400 px page (CDP device metrics) (400)
+PASS no sideways scroll at 400 px (scrollWidth 400)
+PASS no card is wider than the page at 400 px
+
+all passed
+
+== setup.mjs 
+PASS shelf/shelf.ttl is 200 without login
+PASS notes/welcome.md is 200 without login
+PASS notes/ is 200 without login
+
+== shell.mjs 
+PASS logged in
+PASS the shell opens first and draws the demo pane inside its frame
+PASS the shell shows the person once the browser has the session (first render: logged in = yes; logged in after 0 ms)
+PASS the frame starts right under the browser's own bar (56 vs 56)
+PASS the content is the demo pane (dm suite-shell-demo-pane dm-root)
+PASS the header: launcher, search box, avatar
+PASS content: all six books (Alice's reading shelf: A Pot of Soup a Week, Between Two Tides, Slow Bread, Soil First, The Lantern Keeper, The Quiet Orchard)
+PASS the details button is offered (the pane has renderDetails)
+PASS navigation column shown, from renderNavigation (All books6|Garden2|Kitchen2|Novels3)
+PASS narrowing below 900 px closes the drawer (closed)
+PASS ...and the first press of the toggle opens it
+PASS widening again shows the column beside the content
+PASS a navigation item changes the content in place (shared context.suite.state) (Garden: Soil First|The Quiet Orchard)
+PASS the chosen item is marked current
+PASS a row opens the details column with renderDetails(book) (Soil First)
+PASS wide: details is a column beside the content (905,1285,380)
+PASS no sideways scroll at 1300 px: shelf with details open (scrollWidth 1285)
+PASS closing the details clears the selection (onClose)
+PASS the details button shows the shelf itself (Alice's reading shelf)
+PASS Escape closes the details
+PASS Escape inside a pane's modal, or with one open, leaves the details open (true true true false)
+PASS Escape a pane handled (preventDefault) leaves the details open; an unhandled one closes them (true true true false)
+PASS "Other views" lists the other panes that can show it (sharing-lab source-lab data-lab suite-shell-demo dataContents source n3 RDFXML default sharing internal)
+PASS picking one shows it in the same frame, content only (no nav, no details) (src source-pane src-root)
+PASS a note opens in the shell
+PASS Notes: the suite's own module draws it, with its navigation (nav: 2 notesShoppingChanged 22 November 2026WelcomeChanged 22 November 2026; registry's notes-reader has nav: false; published copy loaded: true)
+PASS the note itself is shown
+PASS no sideways scroll at 1300 px: a note (scrollWidth 1285)
+PASS content-only fallback: Data draws the content; no nav column or toggle, no details button (dat data-pane dat-root)
+PASS launcher opens and lists the suite's apps (dashboard files activity photos contacts tasks boards notes pads polls meetings)
+PASS launcher lists the tool index too: its panes and its app (no PodOS HTML tool, no second Notes) (Meetings calendar|Umai viewer)
+PASS the current app is marked in the launcher (notes)
+PASS the launcher fits the page (4,364,360)
+PASS no sideways scroll at 1300 px: launcher open (scrollWidth 1285)
+PASS Files opens on the pod's root folder
+PASS ...drawn by the suite's Files pane inside the shell (fl folder-lab-pane fl-root)
+PASS no sideways scroll at 1300 px: Files (scrollWidth 1285)
+PASS a pane's own navigation stays inside the shell
+PASS an app with nothing in the type indexes shows an empty state, not an error (No contacts yet | contacts)
+PASS the empty state's button opens Files
+PASS the avatar menu: who, then Profile, Settings, Log out (http://127.0.0.1:8732/me/profile/card.jsonld#me Profile|Settings|Log out)
+PASS the avatar menu fits the page (1001,1281,280)
+PASS Settings opens on the person
+PASS ...with the suite's Settings pane (set settings-pane set-root)
+PASS Profile opens the profile editor on the same person (pfe profile-edit-pane pfe-root)
+PASS the pod root opens in Dashboard (before Files and Activity) (dashboard)
+PASS ...again after a reload (dashboard)
+PASS a task list opens in Tasks (tasks tsk tsk-root suite-tasks-pane)
+PASS an ordinary tracker opens in Boards (boards iss issues-pane iss-root)
+PASS Activity opens on the pod root (act suite-activity act-root act-in-shell)
+PASS a toast survives suite.go()
+PASS search: typing and Enter raise suite-search (soup:false soup:true)
+PASS search: Enter opens the search page on the pod root, the words kept in the box, no stale toast (http://127.0.0.1:8732/me/)
+PASS search: an address opens it, in the shell
+PASS read-only: the profile, settings and the shelf file are unchanged
+
+all passed
+
+== shell.mjs 400
+PASS the shell opens first and draws the demo pane inside its frame
+PASS the shell shows the person once the browser has the session (first render: logged in = yes; logged in after 0 ms)
+PASS the frame starts right under the browser's own bar (104 vs 104)
+PASS the content is the demo pane (dm suite-shell-demo-pane dm-root)
+PASS the header: launcher, search box, avatar
+PASS content: all six books (Alice's reading shelf: A Pot of Soup a Week, Between Two Tides, Slow Bread, Soil First, The Lantern Keeper, The Quiet Orchard)
+PASS the details button is offered (the pane has renderDetails)
+PASS narrow: the navigation is a closed drawer with a toggle
+PASS narrow: the toggle opens the drawer over the content (0,290,290)
+PASS a navigation item changes the content in place (shared context.suite.state) (Garden: Soil First|The Quiet Orchard)
+PASS the chosen item is marked current
+PASS narrow: following a navigation item closes the drawer
+PASS a row opens the details column with renderDetails(book) (Soil First)
+PASS narrow: details covers the page width (0,400,400)
+PASS no sideways scroll at 400 px: shelf with details open (scrollWidth 400)
+PASS closing the details clears the selection (onClose)
+PASS the details button shows the shelf itself (Alice's reading shelf)
+PASS Escape closes the details
+PASS Escape inside a pane's modal, or with one open, leaves the details open (true true true false)
+PASS Escape a pane handled (preventDefault) leaves the details open; an unhandled one closes them (true true true false)
+PASS "Other views" lists the other panes that can show it (suite-shell-demo source-lab data-lab sharing-lab dataContents source n3 RDFXML default sharing internal)
+PASS picking one shows it in the same frame, content only (no nav, no details) (src source-pane src-root)
+PASS a note opens in the shell
+PASS Notes: the suite's own module draws it, with its navigation (nav: 2 notesShoppingChanged 22 November 2026WelcomeChanged 22 November 2026; registry's notes-reader has nav: false; published copy loaded: true)
+PASS the note itself is shown
+PASS no sideways scroll at 400 px: a note (scrollWidth 400)
+PASS content-only fallback: Data draws the content; no nav column or toggle, no details button (dat data-pane dat-root)
+PASS launcher opens and lists the suite's apps (dashboard files activity photos contacts tasks boards notes pads polls meetings)
+PASS launcher lists the tool index too: its panes and its app (no PodOS HTML tool, no second Notes) (Meetings calendar|Umai viewer)
+PASS the current app is marked in the launcher (notes)
+PASS the launcher fits the page (4,364,360)
+PASS no sideways scroll at 400 px: launcher open (scrollWidth 400)
+PASS Files opens on the pod's root folder
+PASS ...drawn by the suite's Files pane inside the shell (fl folder-lab-pane fl-root)
+PASS no sideways scroll at 400 px: Files (scrollWidth 400)
+PASS a pane's own navigation stays inside the shell
+PASS an app with nothing in the type indexes shows an empty state, not an error (No contacts yet | contacts)
+PASS the empty state's button opens Files
+PASS the avatar menu: who, then Profile, Settings, Log out (http://127.0.0.1:8732/me/profile/card.jsonld#me Profile|Settings|Log out)
+PASS the avatar menu fits the page (116,396,280)
+PASS Settings opens on the person
+PASS ...with the suite's Settings pane (set settings-pane set-root)
+PASS Profile opens the profile editor on the same person (pfe profile-edit-pane pfe-root)
+PASS the pod root opens in Dashboard (before Files and Activity) (dashboard)
+PASS ...again after a reload (dashboard)
+PASS a task list opens in Tasks (tasks tsk tsk-root suite-tasks-pane)
+PASS an ordinary tracker opens in Boards (boards iss issues-pane iss-root)
+PASS Activity opens on the pod root (act suite-activity act-root act-in-shell)
+PASS a toast survives suite.go()
+PASS search: typing and Enter raise suite-search (soup:false soup:true)
+PASS search: Enter opens the search page on the pod root, the words kept in the box, no stale toast (http://127.0.0.1:8732/me/)
+PASS search: an address opens it, in the shell
+PASS read-only: the profile, settings and the shelf file are unchanged
+
+all passed
+
+== loggedout.mjs 
+PASS logged in
+PASS logged in, the shell shows the avatar
+PASS "Log out" in the avatar menu logs out, and the shell follows
+PASS logged out: a "Log in" button instead of the avatar
+PASS logged out: a public thing still shows, in the frame (6)
+PASS logged out: no tool index section in the launcher
+PASS after a reload it is still logged out
+PASS an app that needs the person asks to log in (Log in to open Contacts | Log in)
+PASS no sideways scroll at 400 px, logged out (400)
+PASS "Log in" opens the browser's own login
+
+all passed
+
+EVERY TEST PASSED

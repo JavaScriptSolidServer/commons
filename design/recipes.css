@@ -1,0 +1,248 @@
+/* suite class recipes. Light theme only. MIT. Copyright (c) 2026 Melvin Carvalho.
+   Every rule reads the --sui-* tokens from tokens.css. The class prefix here is "ui-": a pane copies the rules it
+   needs into its own CSS string and renames the prefix to its own (sed 's/\.ui-/.ab-/g'; class names in JS too).
+   Icons are Material Design Icons (Apache 2.0) drawn with a mask, so they take the text colour: see .ui-icon. */
+
+/* ---- base: put this on a pane's root ---------------------------------------------------------------- */
+.ui-root { box-sizing: border-box; color: var(--sui-text); background: var(--sui-bg); font-family: var(--sui-font); font-size: var(--sui-text-md); line-height: var(--sui-line); text-align: left; -webkit-font-smoothing: antialiased }
+.ui-root *, .ui-root *::before, .ui-root *::after { box-sizing: border-box }
+.ui-root :focus-visible { outline: 2px solid var(--sui-focus); outline-offset: 2px }
+.ui-root :where(a) { color: var(--sui-primary-element) }
+/* The data browser styles bare elements (header margins, button padding and weight): undo that inside the root. */
+.ui-root :where(header, nav, main, aside, section, form, h1, h2, h3, h4, p, ul, ol, dl, dd, figure) { margin: 0 }
+.ui-root :where(button, [role="button"], input, select, textarea) { font: inherit; font-weight: inherit; letter-spacing: inherit; min-width: 0; transition: none }
+/* ...and draws every [role=status] as a green box (and [role=alert] as a red one): live regions here are plain. */
+.ui-root :where([role="status"], [role="alert"]) { display: revert; width: auto; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; color: inherit; box-shadow: none }
+.ui-root [hidden] { display: none !important }
+.ui-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+.ui-muted { color: var(--sui-text-muted) }
+.ui-small { font-size: var(--sui-text-sm) }
+.ui-late { color: var(--sui-late); font-weight: var(--sui-weight-bold) }
+.ui-reading { max-width: var(--sui-reading-width); margin-left: auto; margin-right: auto }
+.ui-title { margin: 0; font-size: var(--sui-text-2xl); font-weight: var(--sui-weight-bold); line-height: 1.25 }
+.ui-heading { margin: 0; font-size: var(--sui-text-xl); font-weight: var(--sui-weight-bold); line-height: 1.3 }
+.ui-subheading { margin: 0; font-size: var(--sui-text-lg); font-weight: var(--sui-weight-bold); line-height: 1.35 }
+.ui-caption { margin: 0; padding: 0 var(--sui-space-3); font-size: var(--sui-text-sm); font-weight: var(--sui-weight-bold); color: var(--sui-primary-element); line-height: var(--sui-target-sm) }
+
+/* ---- icon: a span with --ui-i set to url("data:image/svg+xml,...") ---------------------------------- */
+.ui-icon { flex: none; display: inline-block; width: var(--sui-icon); height: var(--sui-icon); background: currentColor; -webkit-mask: var(--ui-i) center / contain no-repeat; mask: var(--ui-i) center / contain no-repeat }
+
+/* ---- header bar ----------------------------------------------------------------------------------------- */
+.ui-header { display: flex; align-items: center; gap: var(--sui-space-1); height: var(--sui-header); padding: 0 var(--sui-space-1); background: var(--sui-primary); color: var(--sui-primary-text) }
+.ui-header-btn { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: var(--sui-space-2); min-width: var(--sui-target); height: var(--sui-target); padding: 0 var(--sui-space-2); border: 0; border-radius: var(--sui-radius-pill); background: transparent; color: inherit; font: inherit; font-weight: var(--sui-weight-bold); cursor: pointer; text-decoration: none }
+.ui-header-btn:hover, .ui-header-btn[aria-expanded="true"] { background: rgba(255, 255, 255, .16) }
+.ui-header-btn:focus-visible { outline: 2px solid var(--sui-primary-text); outline-offset: -2px }
+.ui-header-app { flex: 0 0 auto; max-width: 40%; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: var(--sui-text-lg); font-weight: var(--sui-weight-bold); padding: 0 var(--sui-space-2) }
+.ui-header-apps { display: flex; gap: var(--sui-space-1); min-width: 0; overflow: hidden }
+.ui-header-apps .ui-header-btn { opacity: .78 }
+.ui-header-apps .ui-header-btn[aria-current="page"], .ui-header-apps .ui-header-btn:hover { opacity: 1 }
+.ui-header-apps .ui-header-btn[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--sui-primary-text); border-radius: 0 }
+.ui-header-spacer { flex: 1 1 auto; min-width: 0 }
+.ui-header-search { flex: 0 1 320px; min-width: 0; display: flex; align-items: center; gap: var(--sui-space-2); height: var(--sui-target-sm); padding: 0 var(--sui-space-3); border-radius: var(--sui-radius-pill); background: rgba(255, 255, 255, .18); color: var(--sui-primary-text) }
+.ui-header-search:focus-within { background: var(--sui-bg); color: var(--sui-text) }
+.ui-header-search input { flex: 1 1 auto; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: inherit; font: inherit }
+.ui-header-search input::placeholder { color: inherit; opacity: .85 }
+
+/* ---- menu: popover menu (avatar menu, row actions) ------------------------------------------------------------ */
+.ui-popover { position: absolute; z-index: 40; min-width: 220px; max-width: calc(100vw - 16px); padding: var(--sui-space-1); border-radius: var(--sui-radius-lg); background: var(--sui-bg); color: var(--sui-text); box-shadow: var(--sui-shadow-lg); border: 1px solid var(--sui-border) }
+.ui-menu { margin: 0; padding: 0; list-style: none }
+.ui-menu-head { display: flex; align-items: center; gap: var(--sui-space-3); padding: var(--sui-space-2) var(--sui-space-3) var(--sui-space-3); border-bottom: 1px solid var(--sui-border); margin-bottom: var(--sui-space-1); min-width: 0 }
+.ui-menu-item { display: flex; align-items: center; gap: var(--sui-space-3); width: 100%; min-height: var(--sui-target); padding: 0 var(--sui-space-3); border: 0; border-radius: var(--sui-radius); background: transparent; color: var(--sui-text); font: inherit; text-align: left; text-decoration: none; cursor: pointer }
+.ui-menu-item:hover, .ui-menu-item:focus-visible { background: var(--sui-bg-hover); outline: none }
+.ui-menu-item .ui-icon { color: var(--sui-text-muted) }
+
+/* ---- launcher: the app launcher, a grid of tiles in a popover --------------------------------------------------------- */
+.ui-launcher { width: 360px; padding: var(--sui-space-3) }
+.ui-launcher-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sui-space-1); margin: 0; padding: 0; list-style: none }
+.ui-launcher-tile { display: flex; flex-direction: column; align-items: center; gap: var(--sui-space-2); width: 100%; min-height: 88px; padding: var(--sui-space-3) var(--sui-space-1); border: 0; border-radius: var(--sui-radius-lg); background: transparent; color: var(--sui-text); font: inherit; font-size: var(--sui-text-sm); text-align: center; text-decoration: none; cursor: pointer; overflow-wrap: anywhere }
+.ui-launcher-tile:hover, .ui-launcher-tile:focus-visible { background: var(--sui-bg-hover); outline: none }
+.ui-launcher-tile[aria-current="page"] { background: var(--sui-primary-light); color: var(--sui-primary-light-text) }
+.ui-launcher-tile[aria-disabled="true"] { opacity: .5; cursor: default }
+.ui-launcher-badge { display: inline-flex; align-items: center; justify-content: center; width: var(--sui-target); height: var(--sui-target); border-radius: var(--sui-radius-lg); background: var(--sui-primary-element); color: var(--sui-primary-text) }
+.ui-launcher-badge .ui-icon { width: 24px; height: 24px }
+.ui-launcher-badge.ui-alt { background: var(--sui-bg-dark); color: var(--sui-text) }
+
+/* ---- nav: navigation list (left) ---------------------------------------------------------------------------- */
+.ui-nav { display: flex; flex-direction: column; gap: 2px; width: var(--sui-nav-width); max-width: 100%; padding: var(--sui-space-2); background: var(--sui-bg-app) }
+.ui-nav-list { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none }
+.ui-nav-item { display: flex; align-items: center; gap: var(--sui-space-3); width: 100%; min-height: var(--sui-target); padding: 0 var(--sui-space-3); border: 0; border-radius: var(--sui-radius); background: transparent; color: var(--sui-text); font: inherit; text-align: left; text-decoration: none; cursor: pointer }
+.ui-nav-item:hover { background: var(--sui-bg-hover) }
+.ui-nav-item[aria-current="page"], .ui-nav-item[aria-current="true"] { background: var(--sui-primary-light); color: var(--sui-primary-light-text); font-weight: var(--sui-weight-bold) }
+.ui-nav-item .ui-icon { color: var(--sui-text-muted) }
+.ui-nav-item[aria-current] .ui-icon { color: inherit }
+.ui-nav-label { flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
+.ui-nav-count { flex: none; min-width: 24px; padding: 0 var(--sui-space-2); border-radius: var(--sui-radius-pill); background: var(--sui-bg-dark); color: var(--sui-text); font-size: var(--sui-text-sm); line-height: 22px; text-align: center }
+.ui-nav-new { margin-bottom: var(--sui-space-2) }
+.ui-nav-foot { margin-top: auto; padding-top: var(--sui-space-2); border-top: 1px solid var(--sui-border) }
+
+/* ---- toolbar: content toolbar and breadcrumbs ---------------------------------------------------------------------- */
+.ui-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sui-space-2); min-height: calc(var(--sui-target) + var(--sui-space-3)); padding: var(--sui-space-1) var(--sui-space-3) }
+.ui-crumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; min-width: 0; margin: 0; padding: 0; list-style: none; font-size: var(--sui-text-lg) }
+.ui-crumbs li { display: flex; align-items: center; min-width: 0 }
+.ui-crumbs li + li::before { content: "›"; padding: 0 var(--sui-space-1); color: var(--sui-text-muted) }
+.ui-crumbs a { display: inline-flex; align-items: center; min-height: var(--sui-target); padding: 0 var(--sui-space-2); border-radius: var(--sui-radius); color: var(--sui-text-muted); text-decoration: none; overflow-wrap: anywhere }
+.ui-crumbs a:hover { background: var(--sui-bg-hover) }
+.ui-crumbs [aria-current="page"] { color: var(--sui-text); font-weight: var(--sui-weight-bold) }
+
+/* ---- row: list row ------------------------------------------------------------------------------------------- */
+.ui-list { margin: 0; padding: 0; list-style: none }
+.ui-row { display: flex; align-items: center; gap: var(--sui-space-3); min-height: 56px; padding: var(--sui-space-1) var(--sui-space-2) var(--sui-space-1) var(--sui-space-3); border-radius: var(--sui-radius); color: var(--sui-text); text-decoration: none; cursor: pointer }
+.ui-row:hover { background: var(--sui-bg-hover) }
+.ui-row[aria-selected="true"], .ui-row[aria-current="true"] { background: var(--sui-primary-light) }
+.ui-row-main { flex: 1 1 auto; min-width: 0 }
+.ui-row-title { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: var(--sui-weight-bold) }
+.ui-row-sub { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--sui-text-muted); font-size: var(--sui-text-sm) }
+.ui-row-meta { flex: none; color: var(--sui-text-muted); font-size: var(--sui-text-sm); white-space: nowrap }
+.ui-row-actions { flex: none; display: flex; align-items: center }
+.ui-row-icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--sui-radius); color: var(--sui-primary-element) }
+.ui-row-icon .ui-icon { width: 28px; height: 28px }
+.ui-row-check { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px }
+@media (max-width: 520px) { .ui-row-meta { display: none } }
+
+/* ---- buttons ---------------------------------------------------------------------------------------------- */
+.ui-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--sui-space-2); min-height: var(--sui-target); max-width: 100%; padding: 0 var(--sui-space-4); border: 0; border-radius: var(--sui-radius-pill); background: var(--sui-primary-light); color: var(--sui-primary-light-text); font: inherit; font-weight: var(--sui-weight-bold); line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer; transition: background var(--sui-ease) }
+.ui-btn:hover { background: var(--sui-primary-light-hover) }
+.ui-btn:disabled, .ui-btn[aria-disabled="true"] { opacity: .5; cursor: default }
+.ui-btn-primary { background: var(--sui-primary-element); color: var(--sui-primary-text) }
+.ui-btn-primary:hover { background: var(--sui-primary-element-hover) }
+.ui-btn-tertiary { background: transparent; color: var(--sui-text) }
+.ui-btn-tertiary:hover { background: var(--sui-bg-hover) }
+.ui-btn-danger { background: var(--sui-error); color: var(--sui-primary-text) }
+.ui-btn-danger:hover { background: var(--sui-error); filter: brightness(.9) }
+.ui-btn-icon { width: var(--sui-target); padding: 0; background: transparent; color: var(--sui-text) }
+.ui-btn-icon:hover { background: var(--sui-bg-hover) }
+.ui-btn-wide { width: 100%; justify-content: flex-start }
+.ui-btns { display: flex; flex-wrap: wrap; gap: var(--sui-space-2) }
+
+/* ---- input ------------------------------------------------------------------------------------------------ */
+.ui-field { display: flex; flex-direction: column; gap: var(--sui-space-1); min-width: 0 }
+.ui-label { font-size: var(--sui-text-sm); font-weight: var(--sui-weight-bold); color: var(--sui-text) }
+.ui-hint { font-size: var(--sui-text-sm); color: var(--sui-text-muted) }
+.ui-input { width: 100%; min-width: 0; min-height: var(--sui-target); padding: 0 var(--sui-space-4); border: 1px solid var(--sui-border-strong); border-radius: var(--sui-radius-pill); background: var(--sui-bg); color: var(--sui-text); font: inherit }
+.ui-input:hover { border-color: var(--sui-primary-element) }
+.ui-input:focus { outline: none; border-color: var(--sui-primary-element); box-shadow: 0 0 0 1px var(--sui-primary-element) }
+.ui-input[aria-invalid="true"] { border-color: var(--sui-error); box-shadow: 0 0 0 1px var(--sui-error) }
+textarea.ui-input { min-height: 96px; padding: var(--sui-space-3) var(--sui-space-4); border-radius: var(--sui-radius-lg); resize: vertical; line-height: var(--sui-line) }
+.ui-search { position: relative; display: flex; align-items: center; min-width: 0 }
+.ui-search .ui-icon { position: absolute; left: var(--sui-space-3); color: var(--sui-text-muted); pointer-events: none }
+.ui-search .ui-input { padding-left: 42px }
+/* select: <span class="ui-select"><select class="ui-input">…</select></span> (the wrapper draws the chevron) */
+.ui-select { position: relative; display: block; min-width: 0 }
+.ui-select select { -webkit-appearance: none; appearance: none; padding-right: 44px; cursor: pointer; background: var(--sui-bg) }
+.ui-select::after { content: ""; position: absolute; top: 50%; right: var(--sui-space-4); width: var(--sui-icon); height: var(--sui-icon); margin-top: -10px; background: var(--sui-text-muted); pointer-events: none; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z%27/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z%27/%3E%3C/svg%3E") center / contain no-repeat }
+/* file input: <label class="ui-btn ui-file">icon Upload<input type="file"></label> (a button that opens the picker) */
+.ui-file { position: relative; overflow: hidden }
+.ui-file input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer }
+.ui-file:focus-within { outline: 2px solid var(--sui-focus); outline-offset: 2px }
+/* checkbox: <label class="ui-checkbox"><input class="ui-check" type="checkbox"><span>Text</span></label>; alone in a row: .ui-row-check */
+.ui-checkbox { display: inline-flex; align-items: center; gap: var(--sui-space-3); min-height: var(--sui-target); cursor: pointer }
+.ui-check { -webkit-appearance: none; appearance: none; flex: none; position: relative; width: 22px; height: 22px; margin: 0; border: 2px solid var(--sui-border-strong); border-radius: var(--sui-radius-sm); background: var(--sui-bg); cursor: pointer }
+.ui-check-round { border-radius: 50% }
+.ui-check:hover { border-color: var(--sui-primary-element) }
+.ui-check:checked { border-color: var(--sui-primary-element); background: var(--sui-primary-element) }
+.ui-check:checked::after { content: ""; position: absolute; inset: 1px; background: var(--sui-primary-text); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z%27/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z%27/%3E%3C/svg%3E") center / contain no-repeat }
+.ui-check:disabled { opacity: .5; cursor: default }
+/* segmented control: <div class="ui-segmented" role="group"><button class="ui-segment" aria-pressed="true">…</button>…</div> */
+.ui-segmented { display: inline-flex; gap: 2px; max-width: 100%; min-height: var(--sui-target); padding: 2px; border-radius: var(--sui-radius-pill); background: var(--sui-bg-dark); overflow-x: auto }
+.ui-segment { flex: none; min-height: 40px; padding: 0 var(--sui-space-4); border: 0; border-radius: var(--sui-radius-pill); background: transparent; color: var(--sui-text); font: inherit; font-weight: var(--sui-weight-bold); white-space: nowrap; cursor: pointer }
+.ui-segment:hover { background: var(--sui-bg-hover) }
+.ui-segment[aria-pressed="true"], .ui-segment[aria-selected="true"] { background: var(--sui-bg); color: var(--sui-primary-light-text); box-shadow: var(--sui-shadow) }
+
+/* ---- switch: <label class="ui-switch"><input type="checkbox" role="switch"><span>Text</span></label> ---------- */
+.ui-switch { display: inline-flex; align-items: center; gap: var(--sui-space-3); min-height: var(--sui-target); cursor: pointer }
+.ui-switch input { -webkit-appearance: none; appearance: none; flex: none; position: relative; width: 40px; height: 22px; margin: 0; border-radius: var(--sui-radius-pill); background: var(--sui-border-strong); cursor: pointer; transition: background var(--sui-ease) }
+.ui-switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--sui-bg); transition: transform var(--sui-ease) }
+.ui-switch input:checked { background: var(--sui-primary-element) }
+.ui-switch input:checked::after { transform: translateX(18px) }
+.ui-switch input:disabled { opacity: .5 }
+
+/* ---- chip ------------------------------------------------------------------------------------------------- */
+.ui-chips { display: flex; flex-wrap: wrap; gap: var(--sui-space-2) }
+.ui-chip { display: inline-flex; align-items: center; gap: var(--sui-space-1); max-width: 100%; min-height: 28px; padding: 0 var(--sui-space-3); border: 0; border-radius: var(--sui-radius-pill); background: var(--sui-bg-dark); color: var(--sui-text); font: inherit; font-size: var(--sui-text-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none }
+button.ui-chip { cursor: pointer }
+button.ui-chip:hover { background: var(--sui-primary-light-hover) }
+.ui-chip-primary, .ui-chip[aria-pressed="true"] { background: var(--sui-primary-light); color: var(--sui-primary-light-text); font-weight: var(--sui-weight-bold) }
+.ui-chip-success { background: var(--sui-success-light); color: var(--sui-success) }
+.ui-chip-warning { background: var(--sui-warning-light); color: var(--sui-warning) }
+.ui-chip-error { background: var(--sui-error-light); color: var(--sui-error) }
+
+/* ---- avatar: a span with initials, or an <img class="ui-avatar"> -------------------------------------------- */
+.ui-avatar { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--sui-avatar); height: var(--sui-avatar); border-radius: 50%; overflow: hidden; background: var(--sui-primary-light); color: var(--sui-primary-light-text); font-size: var(--sui-text-sm); font-weight: var(--sui-weight-bold); line-height: 1; object-fit: cover; text-transform: uppercase; user-select: none }
+.ui-avatar-lg { width: var(--sui-avatar-lg); height: var(--sui-avatar-lg); font-size: var(--sui-text-xl) }
+.ui-avatar-xl { width: var(--sui-avatar-xl); height: var(--sui-avatar-xl); font-size: var(--sui-text-2xl) }
+.ui-header .ui-avatar { box-shadow: 0 0 0 2px rgba(255, 255, 255, .7) }
+
+/* ---- empty state ------------------------------------------------------------------------------------------ */
+.ui-empty { display: flex; flex-direction: column; align-items: center; gap: var(--sui-space-2); max-width: 440px; margin: var(--sui-space-12) auto; padding: 0 var(--sui-space-4); text-align: center }
+.ui-empty-icon { display: inline-flex; align-items: center; justify-content: center; width: 96px; height: 96px; margin-bottom: var(--sui-space-2); border-radius: 50%; background: var(--sui-bg-app); color: var(--sui-text-muted) }
+.ui-empty-icon .ui-icon { width: 48px; height: 48px }
+.ui-empty-title { margin: 0; font-size: var(--sui-text-xl); font-weight: var(--sui-weight-bold) }
+.ui-empty-text { margin: 0 0 var(--sui-space-2); color: var(--sui-text-muted) }
+
+/* ---- toast: toast (floating) and status line (inline) ----------------------------------------------------------- */
+.ui-toasts { position: fixed; z-index: 60; left: 50%; bottom: var(--sui-space-4); transform: translateX(-50%); display: flex; flex-direction: column; gap: var(--sui-space-2); width: max-content; max-width: calc(100vw - 32px); pointer-events: none }
+.ui-toast { display: flex; align-items: center; gap: var(--sui-space-3); min-height: var(--sui-target); padding: var(--sui-space-2) var(--sui-space-4); border-radius: var(--sui-radius-lg); background: var(--sui-text); color: var(--sui-primary-text); box-shadow: var(--sui-shadow-lg); pointer-events: auto; border-left: 4px solid var(--sui-primary) }
+.ui-toast-error { border-left-color: var(--sui-error) }
+.ui-toast-success { border-left-color: var(--sui-success) }
+.ui-status { display: flex; align-items: center; gap: var(--sui-space-2); min-height: 28px; margin: 0; color: var(--sui-text-muted); font-size: var(--sui-text-sm) }
+.ui-status-error { color: var(--sui-error) }
+.ui-status-success { color: var(--sui-success) }
+.ui-note { display: flex; gap: var(--sui-space-3); align-items: flex-start; padding: var(--sui-space-3) var(--sui-space-4); border-radius: var(--sui-radius); background: var(--sui-primary-light); color: var(--sui-text) }
+.ui-note-error { background: var(--sui-error-light) }
+.ui-note-warning { background: var(--sui-warning-light) }
+.ui-note-success { background: var(--sui-success-light) }
+
+/* ---- modal: Escape — the shell acts last, so a modal that closes on Escape calls event.preventDefault() and has aria-modal="true" (DESIGN.md) ---------------------------------------------------------------------------------------------- */
+.ui-backdrop { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: var(--sui-space-4); background: var(--sui-backdrop) }
+.ui-modal { display: flex; flex-direction: column; width: 100%; max-width: 480px; max-height: calc(100vh - 32px); overflow: auto; border-radius: var(--sui-radius-lg); background: var(--sui-bg); color: var(--sui-text); box-shadow: var(--sui-shadow-lg) }
+.ui-modal-head { display: flex; align-items: center; gap: var(--sui-space-2); padding: var(--sui-space-3) var(--sui-space-2) 0 var(--sui-space-6) }
+.ui-modal-head .ui-heading { flex: 1 1 auto; min-width: 0 }
+.ui-modal-body { display: flex; flex-direction: column; gap: var(--sui-space-4); padding: var(--sui-space-3) var(--sui-space-6) var(--sui-space-4) }
+.ui-modal-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sui-space-2); padding: 0 var(--sui-space-6) var(--sui-space-5) }
+
+/* ---- details: details sidebar (right) ------------------------------------------------------------------------------ */
+.ui-details { display: flex; flex-direction: column; width: var(--sui-details-width); max-width: 100%; background: var(--sui-bg); border-left: 1px solid var(--sui-border) }
+.ui-details-head { display: flex; align-items: flex-start; gap: var(--sui-space-3); padding: var(--sui-space-4) 56px var(--sui-space-3) var(--sui-space-4); background: var(--sui-bg-app) }
+.ui-details-figure { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--sui-avatar-lg); height: var(--sui-avatar-lg); border-radius: var(--sui-radius-lg); background: var(--sui-bg); color: var(--sui-primary-element) }
+.ui-details-figure .ui-icon { width: 36px; height: 36px }
+.ui-details-titles { flex: 1 1 auto; min-width: 0; padding-top: var(--sui-space-1) }
+.ui-details-title { margin: 0; font-size: var(--sui-text-lg); font-weight: var(--sui-weight-bold); line-height: 1.35; overflow-wrap: anywhere }
+.ui-details-sub { margin: 0; color: var(--sui-text-muted); font-size: var(--sui-text-sm) }
+.ui-tabs { display: flex; gap: var(--sui-space-1); padding: 0 var(--sui-space-3); border-bottom: 1px solid var(--sui-border); overflow-x: auto }
+.ui-tab { flex: none; min-height: var(--sui-target); padding: 0 var(--sui-space-3); border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--sui-text-muted); font: inherit; font-weight: var(--sui-weight-bold); cursor: pointer }
+.ui-tab:hover { color: var(--sui-text) }
+.ui-tab[aria-selected="true"] { border-bottom-color: var(--sui-primary-element); color: var(--sui-text) }
+.ui-details-body { display: flex; flex-direction: column; gap: var(--sui-space-4); padding: var(--sui-space-4) }
+.ui-props { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--sui-space-2) var(--sui-space-3); margin: 0; font-size: var(--sui-text-sm) }
+.ui-props dt { color: var(--sui-text-muted) }
+.ui-props dd { margin: 0; overflow-wrap: anywhere }
+
+/* ---- fields: a labelled field list with icons (a contact card, a details panel) ----------------------------- */
+.ui-fields { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none }
+.ui-field-row { display: grid; grid-template-columns: var(--sui-icon) minmax(0, 1fr) auto; align-items: start; gap: 2px var(--sui-space-3); padding: var(--sui-space-2) 0 }
+.ui-field-row > .ui-icon { grid-row: span 2; margin-top: 2px; color: var(--sui-text-muted) }
+.ui-field-row-label { grid-column: 2; color: var(--sui-text-muted); font-size: var(--sui-text-sm) }
+.ui-field-row-value { grid-column: 2; min-width: 0; overflow-wrap: anywhere }
+.ui-field-row-action { grid-column: 3; grid-row: 1 / span 2; align-self: center }
+
+/* ---- card: a section card (dashboard widgets, settings and profile sections) ---------------------------------- */
+.ui-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--sui-space-4) }
+.ui-card { min-width: 0; padding: var(--sui-space-4) var(--sui-space-5); border: 1px solid var(--sui-border); border-radius: var(--sui-radius-lg); background: var(--sui-bg) }
+.ui-card-head { display: flex; align-items: center; gap: var(--sui-space-2); min-height: var(--sui-target-sm); margin: 0 0 var(--sui-space-3) }
+.ui-card-head > .ui-icon { color: var(--sui-primary-element) }
+.ui-card-title { flex: 1 1 auto; min-width: 0; margin: 0; font-size: var(--sui-text-lg); font-weight: var(--sui-weight-bold) }
+.ui-card-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sui-space-2); margin-top: var(--sui-space-3) }
+
+/* ---- board: columns of cards (Boards); scrolls sideways inside itself, never the page ----------------------- */
+.ui-board { display: flex; align-items: flex-start; gap: var(--sui-space-3); max-width: 100%; overflow-x: auto; padding-bottom: var(--sui-space-2) }
+.ui-column { flex: none; width: var(--sui-column-width); max-width: calc(100vw - 48px); padding: var(--sui-space-2); border-radius: var(--sui-radius-lg); background: var(--sui-bg-app) }
+.ui-column-head { display: flex; align-items: center; gap: var(--sui-space-2); min-height: var(--sui-target); padding: 0 var(--sui-space-2); font-weight: var(--sui-weight-bold) }
+.ui-column-card { display: block; margin: 0 0 var(--sui-space-2); padding: var(--sui-space-3); border-radius: var(--sui-radius); background: var(--sui-bg); box-shadow: var(--sui-shadow); color: var(--sui-text); text-decoration: none }
+.ui-column-card:hover { box-shadow: var(--sui-shadow-lg) }
+
+/* ---- viewer: a dark surface for photos and media (a full-screen viewer, a player bar) ------------------------- */
+.ui-viewer { background: var(--sui-surface-dark); color: var(--sui-surface-dark-text) }
+.ui-viewer-muted { color: var(--sui-surface-dark-muted) }
+.ui-viewer .ui-btn-icon, .ui-viewer .ui-btn-tertiary { color: var(--sui-surface-dark-text) }
+.ui-viewer .ui-btn-icon:hover, .ui-viewer .ui-btn-tertiary:hover { background: rgba(255, 255, 255, .14) }
+.ui-viewer :focus-visible { outline-color: var(--sui-surface-dark-text) }

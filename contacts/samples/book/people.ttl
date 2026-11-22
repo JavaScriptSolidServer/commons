@@ -1,0 +1,5 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<Person/alice/index.ttl#this> vcard:inAddressBook <index.ttl#this> ; vcard:fn "Alice Example" .
+<Person/bob/index.ttl#this> vcard:inAddressBook <index.ttl#this> ; vcard:fn "Bob Builder" .
+<Person/carol/index.ttl#this> vcard:inAddressBook <index.ttl#this> ; vcard:fn "Carol Danvers" .

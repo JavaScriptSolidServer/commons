@@ -1,0 +1,10 @@
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+@prefix bookm: <http://www.w3.org/2002/01/bookmark#> .
+@prefix pad: <http://www.w3.org/ns/pim/pad#> .
+@prefix garden: <https://garden.example/ns#> .
+
+<> a solid:TypeIndex, solid:ListedDocument .
+<#bookmarks> a solid:TypeRegistration ; solid:forClass bookm:Bookmark ; solid:instance <../bookmarks/index.ttl> .
+<#bad-class> a solid:TypeRegistration ; solid:forClass <https://garden.example/ns#Plant%E0> ; solid:instanceContainer <../bookmarks/> .
+<#bad-path> a solid:TypeRegistration ; solid:forClass pad:Notepad ; solid:instance <../bookmarks/bad%E0.ttl> .
+<#script> a solid:TypeRegistration ; solid:forClass garden:Shed ; solid:instance <javascript:alert(1)> .

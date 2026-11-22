@@ -1,0 +1,146 @@
+// The poll pane alone on the local test pod: make a poll, add options, answer, change, clear, edit, reload,
+// then the layout at 1300 px and a true 400 px (design/viewport.mjs). Logs in; the session is reused by shell.mjs.
+//   node tests/poll.mjs        (KEEP=1 keeps the poll folder for a look)
+// Browser on port 9523. Data: me/public/suite-data/poll/poll-test-<time>/ (removed at the end).
+import { open, config, LAB, POD, sleep } from '../../lib/lib.mjs'
+import { narrow, wide, measure } from '../../design/viewport.mjs'
+import { readFileSync, writeFileSync, existsSync, rmSync, mkdirSync, readdirSync } from 'node:fs'
+import path from 'node:path'
+const PANE = LAB + 'poll/poll-pane.js'
+const NAME = 'poll-test-' + Date.now().toString(36)
+const HOME = POD + 'public/suite-data/poll/'
+const BASE = HOME + NAME + '/'
+const DIR = path.join(config.podDir, 'public', 'suite-data', 'poll', NAME)
+mkdirSync(path.dirname(DIR), { recursive: true })
+const { page, check, finish, shot, address: at } = await open({ pane: PANE, port: 9523, dir: import.meta.dirname, login: true, resource: HOME })
+const disk = (f) => readFileSync(path.join(DIR, f), 'utf8')
+const settled = () => page.waitFor(() => /pol-(good|bad)/.test(document.querySelector('.pol-status').className) && !document.querySelector('.pol button:disabled'), { timeout: 30000 })
+const status = () => page.evaluate(() => document.querySelector('.pol-status').className + ' :: ' + document.querySelector('.pol-status').textContent)
+try {
+  await page.waitFor(() => !!(window.panes && window.panes.byName('poll')), { timeout: 40000 })
+  check('the pane is registered', true)
+  check('it is among the panes a folder can make new things with', await page.evaluate(() => window.panes.list.filter(p => p.mintNew).some(p => p.name === 'poll')))
+  await page.evaluate((base) => { window.__mint = null; const store = (window.UI && window.UI.store) || window.SolidLogic.store; window.panes.byName('poll').mintNew({ dom: document, session: { store } }, { newBase: base, title: 'Dinner in December' }).then(r => { window.__mint = { ok: r.newInstance.value } }, e => { window.__mint = { error: String(e && e.message ? e.message : e) } }) }, BASE)
+  await page.waitFor(() => !!window.__mint, { timeout: 30000 })
+  const made = await page.evaluate(() => window.__mint)
+  check('a new poll is created', made.ok === BASE + 'index.ttl#this', JSON.stringify(made))
+  check('both files and both access rules are on the pod', ['index.ttl', 'results.ttl', 'index.ttl.acl', 'results.ttl.acl'].every(f => existsSync(path.join(DIR, f))), existsSync(DIR) ? readdirSync(DIR).join(' ') : 'no folder')
+  const seen = async (f) => (await fetch(BASE + f)).status
+  check('without login: the poll can be read', await seen('index.ttl') === 200, String(await seen('index.ttl')))
+  check('without login: the answers cannot', [401, 403].includes(await seen('results.ttl')), String(await seen('results.ttl')))
+
+  await page.goto(at(BASE + 'index.ttl#this'))
+  const shown = await page.waitFor(() => !!document.querySelector('.pol.poll-pane .pol-title'), { timeout: 40000 }).catch(() => false)
+  check('the poll opens in the pane', !!shown)
+  await page.waitFor(() => !!document.querySelector('.pol-add'), { timeout: 20000 }).catch(() => {})
+  check('it shows its title', (await page.evaluate(() => document.querySelector('.pol-title').textContent)) === 'Dinner in December')
+  check('its maker gets the tools to edit it', await page.evaluate(() => !!document.querySelector('.pol-add') && !!document.querySelector('.pol-edit')))
+  check('alone: no suite columns, the sheet\'s look (root recipe, one primary button)', await page.evaluate(() => !document.querySelector('.pol-nav-item, .pol-details-head') && document.querySelector('.pol.poll-pane').classList.contains('pol-root') && document.querySelectorAll('.pol .pol-btn-primary').length === 1 && getComputedStyle(document.querySelector('.pol-add .pol-btn-primary')).borderRadius.startsWith('999')))
+  check('an empty poll says so', await page.evaluate(() => /No times offered yet/.test(document.querySelector('.pol-empty').textContent)))
+
+  const addText = (t) => page.evaluate((v) => { const f = document.querySelector('.pol-more'); f.querySelector('input[type=text]').value = v; f.querySelector('button').click() }, t)
+  await addText('The Thai place'); await settled()
+  check('add a choice that is not a time: saved', /pol-good/.test(await status()), (await status()).slice(0, 80))
+  const offer = (from, to) => page.evaluate((v) => { const [a, b] = v.split('|'); const f = document.querySelector('.pol-add'); f.querySelector('input[type=date]').value = '2026-12-04'; const s = f.querySelectorAll('select'); s[0].value = a; s[1].value = b; f.requestSubmit() }, from + '|' + to)
+  await offer(14, 16); await settled()
+  check('offer two hours on a day: saved', /2 times added/.test(await status()), (await status()).slice(0, 80))
+  await offer(15, 17); await settled()
+  check('offering an hour twice adds only the new one', /1 time added/.test(await status()), (await status()).slice(0, 80))
+  await offer(16, 15); await sleep(400)
+  check('a range that ends before it starts is refused', /pol-bad/.test(await status()), (await status()).slice(0, 80))
+  const d = disk('index.ttl')
+  check('the pod file has the hours as exact moments with an end, and the choice', /Thai place/.test(d) && (d.match(/2026-12-04T\d\d:00:00Z/g) || []).length >= 6 && /dtend/.test(d))
+  const names = () => page.evaluate(() => [...document.querySelectorAll('.pol-option')].map(o => o.querySelector('.pol-name').textContent + '|' + o.querySelector('.pol-count').textContent + '|' + (o.classList.contains('pol-lead') ? 'lead' : '') + '|' + ([...o.querySelectorAll('.pol-choose button[aria-pressed=true]')].map(b => b.dataset.answer).join(''))))
+  console.log('     ' + (await names()).join(' ; '))
+  const days = await page.evaluate(() => [...document.querySelectorAll('.pol-day')].map(d => d.textContent))
+  check('three hours under their day, then the other choice', (await names()).length === 4 && /\d\d:\d\d.* to .*\d\d:\d\d/.test((await names())[0]) && /Thai/.test((await names())[3]) && days.length === 2 && /2026/.test(days[0]) && days[1] === 'Also to decide', days.join(' / ') + ' :: ' + (await names()).map(n => n.split('|')[0]).join(' ; '))
+  check('it says which time zone the times are in', /your time zone: \S+/.test(await page.evaluate(() => document.querySelector('.pol-zone').textContent)))
+  const press = (i, a) => page.evaluate((v) => { const [n, ans] = v.split('|'); document.querySelectorAll('.pol-option')[+n].querySelector(`button[data-answer=${ans}]`).click() }, i + '|' + a)
+  await press(3, 'Yes'); await settled()
+  check('answer yes: saved', /pol-good/.test(await status()), (await status()).slice(0, 80))
+  check('answer yes: in the answers file', /Yes/.test(disk('results.ttl')) && /availabilty/.test(disk('results.ttl')))
+  check('answer yes: counted and best so far', /Thai place\|1 yes\|lead\|Yes/.test((await names())[3]), (await names())[3])
+  check('answer yes: the pressed answer and the best-so-far mark use the sheet\'s success colours', await page.evaluate(() => { const o = document.querySelectorAll('.pol-option')[3]; const b = o.querySelector('button[data-answer=Yes]'); const tag = o.querySelector('.pol-tag'); return b.classList.contains('pol-on-Yes') && getComputedStyle(b).color === 'rgb(35, 122, 56)' && !!tag && tag.classList.contains('pol-chip-success') && o.querySelector('.pol-who .pol-chip-success') !== null }))
+  await press(3, 'Maybe'); await settled()
+  check('change to if need be', /\|0 yes · 1 if need be\|lead\|Maybe/.test((await names())[3]) && !/schedule#Yes|sched:Yes/.test(disk('results.ttl')), (await names())[3])
+  await press(0, 'Yes'); await settled()
+  check('a yes on an hour makes it the best so far', /\|1 yes\|lead\|Yes/.test((await names())[0]) && !/lead/.test((await names())[3]), (await names()).join(' ; '))
+  await press(3, 'Maybe'); await settled()
+  check('pressing the same answer again clears it', /\|0 yes\|\|$/.test((await names())[3]), (await names())[3])
+  await page.evaluate(() => { const b = document.querySelectorAll('.pol-option')[1].querySelector('.pol-quiet'); b.click() })
+  check('remove asks again before it removes', await page.evaluate(() => /Press again/.test(document.querySelectorAll('.pol-option')[1].querySelector('.pol-quiet').textContent)) && (await names()).length === 4)
+  await page.evaluate(() => document.querySelectorAll('.pol-option')[1].querySelector('.pol-quiet').click()); await settled()
+  check('remove, pressed twice: the hour is gone from the poll and the pod', (await names()).length === 3 && (disk('index.ttl').match(/2026-12-04T\d\d:00:00Z/g) || []).length === 4, (await names()).join(' ; '))
+  await page.evaluate(() => { const f = document.querySelector('.pol-edit'); f.querySelectorAll('input')[1].value = 'Prague 2'; f.querySelector('textarea').value = 'Bring an appetite.'; f.requestSubmit() }); await settled()
+  check('edit where and notes: saved and shown', /Prague 2/.test(disk('index.ttl')) && (await page.evaluate(() => document.querySelector('.pol-notes').textContent)) === 'Bring an appetite.')
+  await page.goto(at(BASE + 'index.ttl#this'))
+  await page.waitFor(() => document.querySelectorAll('.pol-option').length === 3 && !!document.querySelector('.pol-choose'), { timeout: 40000 })
+  await page.waitFor(() => /Prague 2/.test(document.querySelector('.pol-where').textContent), { timeout: 10000 }).catch(() => {})
+  check('after a reload it reads back the same', /\|1 yes\|lead\|Yes/.test((await names())[0]) && (await page.evaluate(() => document.querySelector('.pol-where').textContent)) === 'Prague 2', (await names()).join(' ; '))
+  check('the maker is shown by name', await page.evaluate(() => document.querySelector('.pol-meta').textContent))
+  console.log('     ' + await page.evaluate(() => document.querySelector('.pol-meta').textContent))
+
+  // ---- regressions for the review's findings (REVIEW.md)
+  const clearStatus = () => page.evaluate(() => { document.querySelector('.pol-status').className = 'pol-status' })
+  // #1: text with braces survives (the poll file is written whole, not patched), and "Saved." only after a re-read.
+  await clearStatus()
+  await page.evaluate(() => { const f = document.querySelector('.pol-edit'); f.querySelector('textarea').value = 'Bring {snacks} please'; f.requestSubmit() }); await settled()
+  check('#1 notes with braces: said saved, on the pod', /pol-good/.test(await status()) && /Bring \{snacks\} please/.test(disk('index.ttl')), (await status()).slice(0, 90))
+  await clearStatus()
+  await addText('Pizza {veg}'); await settled()
+  check('#1 a choice with braces: on the pod and shown', /pol-good/.test(await status()) && /Pizza \{veg\}/.test(disk('index.ttl')) && (await names()).some(n => n.startsWith('Pizza {veg}|')), (await status()).slice(0, 90))
+  await page.goto(at(BASE + 'index.ttl#this'))
+  await page.waitFor(() => document.querySelectorAll('.pol-option').length === 4 && !!document.querySelector('.pol-choose button[data-answer]'), { timeout: 40000 })
+  check('#1 after a reload the braces are still there', await page.evaluate(() => document.querySelector('.pol-notes').textContent === 'Bring {snacks} please' && [...document.querySelectorAll('.pol-name')].some(n => n.textContent === 'Pizza {veg}')))
+  // #2: Enter in the "not a time" field adds that choice, not hours.
+  await clearStatus()
+  const before2 = (await names()).length
+  await page.evaluate(() => { document.querySelector('.pol-add input[type=date]').value = '2026-12-05'; const box = document.querySelector('.pol-more'); box.open = true; const i = box.querySelector('input[type=text]'); i.value = 'Picnic'; i.focus() })
+  await page.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' })
+  await page.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 })
+  await settled()
+  check('#2 Enter in "a choice that is not a time" adds that choice only', /Choice added/.test(await status()) && (await names()).length === before2 + 1 && !/2026-12-05/.test(disk('index.ttl')), (await status()).slice(0, 90))
+  // #3: typing in the maker's form is kept when the list is drawn again (an answer pressed); the open "more" stays open.
+  await page.evaluate(() => { document.querySelector('.pol-edit textarea').value = 'Half-typed note' })
+  await clearStatus()
+  await press(0, 'Maybe'); await settled()
+  check('#3 an answer pressed does not wipe unsaved typing or close "something else"', await page.evaluate(() => document.querySelector('.pol-edit textarea').value === 'Half-typed note' && document.querySelector('.pol-more').open))
+  // #6: keyboard focus stays on the answer pressed.
+  await clearStatus()
+  await page.evaluate(() => { const b = document.querySelectorAll('.pol-option')[0].querySelector('button[data-answer=Yes]'); b.focus(); b.click() }); await settled()
+  check('#6 focus stays on the pressed answer after the redraw', await page.evaluate(() => { const a = document.activeElement; return !!a && a.dataset.answer === 'Yes' && a.dataset.option === document.querySelectorAll('.pol-option')[0].dataset.option }))
+  // #8: a long name in a chip can be read: it wraps and carries a title.
+  check('#8 who-chips wrap and carry their full text as a title', await page.evaluate(() => { const c = document.querySelector('.pol-who .pol-chip'); return !!c && getComputedStyle(c).whiteSpace === 'normal' && c.title === c.textContent }))
+  // #9: an armed Remove disarms itself.
+  await page.evaluate(() => document.querySelectorAll('.pol-option')[1].querySelector('.pol-quiet').click())
+  const disarmed = await page.waitFor(() => document.querySelectorAll('.pol-option')[1].querySelector('.pol-quiet').textContent === 'Remove', { timeout: 8000 }).catch(() => false)
+  check('#9 "Press again to remove" goes back to "Remove" after a few seconds', !!disarmed)
+
+  let m = await measure(page)
+  check('1300 px: no sideways scroll', !m.sideways, JSON.stringify(m))
+  await shot('poll-1300')
+  await narrow(page)
+  await sleep(300)
+  m = await measure(page)
+  check('true 400 px: no sideways scroll', !m.sideways, JSON.stringify(m))
+  check('true 400 px: the answer buttons sit under the choice, 44 px tall', await page.evaluate(() => { const o = document.querySelector('.pol-option'); const c = o.querySelector('.pol-choose').getBoundingClientRect(); const n = o.querySelector('.pol-name').getBoundingClientRect(); return c.top >= n.bottom && Math.round(o.querySelector('.pol-choose button').getBoundingClientRect().height) >= 44 }))
+  await shot('poll-400')
+  // #11: the maker can remove choices even when the answers file cannot be read.
+  await wide(page)
+  rmSync(path.join(DIR, 'results.ttl'), { force: true })
+  await page.goto(at(BASE + 'index.ttl#this'))
+  await page.waitFor(() => document.querySelectorAll('.pol-option').length > 0 && /answers file/.test(document.querySelector('.pol-status').textContent), { timeout: 40000 }).catch(() => {})
+  check('#11 no answers file: no answer buttons, but the maker still has Remove', await page.evaluate(() => document.querySelectorAll('.pol-choose button[data-answer]').length === 0 && document.querySelectorAll('.pol-quiet').length === document.querySelectorAll('.pol-option').length), await status())
+  // #12: a poll that cannot be made whole is removed again.
+  const HALF = HOME + NAME + '-half/'
+  const HALFDIR = DIR + '-half'
+  mkdirSync(HALFDIR, { recursive: true })
+  writeFileSync(path.join(HALFDIR, 'results.ttl'), '# already here\n')
+  await page.evaluate((base) => { window.__mint = null; const store = window.SolidLogic.store; window.panes.byName('poll').mintNew({ dom: document, session: { store } }, { newBase: base, title: 'Half' }).then(r => { window.__mint = { ok: r.newInstance.value } }, e => { window.__mint = { error: String(e && e.message ? e.message : e) } }) }, HALF)
+  await page.waitFor(() => !!window.__mint, { timeout: 30000 })
+  const half = await page.evaluate(() => window.__mint)
+  check('#12 a poll that fails half way is removed again, and says so', !!half.error && /nothing was left behind/.test(half.error) && !existsSync(path.join(HALFDIR, 'index.ttl')), JSON.stringify(half))
+  rmSync(HALFDIR, { recursive: true, force: true })
+  if (process.env.KEEP) console.log('kept: ' + BASE); else rmSync(DIR, { recursive: true, force: true })
+  await finish()
+} catch (error) { await finish(error) }
