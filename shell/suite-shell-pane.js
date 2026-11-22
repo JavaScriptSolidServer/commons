@@ -404,7 +404,7 @@ button.sh-chip:hover { background: var(--sui-primary-light-hover) }
 .sh-who { min-width: 0 }
 .sh-who b, .sh-who span { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
 .sh-who span { color: var(--sui-text-muted); font-size: var(--sui-text-sm) }
-.sh-login { padding: 0 var(--sui-space-4); background: var(--sui-primary-text); color: var(--sui-primary-element) }
+.sh-login { padding: 0 var(--sui-space-4); margin-right: var(--sui-space-2); background: var(--sui-primary-text); color: var(--sui-primary-element) }
 .sh-login:hover { background: var(--sui-primary-light) }
 .sh-body { position: relative; flex: 1 1 auto; min-height: 0; display: flex; background: var(--sui-bg) }
 .sh-navcol { flex: none; width: var(--sui-nav-width); overflow-y: auto; padding: var(--sui-space-2); background: var(--sui-bg-app); border-right: 1px solid var(--sui-border) }
