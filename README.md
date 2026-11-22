@@ -11,7 +11,7 @@ too. It chooses which app draws each address and puts that app in the frame. All
 browser [mashlib/dynamic](https://github.com/mashlib/dynamic).
 
 **Try it on your pod:**
-https://mashlib.github.io/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&uri=YOUR-POD-ADDRESS
+https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&uri=YOUR-POD-ADDRESS
 
 Put your pod's address (for example `https://alice.example/`) in place of `YOUR-POD-ADDRESS`. The browser asks once
 whether to trust the pane.
@@ -19,13 +19,14 @@ whether to trust the pane.
 **Make it your pod's interface** ([JSS](https://jss.live) 0.0.230 or later):
 
 ```sh
-jss start --mashlib-module https://mashlib.github.io/dynamic/dist/boot.js \
+jss start --mashlib-module https://mashlib.com/dynamic/v/0.0.2/dist/boot.js \
           --panes https://jss.live/commons/shell/suite-shell-pane.js
 ```
 
-The shell loads its apps from beside itself, so the one pane brings all of them. In a browser with frame-pane support
-(`frame: true`, `chrome: 'none'`; mashlib/dynamic from commit 8ecd003), Commons is the only top bar and opens every
-address. In an older browser it still works, under the browser's own bar.
+`v/0.0.2` is a pinned release of the browser, which never changes; `dist/boot.js` is the latest. The shell loads its apps
+from beside itself, so the one pane brings all of them. From mashlib/dynamic 0.0.2 the browser honours the shell's
+`frame: true` and `chrome: 'none'`: Commons is the only top bar, and it opens every address, including `.js` files
+and pages that fail to load. In an older browser Commons still works, under the browser's own bar.
 
 ## Apps
 
