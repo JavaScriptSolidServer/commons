@@ -41,6 +41,9 @@
   .row input { flex: 1 1 260px; min-width: 0; font: inherit; padding: 10px 14px; border: 1px solid #c8ced9; border-radius: 999px; }
   .row a, .row button { font: inherit; font-weight: 650; padding: 10px 22px; border-radius: 999px; border: 0; background: var(--blue); color: #fff; text-decoration: none; cursor: pointer; }
   .small { font-size: 15px; color: var(--soft); }
+  .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills a { display: inline-block; padding: 7px 16px; border-radius: 999px; border: 1px solid #c8ced9; background: #fff; color: #00679e; font-size: 15px; font-weight: 600; text-decoration: none; }
+  .pills a:hover { background: #e6f3fa; border-color: var(--blue); }
   .apps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
   .apps li { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 9px 13px; }
   .apps b { display: block; }
@@ -65,6 +68,16 @@
       <input id="pod" type="url" inputmode="url" placeholder="https://you.example/" aria-label="Your pod's address" required>
       <button type="submit">Open Commons</button>
     </form>
+    <p class="small" style="margin:14px 0 6px">Or open an example, no pod needed:</p>
+    <ul class="pills">
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Fjss.live%2Fcommons%2Fcontacts%2Fsamples%2Fbook%2Findex.ttl%23this">An address book</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Fjss.live%2Fcommons%2Fissues%2Fsamples%2Fshed%2Findex.ttl%23this">A board</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Fjss.live%2Fcommons%2Fpoll%2Fsamples%2Fcall%2Findex.ttl%23this">A poll</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Fjss.live%2Fcommons%2Fmeeting%2Fsamples%2Fplanning%2Findex.ttl%23this">A meeting</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Ftestingsolidos.solidcommunity.net%2Fpublic%2F">A folder on a pod</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Ftestingsolidos.solidcommunity.net%2Fprofile%2Fcard%23me">A profile</a></li>
+      <li><a href="https://mashlib.com/dynamic/?pane=https%3A%2F%2Fjss.live%2Fcommons%2Fshell%2Fsuite-shell-pane.js&amp;uri=https%3A%2F%2Fjss.live%2Fcommons%2Fdocument%2Fsamples%2Fwelcome.html">A web page</a></li>
+    </ul>
     <p class="small" style="margin:12px 0 0">Nothing is installed and nothing is sent to this site: the button only builds a link. A pane runs as you once you log in, so open it only on a pod you are happy to test with.</p>
   </div>
 
