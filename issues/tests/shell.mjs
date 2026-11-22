@@ -41,9 +41,9 @@ const { page, check, finish, shot, address } = await open({ pane: SHELL, port: 9
 const wait = (fn, ms = 30000) => page.waitFor(fn, { timeout: ms }).then(() => true, () => false)
 const toast = (re) => page.waitFor((s) => [...document.querySelectorAll('.sh-toasts .sh-toast')].some(t => new RegExp(s).test(t.textContent)), { timeout: 30000, args: [re.source] }).then(() => true, () => false)
 try {
-  const shown = await wait(() => document.querySelectorAll('.sh-content .iss.issues-pane .iss-card').length === 7 && document.querySelector('.sh-content .iss-title').textContent === 'Garden shed' && document.querySelectorAll('.sh-navcol .iss-nav-item').length === 1, 45000)
+  const shown = await wait(() => document.querySelectorAll('.sh-content .iss.issues-pane .iss-card').length === 7 && document.querySelector('.sh-content .iss-title').textContent === 'Garden shed' && [...document.querySelectorAll('.sh-navcol .iss-nav-item')].filter(b => !/\(demo\)/.test(b.textContent)).length === 1, 45000)
   const nav = await page.evaluate(() => [...document.querySelectorAll('.sh-navcol .iss-nav-item')].map(b => b.querySelector('.iss-nav-label').textContent + (b.querySelector('.iss-nav-count') ? ' ' + b.querySelector('.iss-nav-count').textContent : '') + (b.getAttribute('aria-current') === 'page' ? '*' : '') + (b.querySelector('.iss-dot') ? ' dot' : '')))
-  check('the shell opens a tracker with this pane; the board is in the shell\'s left column, marked, with a colour dot and its open count', !!shown && nav.join() === 'Garden shed 4* dot', nav.join())
+  check('the shell opens a tracker with this pane; the board is in the shell\'s left column, marked, with a colour dot and its open count', !!shown && nav.filter(n => !/\(demo\)/.test(n)).join() === 'Garden shed 4* dot', nav.join())
   const inner = await page.evaluate(() => ({ cols: [...document.querySelectorAll('.sh-content .iss-col .iss-col-name')].map(c => c.textContent).join(), controls: document.querySelectorAll('.sh-content .iss-move, .sh-content .iss-edit').length, add: !!document.querySelector('.sh-content .iss-new'), msg: document.querySelector('.sh-content .iss-msg').textContent }))
   check('the columns in the content; the cards carry no controls in the shell (they are in the details); New issue is there', inner.cols === 'New,In progress,Waiting,Done,Won\'t do' && inner.controls === 0 && inner.add, JSON.stringify(inner))
   const scroll = await page.evaluate(() => { const b = document.querySelector('.sh-content .iss-board'); const r = b.getBoundingClientRect(); const main = document.querySelector('.sh-main').getBoundingClientRect(); return { inside: b.scrollWidth > b.clientWidth, right: Math.round(r.right), main: Math.round(main.right), page: document.documentElement.scrollWidth > innerWidth } })
@@ -99,9 +99,9 @@ try {
   // the first board opens again from there.
   await page.evaluate(() => document.querySelector('.sh-details-close') && document.querySelector('.sh-details-close').click())
   await page.evaluate((b) => { const i = document.querySelector('input[type=search][aria-label=Search]'); i.value = b; i.closest('form').requestSubmit() }, B)
-  const both = await wait(() => { const t = document.querySelector('.sh-content .iss-title'); return !!t && t.textContent === 'Allotment' && document.querySelectorAll('.sh-navcol .iss-nav-item').length === 2 }, 30000)
+  const both = await wait(() => { const t = document.querySelector('.sh-content .iss-title'); return !!t && t.textContent === 'Allotment' && [...document.querySelectorAll('.sh-navcol .iss-nav-item')].filter(b => !/\(demo\)/.test(b.textContent)).length === 2 }, 30000)
   const nav2 = await page.evaluate(() => [...document.querySelectorAll('.sh-navcol .iss-nav-item')].map(b => b.querySelector('.iss-nav-label').textContent + (b.getAttribute('aria-current') === 'page' ? '*' : '')).join())
-  check('another board: the left column lists it (marked) and the board seen before', both && nav2 === 'Allotment*,Garden shed', nav2)
+  check('another board: the left column lists it (marked) and the board seen before', both && nav2.split(',').filter(n => !/\(demo\)/.test(n)).join() === 'Allotment*,Garden shed', nav2)
   await page.evaluate(() => [...document.querySelectorAll('.sh-navcol .iss-nav-item')].find(b => /Garden shed/.test(b.textContent)).click())
   const back = await wait(() => { const t = document.querySelector('.sh-content .iss-title'); return !!t && t.textContent === 'Garden shed' && !!document.querySelector('.sh-navcol .iss-nav-item[aria-current="page"]') && /Garden shed/.test(document.querySelector('.sh-navcol .iss-nav-item[aria-current="page"]').textContent) }, 30000)
   check('a board in the left column opens that board in the shell', back)

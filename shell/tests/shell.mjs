@@ -256,5 +256,18 @@ try {
 
   await page.evaluate(() => window.scrollTo(0, 0))
   check('read-only: the profile, settings and the shelf file are unchanged', watched() === before)
+  // ---- the browser (~/ideas/dynamic) honours frame: true and chrome: 'none'
+  const bar = await page.evaluate(() => { const b = document.querySelector('.browse-bar'); return { chrome: document.documentElement.dataset.chrome || '', shown: !!b && b.getBoundingClientRect().height > 0 } })
+  check('one top bar: the browser hides its own while the shell is shown', bar.chrome === 'none' && !bar.shown, JSON.stringify(bar))
+  const jsFile = POD + 'public/suite/poll/poll-pane.js'
+  check('a .js file opens inside the shell (frame pane), not in the browser\'s own source view', await go(jsFile))
+  s = await state()
+  check('...drawn by a pane in the shell\'s content area', !!s.contentPane, s.contentPane)
+  const missing = BASE + 'no-such-file-' + Date.now() + '.ttl'
+  await page.goto(address(missing))
+  const notFound = await page.waitFor(() => document.querySelector('.sh-content .sh-empty-title')?.textContent || '', { timeout: 40000 }).catch(() => '')
+  check('a missing file shows the shell\'s own "Not found", inside the shell', notFound === 'Not found', String(notFound))
+  await shot('not-found-' + tag)
+
   await finish()
 } catch (error) { await finish(error) }

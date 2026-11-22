@@ -1,23 +1,26 @@
-pass    activity       68 checks   49s  807 lines  pane "All activity"  clean
+pass    activity       68 checks   48s  807 lines  pane "All activity"  clean
 pass    contacts      170 checks  125s  1274 lines  pane "contacts"  clean
 pass    data          108 checks   46s  815 lines  pane "data-lab"  clean
 pass    document      107 checks   68s  601 lines  pane "document-lab"  clean
-pass    folder        135 checks   71s  1350 lines  pane "folder-lab"  clean
-pass    home           75 checks   48s  679 lines  pane "pod-home"  clean
-pass    issues        104 checks  138s  1157 lines  pane "issues"  clean
-pass    media         137 checks   41s  884 lines  pane "media"  clean
-pass    meeting        76 checks   31s  987 lines  pane "meeting-page"  clean
-pass    notes          64 checks   35s  555 lines  pane "notes-reader"  clean
-pass    pad            91 checks  102s  853 lines  pane "notepad"  clean
+FAIL    folder        134 checks  101s  1350 lines  pane "folder-lab"  clean
+        FAIL bob, opening me's folder: refused, nothing listed, no write tools
+pass    home           75 checks   49s  679 lines  pane "pod-home"  clean
+FAIL    issues         75 checks  135s  1157 lines  pane "issues"  clean
+        FAIL the shell opens a tracker with this pane; the board is in the shell's left column, marked, with a colour dot and its open count (Garden shed 4* dot,Garden shed dot)
+        FAIL another board: the left column lists it (marked) and the board seen before (Allotment*,Garden shed,Garden shed)
+pass    media         137 checks   40s  884 lines  pane "media"  clean
+pass    meeting        76 checks   29s  987 lines  pane "meeting-page"  clean
+pass    notes          64 checks   34s  555 lines  pane "notes-reader"  clean
+pass    pad            91 checks  100s  853 lines  pane "notepad"  clean
 pass    poll          109 checks   64s  1073 lines  pane "poll"  clean
 pass    profile-edit  117 checks   91s  1276 lines  pane "profile-edit-lab"  clean
 pass    search        147 checks   44s  742 lines  pane "Folders"  clean
 pass    settings      105 checks  166s  1113 lines  pane "settings-lab"  clean
 pass    sharing       116 checks  159s  1215 lines  pane "sharing-lab"  clean
-pass    shell         133 checks   88s  336 lines  pane "suite-shell-demo"  clean
-pass    source         73 checks  102s  838 lines  pane "source-lab"  clean
-pass    table          76 checks   33s  887 lines  pane "table"  clean
-pass    tasks         116 checks   96s  1316 lines  pane "suite-tasks"  clean
+pass    shell         141 checks   92s  336 lines  pane "suite-shell-demo"  clean
+pass    source         73 checks  103s  838 lines  pane "source-lab"  clean
+pass    table          76 checks   32s  887 lines  pane "table"  clean
+pass    tasks         116 checks   95s  1316 lines  pane "suite-tasks"  clean
 
-20 panes, 2127 checks
-EVERY TEST PASSED
+20 panes, 2105 checks
+NOT PASSED: folder, issues

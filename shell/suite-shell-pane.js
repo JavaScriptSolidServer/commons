@@ -565,6 +565,11 @@ const appAddress = (app, resource) => { const filled = app.template.split('{' + 
 const shell = {
   name: SHELL_NAME,
   icon: ICON,
+  // The browser (~/ideas/dynamic, 22 Nov 2026): frame: drawn for every subject, with the pane it would otherwise
+  // have chosen in context.framedPane and a failed load in context.loadError; chrome 'none': its own bar is hidden,
+  // so the suite's header is the only top bar. Older browsers ignore both.
+  frame: true,
+  chrome: 'none',
   label (subject) { return subject && subject.termType === 'NamedNode' && /^https?:/.test(subject.uri) ? 'Commons' : null },
   shouldGetFocus (subject) { return !!shell.label(subject) },
 
@@ -851,8 +856,18 @@ const shell = {
     }
 
     function mountFor () {
+      const failed = context.loadError
+      if (failed && !(state.wanted && sameThing(state.wanted.uri, subject.uri))) {
+        const status = failed.status
+        if (status === 401 && !currentUser(context)) { mountEmpty(null, 'This is private', 'Log in to see ' + subject.uri + '.', { label: 'Log in', icon: 'login', run: () => logIn() }); return }
+        if (status === 401 || status === 403) { mountEmpty(null, 'You do not have access', 'Your account may not open ' + subject.uri + '. Ask its owner to share it with you.'); return }
+        if (status === 404) { mountEmpty(null, 'Not found', 'Nothing is at ' + subject.uri + '.', { label: 'Open Files', icon: 'folder', run: () => openApp(SUITE_APPS.find(a => a.id === 'files')) }); return }
+        mountEmpty(null, 'This could not be loaded', (failed.message || 'The server did not answer') + ' (' + subject.uri + ')')
+        return
+      }
       const relevant = relevantPanes()
-      const pane = choose(relevant)
+      const framed = context.framedPane && context.framedPane.name !== SHELL_NAME ? context.framedPane : null
+      const pane = choose(relevant) || framed
       const w = state.wanted
       if (w && sameThing(w.uri, subject.uri) && pane && pane.name === w.name && !safeLabel(pane, subject)) {
         const app = appOf(pane)
@@ -1000,8 +1015,10 @@ const shell = {
     async function logOut () {
       closePopovers()
       const authn = globalThis.SolidLogic && globalThis.SolidLogic.authn
+      const browser = globalThis.mashlib
       try {
-        if (authn && typeof authn.logout === 'function') await authn.logout()
+        if (browser && typeof browser.logout === 'function') await browser.logout() // the browser's own: reloads the page
+        else if (authn && typeof authn.logout === 'function') await authn.logout()
         else if (authn && authn.authSession && typeof authn.authSession.logout === 'function') await authn.authSession.logout()
         else throw new Error('no log out here')
         state.starts.clear(); state.person = null
@@ -1009,8 +1026,14 @@ const shell = {
         toast('Could not log out: ' + (error && error.message ? error.message : error), { kind: 'error' })
       }
     }
-    // Logging in is the browser's: press its own button (top right of the page).
+    // Logging in is the browser's: its public mashlib.login() (the issuer dialog, then the IdP), or in an older
+    // browser, press its own button (top right of the page).
     function logIn () {
+      const browser = globalThis.mashlib
+      if (browser && typeof browser.login === 'function') {
+        Promise.resolve().then(() => browser.login()).catch(error => toast('Could not log in: ' + (error && error.message ? error.message : error), { kind: 'error' }))
+        return
+      }
       const deep = (sel, node = dom) => { const f = node.querySelector(sel); if (f) return f; for (const e of node.querySelectorAll('*')) if (e.shadowRoot) { const g = deep(sel, e.shadowRoot); if (g) return g } return null }
       try {
         const account = deep('solid-ui-account')

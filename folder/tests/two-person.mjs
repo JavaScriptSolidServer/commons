@@ -154,11 +154,11 @@ try {
   check('can view: bob\'s write to report.md is refused, the file unchanged', refused(w3) && !/Bob was here/.test(onDisk('report.md')), String(w3))
   const r3b = [await asBob('GET', OTHER), await asBob('GET', FOLDER), await asBob('PUT', FOLDER + 'bob.md', '# Bob\n')]
   check('can view: bob still cannot read private.md, list the folder or add a file to it', r3b.every(refused), r3b.join(' '))
-  // bob opens me's folder in the shell: the data browser itself answers "Access denied" before any pane draws
-  // (or, if Files draws, it says he may not see it). Either way nothing of me's is listed.
+  // bob opens me's folder in the shell: the shell (a frame pane, given the load error) says "You do not have access";
+  // an older browser answers "Access denied" itself, or Files says he may not see it. Either way nothing of me's is listed.
   await bob.page.goto(bob.address(FOLDER))
-  const said = await bob.page.waitFor(() => document.querySelector('.sh-content .fl-error')?.textContent || ((function deep (n) { let t = n.textContent || ''; for (const e of n.querySelectorAll('*')) if (e.shadowRoot) t += deep(e.shadowRoot); return t })(document.body).match(/Access denied/) && 'browser: Access denied') || false, { timeout: 30000 }).catch(() => '')
-  check('bob, opening me\'s folder: refused, nothing listed, no write tools', /not allowed|private|Access denied/i.test(said) && await bob.page.evaluate(() => !document.querySelector('.fl-row') && !document.querySelector('.fl-write:not([hidden])')), said)
+  const said = await bob.page.waitFor(() => document.querySelector('.sh-content .fl-error')?.textContent || document.querySelector('.sh-content .sh-empty-title')?.textContent || ((function deep (n) { let t = n.textContent || ''; for (const e of n.querySelectorAll('*')) if (e.shadowRoot) t += deep(e.shadowRoot); return t })(document.body).match(/Access denied/) && 'browser: Access denied') || false, { timeout: 30000 }).catch(() => '')
+  check('bob, opening me\'s folder: refused, nothing listed, no write tools', /not allowed|private|Access denied|do not have access/i.test(said) && await bob.page.evaluate(() => !document.querySelector('.fl-row') && !document.querySelector('.fl-write:not([hidden])')), said)
   await bob.shot('review-two-person-bob-refused')
 
   // 3b. Delete a shared file: its own rules go too, so a new file of the same name is not shared.

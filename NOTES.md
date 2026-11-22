@@ -120,28 +120,27 @@ temp folder, outside the served suite folder.
 
 ### Browser (`~/ideas/dynamic`)
 
-1. **One top bar.** The browse page should let the shown pane hide its own bar: `?chrome=none`, or
-   `data-chrome="none"` on `#OutlineView`, would hide `.browse-bar` and set `--app-header-height: 0`. The shell
-   already handles a zero offset.
-2. **A public login API**, e.g. `SolidLogic.authn.login()` or a `solid-login-request` event that the page answers.
-   Today the shell (and the test helper) press the browser's login button through two shadow roots.
-3. **`?frame=<pane url>`**: a frame pane that always renders and is given the chosen inner pane. Today `.js` files
-   go to the built-in `source` pane and `ui:mintClass` documents go to the pane that mints them, before the shell is
-   asked, so they open outside the suite.
-4. **Built-in pane names**: a new pane with a built-in name is skipped, so suite panes keep lab names. To replace
-   SolidOS panes, the registry needs a way to let a named pane replace a built-in one (opt-in, e.g. by tool index).
-5. **Same-named panes**: the registry keeps the first copy (the tool index's published `notes-reader`). Outside the
-   shell the browser uses that copy.
-6. **401/403/404**: the browser shows its own "Failed to load" and draws no pane, so the panes' own "private" and
-   "not found" states never show in the browser. (data, document)
-7. **Small ones**: the profile view has no ⋮ menu, so "Show with Data" cannot be reached by clicking. The header's
-   Private/Public badge does not refresh after a Sharing save. Logout calls `authSession.logout()` only (no
-   server-side logout).
-8. **Redraw after session restore**: when the browser restores a login session it redraws the page, which can drop
-   a pane that has just opened (and a click made at that moment). Found as intermittent failures in the full test
-   pass (Files, Sharing). Worked around: Files reloads only when the logged-in user actually changes; Sharing's reads
-   time out and only the newest read draws; their tests wait for the session and re-open (logged) at most 3 times.
-   The real fix is in the browser: restore the session before the first render, or don't re-render on restore.
+Done on 22 Nov 2026 with Melvin's OK, in local commits 8ecd003 (source, tests, README "For a pane that is the whole
+app") and c5419be (rebuilt `dist/`, which `index.html` loads). Nothing was pushed or released. Browser tests: `npm test`
+17/17, new `tests/browse-api.mjs` 22/22. The shell uses all of the following:
+
+1. **One top bar**: `chrome: 'none'` on the shell hides the browser's bar and "Open with" row (`html[data-chrome="none"]`).
+2. **Login API**: the shell calls `mashlib.login()` / `mashlib.logout()` (also the `solid-login-request` /
+   `solid-logout-request` events). It falls back to pressing the button in an older browser.
+3. **Frame pane**: `frame: true` makes the browser draw the shell for every subject, including `.js` files and
+   `ui:mintClass` documents. The shell gets `context.framedPane` (used when no app fits) and `context.loadError`
+   (the shell shows its own "This is private" / "You do not have access" / "Not found").
+4. **No redraw on session restore**: the browser redraws only when the WebID changes, and sends
+   `solid-session-change`. The workarounds in Files and Sharing stay; they are harmless.
+5. **`replaces: '<name>'`** lets a `?pane=` pane take a built-in's place, but only under the built-in's own name. The
+   suite doesn't use it: inside the shell its own copies always win.
+
+Still open in the browser: the profile view has no ⋮ menu; the Private/Public badge does not refresh after a
+Sharing save (it is hidden with the bar anyway); logout is client-side only; same-named tool-index panes keep the
+first copy outside the shell; a non-frame `chrome: 'none'` pane whose next resource fails to load keeps the bar
+hidden. Two more: `tests/pod.mjs` was not run, because it PATCHes the profile and JSS #6 could damage it; and the
+browser's own tests keep browser profiles (`.chrome-profile*`) inside the served tree. That is safe for now: the pod
+refuses dot-folders (their cookie files answer 403), and git ignores them.
 
 ### JSS (`jss-findings/REPORT.md` numbers)
 
