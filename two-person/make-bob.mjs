@@ -4,16 +4,17 @@
 // the way that needs no restart and no change to the server's command line. The running server reads the
 // account files from disk on every login, so bob can log in straight away.
 //   node make-bob.mjs     (safe to run twice: it stops if bob already exists)
+//   JSS_SRC=<installed javascript-solid-server>/src/ overrides where JSS is found (default: the global npm root).
 import { readFileSync, existsSync } from 'node:fs'
+import { execSync } from 'node:child_process'
 import path from 'node:path'
 
-const JSS = '/home/melvin/.nvm/versions/node/v24.16.0/lib/node_modules/javascript-solid-server/src/'
-const DATA = '/home/melvin/ideas/jss-data'
-const BASE = 'http://127.0.0.1:8732'
-const NAME = 'bob'
-process.env.DATA_ROOT = DATA // what --root ./jss-data resolves to for the running server (cwd /home/melvin/ideas)
-
 const config = JSON.parse(readFileSync(path.join(import.meta.dirname, '..', '..', 'suite-local.json'), 'utf8'))
+const JSS = process.env.JSS_SRC || path.join(execSync('npm root -g', { encoding: 'utf8' }).trim(), 'javascript-solid-server', 'src') + '/'
+const DATA = path.dirname(config.podDir) // the server's --root: podDir is <root>/me
+const BASE = new URL(config.pod).origin
+const NAME = 'bob'
+process.env.DATA_ROOT = DATA
 const { createPodStructure } = await import(JSS + 'handlers/container.js')
 const { createAccount, findByUsername } = await import(JSS + 'idp/accounts.js')
 

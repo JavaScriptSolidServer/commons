@@ -2,13 +2,13 @@
 
 ## The second user, bob
 
-- Server: JSS 0.0.229, pid 402360, cwd `/home/melvin/ideas`, started as
+- Server: JSS 0.0.229, started as
   `jss start --port 8732 --host 127.0.0.1 --root ./jss-data --idp --conneg --single-user --single-user-name me --single-user-password <…> --mashlib-module http://127.0.0.1:8732/me/public/solidos/mashlib/boot.js`
   (not under pm2). Accounts are JSON files in `jss-data/.idp/accounts/` (one `<uuid>.json` plus three index files).
 - JSS has no "account create" command (`jss account` has only `delete`), and `--single-user` turns off registration
   and `POST /.pods` (403). Restarting without `--single-user` would have changed the command line, so instead:
 - `node make-bob.mjs` (in this folder) imports the installed server's own `createPodStructure` and `createAccount`
-  (`src/handlers/container.js`, `src/idp/accounts.js`) with `DATA_ROOT=/home/melvin/ideas/jss-data`: the same two
+  (`src/handlers/container.js`, `src/idp/accounts.js`) with `DATA_ROOT` set to the server's `--root`: the same two
   calls the server's single-user start-up makes to seed "me". It made `/bob/` (profile, settings, inbox, public,
   private, ACLs) and the account `bob` with WebID `http://127.0.0.1:8732/bob/profile/card.jsonld#me`, password read
   from `local.json` (same as me's).

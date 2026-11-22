@@ -124,7 +124,7 @@ against the local test pod (`../lib/lib.mjs`, browser port 9534):
   details; a row's details (marked, cleared on close); the header search; nothing written; no sideways scroll
   at 1300 px and a true 400 px (with the details open too).
 
-The test data lives on the pod in `~/ideas/jss-data/me/public/suite-data/table/` (`samples/library.ttl`,
+The test data lives in `public/suite-data/table/` on the test pod (`samples/library.ttl`,
 `tests/data/few.ttl`, `tests/data/odd.ttl`).
 
 ## Credits

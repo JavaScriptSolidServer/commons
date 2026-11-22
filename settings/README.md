@@ -131,7 +131,7 @@ entries are shown but not changed or removed here.
 links to is deliberately absent, and she has no tool index). `samples/bob/` is a profile the test user may
 read but not change, standing for "someone else". `samples/dave/` is a JSON-LD profile and preferences file with
 inline objects, lists and an empty string; `samples/contact/` a contact card. The tests copy them all to
-`~/ideas/jss-data/me/public/suite-data/settings/` before they run.
+`public/suite-data/settings/` on the test pod before they run.
 
 ## Tests
 

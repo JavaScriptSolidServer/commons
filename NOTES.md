@@ -118,7 +118,7 @@ temp folder, outside the served suite folder.
 
 ## What must change elsewhere for the suite to replace SolidOS's own panes
 
-### Browser (`~/ideas/dynamic`)
+### Browser (`mashlib/dynamic`)
 
 Done on 22 Nov 2026 with Melvin's OK, in local commits 8ecd003 (source, tests, README "For a pane that is the whole
 app") and c5419be (rebuilt `dist/`, which `index.html` loads). Nothing was pushed or released. Browser tests: `npm test`
@@ -169,14 +169,14 @@ refuses dot-folders (their cookie files answer 403), and git ignores them.
 
 - **Credentials and browser profiles were public.** The suite folder is linked into `/me/public/`, so the pod served
   `local.json` (test passwords) and the test browser profiles (cookies) under `tests/`. Fixed in the suite: the
-  credentials moved to `~/ideas/suite-local.json` (outside the served folder) and every `tests/` folder has an
+  credentials moved to `../suite-local.json` (outside the served folder) and every `tests/` folder has an
   owner-only `.acl`. `/me/public/suite/local.json` now answers 404. **The lab had the same leak**. With Melvin's OK
   (22 Nov) it was fixed without changing lab code: an owner-only `local.json.acl` and an owner-only `.acl` in each
   `*/tests/profile*/` and `two-person/profile*/`. `/me/public/lab/local.json` now answers 401, and all 16 lab cookie
   files are refused.
 - **Snap Chromium has its own `/tmp`.** A browser profile under `/tmp` is not the one the test deletes, so a
   "fresh" browser was already logged in. `shots/take.mjs` and `shots/launcher.mjs` keep their profiles in
-  `~/ideas/suite-browsers/` instead.
+  `../suite-browsers/` instead.
 - **Leftover `.acl` on deleted files**: Files now deletes a file's own `.acl` with it, but an upload or New folder
   onto a name with a leftover `.acl` (left by another tool or the server) still inherits those rules. Only Rename
   checks the target.

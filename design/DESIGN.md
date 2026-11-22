@@ -79,7 +79,7 @@ plain text in your pane, committed like the rest.
    `<div class="ct contacts-pane ct-root">` — the two-class width rule stays (`.ct.contacts-pane { … }`), and
    `ct-root` is the base recipe (font, colour, box-sizing, focus ring, and the undoing of the data browser's own
    `header`/`button` styles).
-2. Put the two marker lines at the top of your `const CSS` string, then run the tool from `~/ideas/suite`:
+2. Put the two marker lines at the top of your `const CSS` string, then run the tool from the repository root:
    ```js
    const CSS = `
    /* suite:design begin */
@@ -284,7 +284,7 @@ says who should then switch their own raw values to the tokens or classes.
 | `ui-checkbox`, `ui-check`, `ui-check-round`, `ui-row-check` | Tasks (tick in a row), Files (multi-select), Polls |
 | The Escape rule on the modal recipe | Every pane with a modal, viewer or menu (Photos, Files, Sharing, Tasks) |
 
-**Re-embedding.** From `~/ideas/suite`, for each pane: `node design/embed.mjs <folder>/<file>-pane.js` (no options:
+**Re-embedding.** From the repository root, for each pane: `node design/embed.mjs <folder>/<file>-pane.js` (no options:
 the begin line remembers each pane's prefix and sections). For example, every pane at once:
 `for f in */*-pane.js; do grep -q 'suite:design begin' "$f" && node design/embed.mjs "$f"; done`.
 After the sheet changes, `--check` reports STALE for every pane until it is re-embedded: that means only

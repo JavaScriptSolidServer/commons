@@ -35,7 +35,7 @@ normal profile view opens first, and "Edit profile" is one of the choices in the
 
 ## What it reads
 
-Every shape the read-only profile view pane (`~/remote/github.com/solid-panes/profile/profile-pane.js`) reads:
+Every shape the read-only profile view pane (`profile-pane.js` in [solid-panes/profile](https://github.com/solid-panes/profile)) reads:
 `foaf:name` / `vcard:fn`, `foaf:nick` / `vcard:nickname`, `solid:preferredSubjectPronoun` / `preferredObjectPronoun`,
 the current role (`org:member` with no end date) or `vcard:title` / `schema:jobTitle`, the first `vcard:hasAddress`,
 `vcard:note` / `schema:description`, `foaf:img` / `vcard:hasPhoto` and friends, `vcard:hasEmail` / `foaf:mbox` / `schema:email`,

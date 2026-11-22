@@ -565,7 +565,7 @@ const appAddress = (app, resource) => { const filled = app.template.split('{' + 
 const shell = {
   name: SHELL_NAME,
   icon: ICON,
-  // The browser (~/ideas/dynamic, 22 Nov 2026): frame: drawn for every subject, with the pane it would otherwise
+  // The browser (mashlib/dynamic, 22 Nov 2026): frame: drawn for every subject, with the pane it would otherwise
   // have chosen in context.framedPane and a failed load in context.loadError; chrome 'none': its own bar is hidden,
   // so the suite's header is the only top bar. Older browsers ignore both.
   frame: true,

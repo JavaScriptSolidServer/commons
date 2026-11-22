@@ -11,3 +11,4 @@ two-person/*accounts*/
 verify.json
 shots/*.png
 shots/launcher/
+**/coord-verify.log

@@ -256,7 +256,7 @@ try {
 
   await page.evaluate(() => window.scrollTo(0, 0))
   check('read-only: the profile, settings and the shelf file are unchanged', watched() === before)
-  // ---- the browser (~/ideas/dynamic) honours frame: true and chrome: 'none'
+  // ---- the browser (mashlib/dynamic) honours frame: true and chrome: 'none'
   const bar = await page.evaluate(() => { const b = document.querySelector('.browse-bar'); return { chrome: document.documentElement.dataset.chrome || '', shown: !!b && b.getBoundingClientRect().height > 0 } })
   check('one top bar: the browser hides its own while the shell is shown', bar.chrome === 'none' && !bar.shown, JSON.stringify(bar))
   const jsFile = POD + 'public/suite/poll/poll-pane.js'

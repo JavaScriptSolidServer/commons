@@ -123,7 +123,7 @@ loses the text (#5, and task notes are free text); a PATCH to a file the server 
 node tests/run.mjs      # static · sample · tasks · shell · bob · interop; ends EVERY TEST PASSED
 ```
 
-Browsers on ports 9531 and 9532 (bob). Test data in `~/ideas/jss-data/me/public/suite-data/tasks/` (rebuilt by
+Browsers on ports 9531 and 9532 (bob). Test data in `public/suite-data/tasks/` on the test pod (rebuilt by
 `tasks.mjs`). Screenshots in `tests/shots/`. True 400 px with `design/viewport.mjs`.
 
 ## Credits and licence
