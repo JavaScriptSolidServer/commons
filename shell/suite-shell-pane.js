@@ -784,6 +784,13 @@ const shell = {
       const ours = relevant.filter(p => suiteNames.has(p.name)).sort((a, b) => rank(a) - rank(b))
       // A data file no app claims (links, a profile, a list) reads best in Data, not as source text.
       const isData = /\.(ttl|jsonld|json|n3|nt|rdf)$/i.test((subject.uri || '').split(/[?#]/)[0])
+      // A folder holding only pictures or music opens in Photos, not the file list.
+      if ((subject.uri || '').endsWith('/')) {
+        const kids = store.each(subject, store.sym('http://www.w3.org/ns/ldp#contains'))
+        const mediaFile = /\.(png|jpe?g|gif|webp|avif|svg|heic|bmp|mp3|m4a|aac|ogg|oga|opus|flac|wav|mp4|m4v|webm|mov)$/i
+        const media = ours.find(p => p.name === 'media')
+        if (media && kids.length && kids.every(k => mediaFile.test(k.uri.split(/[?#]/)[0]))) return media
+      }
       return ours.find(focus) || relevant.find(focus) ||
         ours.find(p => !appOf(p).viewer) || (isData && ours.find(p => p.name === 'data-lab')) || ours[0] || relevant[0] || null
     }
