@@ -39,11 +39,11 @@ const SUITE_APPS = [
   { id: 'profile', name: 'Profile', folder: 'profile-edit', pane: 'profile-edit-lab', icon: 'account', start: 'webid', menu: true },
   { id: 'settings', name: 'Settings', folder: 'settings', pane: 'settings-lab', icon: 'cog', start: 'webid', menu: true },
   { id: 'search', name: 'Search', folder: 'search', pane: 'suite-search', icon: 'search', viewer: true }, // Enter in the header box opens it
-  { id: 'sharing', name: 'Sharing', folder: 'sharing', pane: 'sharing-lab', icon: 'share', viewer: true },
   { id: 'document', name: 'Document', folder: 'document', pane: 'document-lab', icon: 'document', viewer: true },
   { id: 'table', name: 'Table', folder: 'table', pane: 'table', icon: 'table', viewer: true },
   { id: 'source', name: 'Source', folder: 'source', pane: 'source-lab', icon: 'code', viewer: true },
   { id: 'data', name: 'Data', folder: 'data', pane: 'data-lab', icon: 'data', viewer: true },
+  { id: 'sharing', name: 'Sharing', folder: 'sharing', pane: 'sharing-lab', icon: 'share', viewer: true }, // last of the viewers: it fits every file, so it must not win by list order
   { id: 'shelf', name: 'Shelf (demo)', folder: 'shell', file: 'suite-shell-demo-pane.js', pane: 'suite-shell-demo', icon: 'notes', viewer: true } // shows the nav/details contract
 ]
 const paneUrl = (app) => new URL('../' + app.folder + '/' + (app.file || app.folder + '-pane.js'), import.meta.url).href
@@ -782,8 +782,10 @@ const shell = {
       // Suite panes in SUITE_APPS order (not the order their files happened to load in), then the rest as listed.
       const rank = (p) => { const i = SUITE_APPS.findIndex(a => a.pane === p.name); return i < 0 ? SUITE_APPS.length : i }
       const ours = relevant.filter(p => suiteNames.has(p.name)).sort((a, b) => rank(a) - rank(b))
+      // A data file no app claims (links, a profile, a list) reads best in Data, not as source text.
+      const isData = /\.(ttl|jsonld|json|n3|nt|rdf)$/i.test((subject.uri || '').split(/[?#]/)[0])
       return ours.find(focus) || relevant.find(focus) ||
-        ours.find(p => !appOf(p).viewer) || ours[0] || relevant[0] || null
+        ours.find(p => !appOf(p).viewer) || (isData && ours.find(p => p.name === 'data-lab')) || ours[0] || relevant[0] || null
     }
     const appOf = (pane) => pane && SUITE_APPS.find(a => a.pane === pane.name)
 
