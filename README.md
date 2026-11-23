@@ -19,11 +19,11 @@ whether to trust the pane.
 **Make it your pod's interface** ([JSS](https://jss.live) 0.0.230 or later):
 
 ```sh
-jss start --mashlib-module https://mashlib.com/dynamic/v/0.0.2/dist/boot.js \
+jss start --mashlib-module https://mashlib.com/dynamic/v/0.0.3/dist/boot.js \
           --panes https://jss.live/commons/shell/suite-shell-pane.js
 ```
 
-`v/0.0.2` is a pinned release of the browser, which never changes; `dist/boot.js` is the latest. The shell loads its apps
+`v/0.0.3` is a pinned release of the browser, which never changes; `dist/boot.js` is the latest. The shell loads its apps
 from beside itself, so the one pane brings all of them. From mashlib/dynamic 0.0.2 the browser honours the shell's
 `frame: true` and `chrome: 'none'`: Commons is the only top bar, and it opens every address, including `.js` files
 and pages that fail to load. In an older browser Commons still works, under the browser's own bar.
